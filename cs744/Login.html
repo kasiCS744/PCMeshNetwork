@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+    <meta charset="utf-8">
+   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link href="css/signin.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+
+      <form class="form-signin" action="checkLogin.php" method="post" id="myForm">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">User Name</label>
+        <input type="text" id="username" name="username" class="form-control" placeholder="UserName" required autofocus>
+        <br>
+        <br>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required><br>
+        <br>
+        <button class="btn btn-lg btn-primary" type="button" onclick="check()">Sign in</button>
+        <button class="btn btn-lg btn-primary" type="reset">Reset</button>
+      </form>
+
+    </div>
+
+<!-- <form action="checkLogin.php" method="post" id="myForm">
+    username:<input type="text" id="username" name="username"> <br>
+    password:<input type="password" id="password" name="password"><br>
+    <input type="button" value="submit" onclick="check()">
+    <input type="reset" value="reset">
+</form> -->
+</body>
+<script>
+    var count=0;
+    function checkPasswordCharacters(password){
+        for(var i=0;i<password.length;i++){
+            var s=password.charAt(i);
+            //alert(s);
+            //if(s=='~'||s=='!'||s=='@'||s=='#'||s==$||s=='%'||s=='^'||s=='&'||s=='*'||s=='?'){
+            //
+            //}else{
+            var local=s.charCodeAt();
+            if((local>47&&local<58)||(local>64&&local<91)||(local>96&&local<123)){
+
+            }else if(local==33||(local>=35&&local<=38)||local==126||local==42||local==64||local==63||local==94){
+            }else{
+                return false;
+            }
+        }
+        //}
+        return true;
+    }
+    function checkUsernameCharacters(username){
+        for(var i=0;i<username.length;i++){
+            var s=username.charAt(i);
+            var local=s.charCodeAt();
+            if((local>47&&local<58)||(local>64&&local<91)||(local>96&&local<123)){
+                if(i==0){
+                    if(local>64&&local<91){
+                    }else{
+                        return false;
+                    }
+                }
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
+    function check(){
+        var username=document.getElementById("username").value;
+        var password=document.getElementById("password").value;
+        if(username==""){
+            alert("username cannot be empty");
+            //count++;
+            return;
+        }if(password==""){
+            alert("password cannot be empty");
+            //count++;
+            return;
+        }
+        if(username.length<6){
+            alert("the length of username should be at least six");
+            //count++;
+            return;
+        }
+        if(password.length<6){
+            alert("the length of password should be at least six");
+            //count++;
+            return;
+        }
+        if(!checkUsernameCharacters(username)){
+            alert("invalid input for username");
+            //count++;
+            return;
+        }
+        if(!checkPasswordCharacters(password)){
+            alert("invalid input for password");
+            //count++;
+            return;
+        }
+        if(count>=3){
+            alert("your account is not available to log in because of too much incorrect input");
+        }else{
+            document.getElementById("myForm").submit();
+        }
+    }
+</script>
+
+</html>
