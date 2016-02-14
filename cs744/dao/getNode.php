@@ -25,13 +25,35 @@ function getNodeByNid($nid){
     //echo $sql;
     return mysql_fetch_array(mysql_query($sql));
 }
+function getNodesByPid($pid){
+    $sql="select * from node where pid='".$pid."'";
+    //echo $sql;
+    return mysql_query($sql);
+}
 function getCountByPid($pid){
     $sql="select count(*) from node where pid='".$pid."'";
     //echo $sql;
     return mysql_fetch_array(mysql_query($sql))[0];
 }
-function checkConnectorExist($pid){
+function getConnectorByPid($pid){
     $sql="select * from node where pid='".$pid."' and isConnector='1'";
     return  mysql_fetch_array(mysql_query($sql));
+}
+function checkNodeisActiveByNid($nid){
+    $sql="select isActive from node where nid='".$nid."'";
+    if(mysql_fetch_array( mysql_query($sql))[0]=="yes"){
+        return true;
+    }else{
+        return false;
+    }
+}
+function getPidByNid($nid){
+    $sql="select pid from node where nid='".$nid."'";
+    return mysql_fetch_array(mysql_query($sql))[0];
+}
+function deleteNodesByNid($nid){
+    $sql="delete from node where nid='".$nid."'";
+    mysql_query($sql);
+
 }
 ?>

@@ -35,11 +35,11 @@ function checkAddNode($pid,$isConnector,$link1,$link2,$link3){
         return "Pattern is full";
     }
     if($isConnector==1) {
-        if (checkConnectorExist($pid)) {
+        if (getConnectorByPid($pid)!=null) {
         return "already exist a connector in this pattern";
         }
     }elseif($isConnector==0){
-        if(!checkConnectorExist($pid)){
+        if(getConnectorByPid($pid)==null){
             return "This pattern do not exist,please create a connector for it";
         }
         if($link1==null&&$link2==null&&$link3==null){

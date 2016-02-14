@@ -27,7 +27,7 @@ echo "Welcome ".$row['firstName']." ".$row['lastName']."<br><br>";
 <body>
 <input type="button" onclick="showWindow()" value="Add Node">
 <input type="button" onclick="window.location.href='displayNode.php?method=view'" value="View diagram">
-<input type="button" onclick="window.location.href='../service/logout.php'" value="Logout">
+<input type="button" onclick="window.location.href='../ser/logout.php'" value="Logout">
 <div align="center">
 <?php
 if($errorMessage!=null){

@@ -7,7 +7,7 @@
  */
 //include_once "checkLogin.php";
 //include_once "dao/getSecurity.php";
-include_once "service/securitySer.php";
+include_once "ser/securitySer.php";
 session_start();
 $uid=$_SESSION['uid'];
 $list=getQuestionAndAnswerPairByUid($uid);

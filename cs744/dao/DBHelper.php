@@ -5,7 +5,7 @@
  * Date: 2016/2/8
  * Time: 22:55
  */
-$con=mysql_connect("localhost:3306","root","5656123ljx");
+$con=mysql_connect("localhost:3306","root","");
 if(!$con){
     die('Could not connect: ' . mysql_error());
 }
