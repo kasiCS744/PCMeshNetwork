@@ -54,11 +54,15 @@ $linkResult=getAllLinks();
         $color="";
         if($row['isConnector']==1){
         $color="rgb(255,168,7)";
-        }else if($row['isActive']=="no"){
+        if($row['isActive']=="no"){
         $color='gray';
+        }
         }else
         {
-        $color="#7BE141";
+         $color="#7BE141";
+        if($row['isActive']=="no"){
+        $color='gray';
+        }
         }?>
         {id: <?php echo $row['nid'];?>, label:'<?php echo "Node".$row['nid']?>', color: '<?php echo $color;?>'},
         <?php }?>
