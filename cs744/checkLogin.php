@@ -5,11 +5,11 @@
  * Date: 2016/2/8
  * Time: 22:45
  */
-include "DBHelper.php";
+include_once "dao/DBHelper.php";
 $username=$_POST['username'];
 $password=$_POST['password'];
 if(isUsernameAndPasswordMatches($username,$password)){
-    echo 1;
+   // echo 1;
     session_start();
     $_SESSION['uid']=getUidByUsername($username);
     header("location:answerSecurityQuestion.php");
@@ -25,7 +25,7 @@ function getUidByUsername($username){
 function isUsernameAndPasswordMatches($username,$password)
 {
     $sql = "select * from user where username='" . $username . "' and password='" . $password . "'";
-    echo $sql;
+   // echo $sql;
     $result = mysql_query($sql);
     if (mysql_fetch_array($result) == null) {
         return false;

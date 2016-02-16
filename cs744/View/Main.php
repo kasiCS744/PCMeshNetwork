@@ -7,6 +7,7 @@
  */
 session_start();
 $uid=$_SESSION['uid'];
+$errorMessage=null;
 $errorMessage=$_GET['errorMessage'];
 if($uid==null){
     header("location:../Login.html");

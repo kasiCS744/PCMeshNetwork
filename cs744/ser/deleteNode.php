@@ -18,8 +18,11 @@ function isConnector($nid){
     }
 }
 function deletePatternByConnectorId($nid){
-    $result=getNodeByNid($nid);
+   // echo $nid;
+   $pid=getPidByNid($nid);
+    $result=getNodesByPid($pid);
     while($row=mysql_fetch_array($result)){
+       // echo $row['nid'];
         deleteLinksByNid($row['nid']);
         deleteNodesByNid($row['nid']);
     }
@@ -54,7 +57,7 @@ function delete($nid){
         }
         //do delete operation
         deletePatternByConnectorId($nid);
-        return "success";
+        return "connectorSuccess";
    // print_r($newNeighbourList);
     }else{
 
@@ -77,11 +80,11 @@ function delete($nid){
         }
         deleteLinksByNid($row['nid']);
         deleteNodesByNid($row['nid']);
-        return "success";
+        return "normalSuccess";
 
     }
 }
 $nid=$_POST['nid'];
-delete($nid);
-header("location:../View/sendMessage.php");
+ echo delete($nid);
+//header("location:../View/test.php");
 ?>
