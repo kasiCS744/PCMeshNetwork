@@ -61,7 +61,7 @@ $list=getQuestionAndAnswerPairByUid($uid);
         }
         var currentAnswer=document.getElementById("answer");
         if(currentAnswer.value==answer.value){
-            window.location.href="View/Main.php";
+            window.location.href="View/newDisplayNode.php";
         }else{
             currentAnswer.value="";
             document.getElementById("errorMessage").style.display="block";
