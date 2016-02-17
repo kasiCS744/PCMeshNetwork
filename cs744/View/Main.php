@@ -20,23 +20,35 @@ echo "Welcome ".$row['firstName']." ".$row['lastName']."<br><br>";
 <html>
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link href="../css/signin.css" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/loginScreen.css" rel="stylesheet">
 </head>
 <body>
-<input type="button" onclick="showWindow()" value="Add Node">
-<input type="button" onclick="window.location.href='displayNode.php?method=view'" value="View diagram">
-<input type="button" onclick="window.location.href='../ser/logout.php'" value="Logout">
-<div align="center">
-<?php
-if($errorMessage!=null){
-    echo $errorMessage;
-}
-?>
-</div>
-<div id="node" style="display: none" class="container" align="center">
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="newDisplayNode.php">Home</a>
+            </div>
+            <u1 class="nav navbar-nav">
+                <u1 class="nav navbar-nav">
+                    <li>
+                        <a href="Main.php">Add Node</a>
+                    </li>
+                </u1>
+            </u1>
+            <u1 class="nav navbar-nav navbar-right">
+                <li>
+                    <p class="navbar-text">Logged in as <?php echo "".$row['firstName']." ".$row['lastName'];?></p>
+                </li>
+                <li>
+                    <a id="logout" href="../logout.php"> Logout</a>
+                </li>
+            </u1>
+        </div>
+    </div>
+    <div id="node" style="display: none" class="container" align="center">
 
     <form action="displayNode.php" id="form" method="post" class="form-signin">
 <!--        Node ID:<input type="text" name="nid"><br>-->

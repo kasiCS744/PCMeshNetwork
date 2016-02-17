@@ -17,36 +17,37 @@ $list=getQuestionAndAnswerPairByUid($uid);
 <html>
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link href="css/signin.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/loginScreen.css" rel="stylesheet">
+    <link href="css/securityScreenQuestions.css" rel="stylesheet">
 </head>
 <body>
-<div class="container" align="center">
-    <h3 class="form-signin-heading">Please answer security questions</h3>
-    <div id="question">
-<?php
-
+    <div class="container" id="firstContainer" align="center">
+        <div class="well bs-component">
+            <h3 class="form-signin-heading">Please answer a security question</h3>
+            <div id="question">
+                <?php
+                    echo "Question: ".$list[0]['question'];
                 ?>
-    <?php
-    echo "Question:".$list[0]['question'];
-    ?>
-        </div><br>
-    <input type="hidden" value="<?php echo $list[0]['question']?>" id="Question1">
-    <input type="hidden" value="<?php echo $list[0]['answer']?>" id="Answer1">
-    <input type="hidden" value="<?php echo $list[1]['question']?>" id="Question2">
-    <input type="hidden" value="<?php echo $list[1]['answer']?>" id="Answer2">
-    <input type="hidden" value="<?php echo $list[2]['question']?>" id="Question3">
-    <input type="hidden" value="<?php echo $list[2]['answer']?>" id="Answer3">
-
-    Answer:<input type="text" id="answer"><br>
-    <div style="display: none" id="errorMessage">
-       <p style="color: red" id="message"> Your security question answer is not correct!</p>
+            </div>
+            <br>
+            <input type="hidden" value="<?php echo $list[0]['question']?>" id="Question1">
+            <input type="hidden" value="<?php echo $list[0]['answer']?>" id="Answer1">
+            <input type="hidden" value="<?php echo $list[1]['question']?>" id="Question2">
+            <input type="hidden" value="<?php echo $list[1]['answer']?>" id="Answer2">
+            <input type="hidden" value="<?php echo $list[2]['question']?>" id="Question3">
+            <input type="hidden" value="<?php echo $list[2]['answer']?>" id="Answer3">
+            Answer: <input type="text" id="answer">
+            <br>
+            <br>
+            <div style="display: none" id="errorMessage">
+                <p style="color: red" id="message">That answer is incorrect!</p>
+            </div>
+            <button class="btn btn-lg btn-success" type="button" onclick="checkSecurity()">Check</button>
+        </div>
     </div>
-    <input type="button" value="submit" id="submit" onclick="checkSecurity()">
-
-</div>
 </body>
 <script>
     var count=0;
@@ -68,6 +69,7 @@ $list=getQuestionAndAnswerPairByUid($uid);
             count++;
             if(count>=3){
                 document.getElementById("message").innerHTML="Your three security questions are all wrong, your account is not available!";
+                window.location.href="Login.html";
             }
             var question="Question"+(count+1);
             //alert(question);
