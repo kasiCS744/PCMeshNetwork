@@ -20,8 +20,9 @@ $linkResult=getAllLinks();
 
     <style type="text/css">
         #mynetwork {
-            width: 1800px;
+            width: 1000px;
             height: 800px;
+            max-height: 900px;
             border: 1px solid lightgray;
 
 
