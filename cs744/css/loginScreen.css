@@ -1,7 +1,8 @@
 body {
     background-image: url("login_background.jpg");
+    background-attachment: fixed;
 }
 
-.container	{
-	padding-top: 80px;
+#firstContainer	{
+	padding-top: 100px;
 }
