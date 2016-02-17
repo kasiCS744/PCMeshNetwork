@@ -10,6 +10,7 @@
 include_once "ser/securitySer.php";
 session_start();
 $uid=$_SESSION['uid'];
+//echo $uid;
 $list=getQuestionAndAnswerPairByUid($uid);
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -60,7 +61,7 @@ $list=getQuestionAndAnswerPairByUid($uid);
         }
         var currentAnswer=document.getElementById("answer");
         if(currentAnswer.value==answer.value){
-            window.location.href="View/Main.php";
+            window.location.href="View/newDisplayNode.php";
         }else{
             currentAnswer.value="";
             document.getElementById("errorMessage").style.display="block";
