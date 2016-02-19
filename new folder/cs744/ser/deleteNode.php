@@ -27,6 +27,14 @@ function deletePatternByConnectorId($nid){
         deleteNodesByNid($row['nid']);
     }
 }
+function countPatternNodes($pid){
+    $result=getNodesByPid($pid);
+    $count=0;
+    while($row=mysql_fetch_array($result)){
+        $count++;
+    }
+    return $count;
+}
 function delete($nid){
     $row=getNodeByNid($nid);
    // $row['isActive']="no";
@@ -36,6 +44,9 @@ function delete($nid){
         $list[0]=$row['nid'];
         iniRecordList($list);
     if($row['isConnector']==1){
+       if(countPatternNodes($row['pid'])>1){
+           return "patternFail";
+       }
    $neighbourList=findNodeNeighbour($row['nid']);
         foreach($neighbourList as $key=>$value){
             if(!isConnector($value)){

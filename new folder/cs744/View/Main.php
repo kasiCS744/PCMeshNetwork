@@ -232,10 +232,16 @@ function hideMessageDiv(){
                     // alert(result);
                     if (result == "fail") {
                         alert("Can not delete this node because one or more nodes are rely on it");
+                    }else if(result=="patternFail"){
+                        alert("This connector node can not be deleted because there still has normal node(s) in this pattern");
+
                     } else if (result == "normalSuccess") {
                         nodes.remove({id: nodeId});
+                        nodesArray=nodes;
                     } else if (result = "connectorSuccess") {
-                        window.location.reload();
+                      //  window.location.reload();
+                        nodes.remove({id: nodeId});
+                        nodesArray=nodes;
                     }
 
                 }
