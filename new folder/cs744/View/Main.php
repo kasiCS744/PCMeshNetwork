@@ -51,13 +51,13 @@ $destinationNodeList=getAllNodes();
 
             <?php
             while($row1=mysql_fetch_array($startNodeList)){
-                echo "<option value='".$row1['nid']."'>Node".$row1['nid']."</option>";
+                echo "<option value='".$row1['nid']."' id='from".$row1['nid']."'>Node".$row1['nid']."</option>";
             }?>
         </select>
         <h4>Destination Node</h4><select name="to" id="to" class="form-control" style="width: 80%">
             <?php
             while($row1=mysql_fetch_array($destinationNodeList)){
-                echo "<option value='".$row1['nid']."'>Node".$row1['nid']."</option>";
+                echo "<option value='".$row1['nid']."' id='to".$row1['nid']."'>Node".$row1['nid']."</option>";
             }?>
         </select><br>
         <!--        <label>Start Node<input type="text" name="from" id="from"></label>-->
@@ -238,6 +238,7 @@ function hideMessageDiv(){
                     } else if (result == "normalSuccess") {
                         nodes.remove({id: nodeId});
                         nodesArray=nodes;
+                        //alert(document.getElementById("from"+nodeId));
                     } else if (result = "connectorSuccess") {
                       //  window.location.reload();
                         nodes.remove({id: nodeId});

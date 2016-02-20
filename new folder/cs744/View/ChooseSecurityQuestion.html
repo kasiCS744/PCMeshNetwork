@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<link href="../css/loginScreen.css" rel="stylesheet">
+	<link href="../css/securityQuestion.css" rel="stylesheet">
+<body>
+
+<div class="container" ng-app="myApp" ng-controller="customersCtrl">
+	
+	<h3 class="col-md-10">Security Questions</h3></br>
+	<label class="col-md-10" style="color:red;">(Please choose 3 security question)</label>
+	
+		<div class="col-md-8" ng-repeat="val in values" style="padding-bottom:20px;">
+			<input  type="checkbox" name="question[]" value="{{val.question}}" 
+				ng-click="selectQuestion(val)">
+			<label>{{val.question}}</label><br>
+			<input type="text" ng-show="val.selected" ng-model="val.answer" 
+				name="answer[]">
+		</div>
+
+
+
+			
+		<div class="div_button">
+			<button type="button" class="btn btn-success col-md-3" style="margin-top:30px;" ng-click="saveQuestions()">Save</button>
+			<label class="col-md-8"></label>
+		</div>
+	
+</div>
+
+
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http, $location, $window) {	
+	
+	$scope.hasSelected = [];
+	$scope.disabled = false;
+	
+	$scope.saveQuestions = function(){		
+		angular.forEach($scope.values, function(val){
+			if(val.selected){
+				$scope.hasSelected.push(val);				
+			}	
+		});
+		console.log("size: "+$scope.hasSelected.length);
+		
+		if($scope.hasSelected.length != 3){
+			alert("you must choose 3 questions");
+			$scope.hasSelected = [];
+		}else if($scope.hasSelected[0].answer==null || $scope.hasSelected[0].answer == "" ||
+			$scope.hasSelected[1].answer==null || $scope.hasSelected[1].answer == "" ||
+			$scope.hasSelected[2].answer==null || $scope.hasSelected[2].answer == "" ){
+			alert("answer cannot be empty");
+			$scope.hasSelected = [];
+		}else{
+			$.ajax({
+   		 		type: 'POST',
+    			url: '../ser/saveQuestion.php',
+    			data: {'values': $scope.hasSelected},
+    			success: function(msg) {    				
+      				alert("Congratuations, please login again");
+      				window.location.href = "../Login.html";
+    			}
+  			});			
+		};
+		
+	}
+
+   	$scope.selectQuestion = function(val){
+   	   	val.selected = !val.selected;   		
+	}
+	
+   	$http.get("../dao/getAllQuestions.php")
+   	.then(function (response) {
+		   $scope.values = response.data.records;
+		   $scope.dataSize = $scope.values.length;
+	   	});
+});
+ 
+
+</script>
+
+</body>
+</html>

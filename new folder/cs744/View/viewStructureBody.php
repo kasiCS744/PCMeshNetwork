@@ -24,6 +24,9 @@ if($uid!=null){
         <u1 class="nav navbar-nav">
             <u1 class="nav navbar-nav">
                 <li>
+                    <a href="changeQuestion.php">change Security Questions</a>
+                </li>
+                <li>
                     <a href="Main.php">Add Node</a>
                 </li>
             </u1>
