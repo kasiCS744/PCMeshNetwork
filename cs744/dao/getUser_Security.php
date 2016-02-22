@@ -8,7 +8,7 @@
 include_once "DBHelper.php";
 function getUser_SecurityByUid($uid){
     $sql="select * from user_security where uid='".$uid."'";
-    echo $sql;
+   // echo $sql;
     return mysql_query($sql);
 }
 ?>
