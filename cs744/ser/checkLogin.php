@@ -1,39 +1,31 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Liu
- * Date: 2016/2/8
- * Time: 22:45
+ * Created by ChenguangBai
+ * Date: 2016/2/14
  */
-include_once "dao/DBHelper.php";
-include "css/bootstrap.min.css";
+include_once "../dao/DBHelper.php";
+
 $username=$_POST['username'];
 $password=$_POST['password'];
-if(isUsernameAndPasswordMatches($username,$password)){
-   // echo 1;
-    session_start();
-    $_SESSION['uid']=getUidByUsername($username);
-    header("location:answerSecurityQuestion.php");
+
+$sql = "select * from user where username='".$username."'";
+$result = mysql_query($sql);
+if($result == null){
+    echo 0;
 }else{
-    header("location:Login.html");
-}
+    $row = mysql_fetch_array($result);
+    if($row['password'] == $password){
 
+        session_start();
+        $_SESSION['uid'] = $row['uid'];
 
-function getUidByUsername($username){
-    $sql="select uid from user where username='".$username."'";
-    return mysql_fetch_array(mysql_query($sql))[0];
-}
-function isUsernameAndPasswordMatches($username,$password)
-{
-    $sql = "select * from user where username='" . $username . "' and password='" . $password . "'";
-   // echo $sql;
-    $result = mysql_query($sql);
-    if (mysql_fetch_array($result) == null) {
-        return false;
-    } else {
-        return true;
+        if($row['state'] == 0){
+            echo 1;
+        }else{
+            echo 2;
+        }
+    }else{
+        echo 0;
     }
 }
-
-
 ?>
