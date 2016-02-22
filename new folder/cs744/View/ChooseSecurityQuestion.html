@@ -4,11 +4,10 @@
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<link href="../css/loginScreen.css" rel="stylesheet">
-	<link href="../css/securityQuestion.css" rel="stylesheet">
-<body>
+	
+<body style="background-image: url('../css/login_background.jpg'); margin-top:60px;">
 
-<div class="container" ng-app="myApp" ng-controller="customersCtrl">
+<div class="container" ng-app="myApp" ng-controller="customersCtrl" style="width:600px;background:#fff;">
 	
 	<h3 class="col-md-10">Security Questions</h3></br>
 	<label class="col-md-10" style="color:red;">(Please choose 3 security question)</label>
@@ -20,12 +19,9 @@
 			<input type="text" ng-show="val.selected" ng-model="val.answer" 
 				name="answer[]">
 		</div>
-
-
-
-			
-		<div class="div_button">
-			<button type="button" class="btn btn-success col-md-3" style="margin-top:30px;" ng-click="saveQuestions()">Save</button>
+	
+		<div>
+			<button type="button" class="btn btn-success col-md-3" style="margin-top:50px;margin-bottom:50px;" ng-click="saveQuestions()">Save</button>
 			<label class="col-md-8"></label>
 		</div>
 	
@@ -63,7 +59,7 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
     			data: {'values': $scope.hasSelected},
     			success: function(msg) {    				
       				alert("Congratuations, please login again");
-      				window.location.href = "../Login.html";
+      				window.location.href = "../Login2.html";
     			}
   			});			
 		};

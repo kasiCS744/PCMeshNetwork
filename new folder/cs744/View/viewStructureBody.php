@@ -24,10 +24,10 @@ if($uid!=null){
         <u1 class="nav navbar-nav">
             <u1 class="nav navbar-nav">
                 <li>
-                    <a href="changeQuestion.php">change Security Questions</a>
+                    <a href="changeQuestion.php">Account settings</a>
                 </li>
                 <li>
-                    <a href="Main.php">Add Node</a>
+                    <a href="displayAddNode.php">Add Node</a>
                 </li>
             </u1>
         </u1>
