@@ -12,27 +12,30 @@ session_start();
 $uid=$_SESSION['uid'];
 //echo $uid;
 $list=getQuestionAndAnswerPairByUid($uid);
+//getQuestionAndAnswerPairByUid($uid);
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link href="css/signin.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/loginScreen.css" rel="stylesheet">
+    <link href="css/securityScreenQuestions.css" rel="stylesheet">
 </head>
 <body>
-<div class="container" align="center">
-    <h3 class="form-signin-heading">Please answer security questions</h3>
-    <div id="question">
+<div class="container" id="firstContainer" align="center">
+    <div class="well bs-component">
+        <h3 class="form-signin-heading">Please answer a security question</h3>
+    <div id="question"><h4>
 <?php
 
                 ?>
     <?php
     echo "Question:".$list[0]['question'];
     ?>
-        </div><br>
+        </h4> </div><br>
     <input type="hidden" value="<?php echo $list[0]['question']?>" id="Question1">
     <input type="hidden" value="<?php echo $list[0]['answer']?>" id="Answer1">
     <input type="hidden" value="<?php echo $list[1]['question']?>" id="Question2">
@@ -40,12 +43,12 @@ $list=getQuestionAndAnswerPairByUid($uid);
     <input type="hidden" value="<?php echo $list[2]['question']?>" id="Question3">
     <input type="hidden" value="<?php echo $list[2]['answer']?>" id="Answer3">
 
-    Answer:<input type="text" id="answer"><br>
+    <input type="text" id="answer" class="form-control"><br>
     <div style="display: none" id="errorMessage">
        <p style="color: red" id="message"> Your security question answer is not correct!</p>
     </div>
-    <input type="button" value="submit" id="submit" onclick="checkSecurity()">
-
+    <input type="button" value="submit" id="submit" class="btn-lg btn-success"  onclick="checkSecurity()">
+</div>
 </div>
 </body>
 <script>
@@ -61,7 +64,7 @@ $list=getQuestionAndAnswerPairByUid($uid);
         }
         var currentAnswer=document.getElementById("answer");
         if(currentAnswer.value==answer.value){
-            window.location.href="View/newDisplayNode.php";
+            window.location.href="View/Main.php";
         }else{
             currentAnswer.value="";
             document.getElementById("errorMessage").style.display="block";

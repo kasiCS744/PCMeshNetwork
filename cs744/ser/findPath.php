@@ -63,9 +63,9 @@ function iniRecordList($requireList){
     }
 
 }
-function sendMessage($start,$destination,$requireList){
+function sendMessage($start,$destination,$requireList,$recordList){
     iniRecordList($requireList);
-    return find($start,$destination,0);
+    return find($start,$destination,0,$recordList);
 }
 function sendMessageIgnoreInactive($start,$destination,$requireList){
     iniRecordList($requireList);
@@ -120,25 +120,28 @@ function find($start,$destination,$active){
             }
 
             for ($i = 0; $i < count($neighbourList); $i++) {
-                    if($i==0){
+
                     $tempList=find($neighbourList[$i],$destination,$active);
                         array_push($tempList,$start);
 //                        print_r($tempList);
 //                        echo "<br>";
+                    if($i==0){
                             $min = count($tempList);
                             $minArray = $tempList;
                         }else{
-                        $tempList=find($neighbourList[$i],$destination,$active);
-                        array_push($tempList,$start);
+//                        $tempList=find($neighbourList[$i],$destination,$active);
+//                        array_push($tempList,$start);
 //                        print_r($tempList);
 //                        echo "<br>";
                         if($min<=1){
                             $min = count($tempList);
                             $minArray = $tempList;
                         }else {
-                            if (count($tempList) <=$min&&count($tempList)>1) {
-                                $minArray = $tempList;
-                                $min = count($tempList);
+                            if(count($tempList)>1) {
+                                if (count($tempList) < $min) {
+                                    $minArray = $tempList;
+                                    $min = count($tempList);
+                                }
                             }
                         }
                     }
