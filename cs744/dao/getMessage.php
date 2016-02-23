@@ -6,8 +6,12 @@
  * Time: 22:45
  */
 include_once "DBHelper.php";
-function insertMessage($nid,$destination,$messageContext){
-    $sql="insert into message(nid,destination,messageContext)VALUES ('".$nid."','".$destination."','".$messageContext."')";
+function insertMessage($nid,$destination,$messageContext,$state){
+    $sql="insert into message(nid,destination,messageContext,state)VALUES ('".$nid."','".$destination."','".$messageContext."','".$state."')";
     mysql_query($sql);
+}
+function getAllMessages(){
+    $sql="select * from message";
+    return mysql_query($sql);
 }
 ?>
