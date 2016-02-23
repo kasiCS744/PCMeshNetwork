@@ -17,6 +17,7 @@ mysql_select_db("cs744",$con);
 function getQuestionAndAnswerPairByUid($uid){
     $result=getUser_SecurityByUid($uid);
     $returnResult=array();
+    $randList=array(0,1,2);
     while($row=mysql_fetch_array($result)){
         $answer=$row['answer'];
         //echo $answer;
@@ -25,8 +26,15 @@ function getQuestionAndAnswerPairByUid($uid){
         $localResult=array();
         $localResult['question']=$question;
         $localResult['answer']=$answer;
-        array_push($returnResult,$localResult);
+        $i=rand(0,count($randList)-1);
+       // echo $i;
+      //  echo $randList[$i];
+        $returnResult[$randList[$i]]=$localResult;
+        array_splice($randList,$i,1);
+        //array_push($returnResult,$localResult);
+
     }
+
     return $returnResult;
 }
 function getUser_SecurityByUid($uid){

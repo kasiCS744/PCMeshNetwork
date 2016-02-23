@@ -6,3 +6,7 @@ body {
 #firstContainer	{
 	padding-top: 100px;
 }
+#nodeContainer{
+    padding-top: 100px;
+    width: 500px;
+}
