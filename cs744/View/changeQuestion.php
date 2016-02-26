@@ -27,18 +27,20 @@ if($uid!=null){
 <br>
 <br><br>
 
-<div class="containers" ng-app="myApp" ng-controller="customersCtrl">
+<div class="container" id="firstSmallContainer" align="center">
+    <div class="containers" ng-app="myApp" ng-controller="customersCtrl">
 
-    <h3>Change Security Questions</h3></br>
+        <h3>Change Security Questions</h3></br>
 
-    <div>
-        <div class="div_qanda" ng-repeat="val in values">
-            <label class="lab_question col-md-8">{{ val.question }}</label>
-            <input type="text" class="col-md-3" ng-model="val.answer">
-        </div>
-        <div class="div_button">
-            <button type="button" class="btn btn-success" ng-click="saveQuestions()">Save</button>
-            <button type="button" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+        <div>
+            <div class="div_qanda" ng-repeat="val in values">
+                <label class="lab_question col-md-8">{{ val.question }}</label>
+                <input type="text" class="col-md-3" ng-model="val.answer">
+            </div>
+            <div class="div_button">
+                <button type="button" class="btn btn-success" ng-click="saveQuestions()">Save</button>
+                <button type="button" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+            </div>
         </div>
     </div>
 </div>

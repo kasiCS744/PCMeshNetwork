@@ -45,44 +45,50 @@ $destinationNodeList=getAllNodes();
 <?php include_once "viewStructureBody.php";?>
 <div class="container" id="firstContainer" align="center">
     <div class="well bs-component">
-    <input type="button" class="btn btn-success" value="send Message" onclick="displayDiv('sendMessage')">
-    <input type="button" class="btn btn-info" value="reset Nodes" onclick="resetAllNodesStabilize()">
+        <input type="button" class="btn btn-success" value="send Message" onclick="displayDiv('sendMessage')">
+        <input type="button" class="btn btn-info" value="reset Nodes" onclick="resetAllNodesStabilize()">
         <input type="button" class="btn btn-default" value="show Message Log" onclick="showMessages()">
-        </div>
     </div>
-<div style="display: none;position: absolute;left: 35%;top: 30%;z-index: 9;background:#ffffff;width: auto" id="sendMessage" class="container">
-    <form action="#" method="post" id="messageForm">
-        <h4 > Start Node</h4> <select name="from" id="from" class="form-control" style="width: 80%">
-
-            <?php
-            while($row1=mysql_fetch_array($startNodeList)){
-                echo "<option value='".$row1['nid']."' id='from".$row1['nid']."'>Node".$row1['nid']."</option>";
-            }?>
-        </select>
-        <h4>Destination Node</h4><select name="to" id="to" class="form-control" style="width: 80%">
-            <?php
-            while($row1=mysql_fetch_array($destinationNodeList)){
-                echo "<option value='".$row1['nid']."' id='to".$row1['nid']."'>Node".$row1['nid']."</option>";
-            }?>
-        </select><br>
+    <div style="display: none;position: absolute;left: 35%;top: 30%;z-index: 9;background:#ffffff;width: auto" id="sendMessage" class="container">
+        <form action="#" method="post" id="messageForm">
+            <h4 > Start Node</h4> 
+                <select name="from" id="from" class="form-control" style="width: 80%">
+                    <?php
+                        while($row1=mysql_fetch_array($startNodeList)){
+                        echo "<option value='".$row1['nid']."' id='from".$row1['nid']."'>Node".$row1['nid']."</option>";
+                    }?>
+                </select>
+            <h4>Destination Node</h4>
+                <select name="to" id="to" class="form-control" style="width: 80%">
+                    <?php
+                        while($row1=mysql_fetch_array($destinationNodeList)){
+                        echo "<option value='".$row1['nid']."' id='to".$row1['nid']."'>Node".$row1['nid']."</option>";
+                    }?>
+                </select><br>
         <!--        <label>Start Node<input type="text" name="from" id="from"></label>-->
         <!--        <label>Destination Node<input type="text" name="to" id="to"></label><br>-->
-        <h4> Message Context<br></h4><label><textarea rows="4" cols="50" name="messageContext" id="messageContext" class="form-control"></textarea></label><br>
-        <div align="center"><input type="button" value="Submit" class="btn btn-primary" onclick="beforeSendMessage(document.getElementById('from').value,
-        document.getElementById('to').value,document.getElementById('messageContext').value)">
-            <input type="button" class="btn btn-default" value="Hide" onclick="hideDiv('sendMessage')">
-        </div><br>
-    </form>
-</div>
-<div align="center">
-<div id="mynetwork"></div>
-</div>
-<div style="display: none;position: absolute;left: 35%;top: 30%;z-index: 9;background: #ffffff;width: auto" id="messageDiv" class="container">
-    <div id="showMessage"></div>
-    <div align="right">
-    <input type="button" class="btn btn-default" value="Hide" onclick="hideMessageDiv()" >
+            <h4> Message Context<br></h4>
+            <label>
+                <textarea rows="4" cols="50" name="messageContext" id="messageContext" class="form-control"></textarea>
+            </label>
+            <br>
+            <div align="center">
+                <input type="button" value="Submit" class="btn btn-primary" onclick="beforeSendMessage(document.getElementById('from').value, document.getElementById('to').value,document.getElementById('messageContext').value)">
+                <input type="button" class="btn btn-default" value="Hide" onclick="hideDiv('sendMessage')">
+            </div>
+            <br>
+        </form>
     </div>
+    <div align="center">
+        <div id="mynetwork"></div>
     </div>
+    <div style="display: none;position: absolute;left: 35%;top: 30%;z-index: 9;background: #ffffff;width: auto" id="messageDiv" class="container">
+        <div id="showMessage"></div>
+        <div align="right">
+            <input type="button" class="btn btn-default" value="Hide" onclick="hideMessageDiv()" >
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     // create an array with nodes
     nodesArray= [
