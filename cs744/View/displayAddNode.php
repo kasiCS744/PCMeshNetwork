@@ -319,7 +319,27 @@ $nodeResult=getAllNodes();
             }
         }
         else if (document.getElementById("isConnector").value == "1")  {
-            if ($('#newPatternConnectors').val() != null)  {
+            if ($('#newPatternConnectors').prop("options")[0] == undefined)  {
+                $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url:"../ser/addFirstPattern.php",
+                    data:$('#form').serialize(),
+                    async: false,
+                    error: function(request) {
+                        alert("Connection error");
+                    },
+                    success: function(data) {
+                       if(data!="success"){ alert(data);
+                       }else{
+                           window.location="Main.php";
+                       }
+                       // $("#commonLayout_appcreshi").parent().html(data);
+                    }
+                });                
+            }
+            else  {
+                if ($('#newPatternConnectors').val() != null)  {
                 $.ajax({
                     cache: true,
                     type: "POST",
@@ -339,9 +359,10 @@ $nodeResult=getAllNodes();
                 });
               //  document.getElementById("form").submit();
                 // alert("success");
-            }
-            else  {
-                alert("Please select at least one connector node to be connected with");
+                }
+                else  {
+                    alert("Please select at least one connector node to be connected with");
+                }
             }
         }
         else  {

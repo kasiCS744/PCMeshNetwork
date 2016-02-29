@@ -231,7 +231,7 @@ function hideMessageDiv(){
         if(params.nodes==""){
             return;
         }
-        if(confirm("Confirm delete Node"+params.nodes)) {
+        if(confirm("Are you sure you would like to delete Node"+params.nodes)) {
             params.event = "[original event]";
             //var nodeId=JSON.stringify(params.nodes, null, 4);
             var nodeId = params.nodes;

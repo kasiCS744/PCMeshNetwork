@@ -32,6 +32,10 @@ function getAllNodes(){
     $sql="select * from node";
     return mysql_query($sql);
 }
+function getNodeCount(){
+    $sql="select count(*) from node";
+    return mysql_fetch_array(mysql_query($sql))[0];
+}
 function getNodeByNid($nid){
     $sql="select * from node where nid='".$nid."'";
     //echo $sql;
