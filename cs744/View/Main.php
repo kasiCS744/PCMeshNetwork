@@ -27,14 +27,14 @@ $reActivateNodeList=getAllNodes();
 <script type="text/javascript" src="../js/bootstrap-multiselect.js"></script>
 <?php include_once "viewStructureHead.php";?>
     <style type="text/css">
-        #mynetwork {
+/*        #mynetwork {
             width: 1200px;
             height: 700px;
             border: 1px solid lightgray;
-        }
-        p {
+        }*/
+/*        p {
             max-width:700px;
-        }
+        }*/
     </style>
 
     <script type="text/javascript">
@@ -50,14 +50,12 @@ $reActivateNodeList=getAllNodes();
 <body>
 <?php include_once "viewStructureBody.php";?>
 <div class="container" id="firstContainer" align="center">
-    <div id="buttonSection" class="well bs-component">
+    <div style="width: 60%" id="buttonSection" class="well bs-component">
         <input type="button" class="btn btn-success" value="send Message" onclick="displayDiv('sendMessage')">
         <input type="button" class="btn btn-info" value="reset Nodes" onclick="resetAllNodesStabilize()">
         <input type="button" class="btn btn-default" value="show Message Log" onclick="showMessages()">
-        <br>
-        <br>
         <input type="button" class="btn btn-primary" value="Re-Activate Nodes" onclick="displayDiv('reActivate')">
-        <div style="display: none;position: center; top: 30%;z-index: 9;background:#ffffff;width: 50%; margin-top: 20px" id="reActivate" class="container">
+        <div style="display: none; position: absolute; left: 45%; top: 30%;z-index: 9; background:#e6f9ff; width: auto; margin-top: 20px" id="reActivate" class="container">
             <label id="reactivationLabel">Reactivate a node</label>
             <br>
             <form action="../ser/reActivateNode.php" id="form2" method="post" class="form-signin">
@@ -68,6 +66,8 @@ $reActivateNodeList=getAllNodes();
                         <?php }?>
                     <?php endwhile; ?>
                 </select> 
+                <br>
+                <br>
                 <div align="center">
                     <input type="button" value="Submit" class="btn btn-primary" onclick="reActivateNodes()">
                     <input type="button" class="btn btn-default" value="Hide" onclick="hideDiv('reActivate')">
@@ -75,7 +75,7 @@ $reActivateNodeList=getAllNodes();
             </form>
         </div>
         <input type="button" class="btn btn-warning" value="Add node" onclick="displayDiv('addNode')">
-        <div style="display: none; position: absolute; border: 5px; left: 30%; top: 30%;z-index: 9;background:#ffffff;width: 40%" id="addNode" class="container">
+        <div style="display: none; position: absolute; border: 5px; left: 30%; top: 30%; z-index: 9; background:#e6f9ff; width: 40%" id="addNode" class="container">
             <form style="margin-top: 20px; margin-bottom: 20px" action="../ser/addNode.php" id="form" method="post" class="form-signin">
                 <label id="newPatternLabel">Would you like to add the node to an existing pattern?</label>
                 <select id="isConnector" name="isConnector" class="form-signin" onchange="enableDrop()">
@@ -116,9 +116,10 @@ $reActivateNodeList=getAllNodes();
                 <button class="btn btn-lg btn-primary" type="button" onclick="differentSubmit()">Add Node</button>
                 <button class="btn btn-lg btn-warning" type="reset">Reset</button>            
             </form>
+            <input type="button" class="btn btn-default" value="Hide" onclick="hideDiv('addNode')">
         </div>
     </div>
-    <div style="display: none; position: absolute; left: 25%;top: 30%; z-index: 9;background:#ffffff;width: 50%" id="sendMessage" class="container">
+    <div style="display: none; position: absolute; left: 25%;top: 30%; z-index: 9;background:#e6f9ff;width: 50%" id="sendMessage" class="container">
         <form action="#" method="post" id="messageForm">
             <h4 > Start Node</h4> 
                 <select name="from" id="from" class="form-control" style="width: 80%">
@@ -149,9 +150,9 @@ $reActivateNodeList=getAllNodes();
         </form>
     </div>
     <div style="margin-bottom: 50px" align="center">
-        <div style="width: 75%" id="mynetwork"></div>
+        <div style="width: 80%" id="mynetwork"></div>
     </div>
-    <div style="display: none; position: absolute; left: 35%;top: 30%;z-index: 9;background: #ffffff;width: auto" id="messageDiv" class="container">
+    <div style="display: none; position: absolute; left: 35%;top: 30%;z-index: 9;background: #e6f9ff;width: auto" id="messageDiv" class="container">
         <div id="showMessage"></div>
         <div align="right">
             <input type="button" class="btn btn-default" value="Hide" onclick="hideMessageDiv()" >
@@ -241,19 +242,24 @@ $reActivateNodeList=getAllNodes();
     }
     function reActivateNodes()  {
 
-        $.ajax({
-            cache: true,
-            type: "POST",
-            url:"../ser/reActivateNode.php",
-            data:$('#form2').serialize(),
-            async: false,
-            error: function(request) {
-                alert("Connection error");
-            },
-            success: function(data) {
-                window.location="Main.php";
-            }
-        });
+        if ($('#inactiveNodeList').val() == "NONE SELECTED")  {
+            $.ajax({
+                cache: true,
+                type: "POST",
+                url:"../ser/reActivateNode.php",
+                data:$('#form2').serialize(),
+                async: false,
+                error: function(request) {
+                    alert("Connection error");
+                },
+                success: function(data) {
+                    window.location="Main.php";
+                }
+            });
+        }
+        else  {
+            alert("Please select at least one node to re-activate");
+        }
     }
     function showMessages(){
         var xmlhttp = new XMLHttpRequest();
