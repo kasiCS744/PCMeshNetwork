@@ -16,40 +16,109 @@ $nodeResult=getAllNodes();
 $linkResult=getAllLinks();
 $startNodeList=getAllNodes();
 $destinationNodeList=getAllNodes();
+$reActivateNodeList=getAllNodes();
 ?>
 <!doctype html>
 <html>
 <head>
-<!--    <title>Network | Basic usage</title>-->
-<!--    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">-->
-<!--    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>-->
-<!--    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>-->
-<!--    <script type="text/javascript" src="../js/vis.js"></script>-->
-<!--    <link href="../css/vis.css" rel="stylesheet" type="text/css" />-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../css/bootstrap-multiselect.css" type="text/css">
+<script type="text/javascript" src="../js/bootstrap-multiselect.js"></script>
 <?php include_once "viewStructureHead.php";?>
     <style type="text/css">
         #mynetwork {
             width: 1200px;
             height: 700px;
             border: 1px solid lightgray;
-
-
         }
-
         p {
             max-width:700px;
         }
     </style>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#newPatternConnectors').multiselect();
+            $('#newPatternConnectors').multiselect("disable");
+            $('#existingNodeConnectors').multiselect();
+            $('#existingNodeConnectors').multiselect("disable");            
+            $('#inactiveNodeList').multiselect();
+        });
+    </script>
 </head>
 <body>
 <?php include_once "viewStructureBody.php";?>
 <div class="container" id="firstContainer" align="center">
-    <div class="well bs-component">
+    <div id="buttonSection" class="well bs-component">
         <input type="button" class="btn btn-success" value="send Message" onclick="displayDiv('sendMessage')">
         <input type="button" class="btn btn-info" value="reset Nodes" onclick="resetAllNodesStabilize()">
         <input type="button" class="btn btn-default" value="show Message Log" onclick="showMessages()">
+        <br>
+        <br>
+        <input type="button" class="btn btn-primary" value="Re-Activate Nodes" onclick="displayDiv('reActivate')">
+        <div style="display: none;position: center; top: 30%;z-index: 9;background:#ffffff;width: 50%; margin-top: 20px" id="reActivate" class="container">
+            <label id="reactivationLabel">Reactivate a node</label>
+            <br>
+            <form action="../ser/reActivateNode.php" id="form2" method="post" class="form-signin">
+                <select multiple="multiple" class="form-signin" name="inactiveNodes[]" id="inactiveNodeList">
+                    <?php while($row=mysql_fetch_array($reActivateNodeList)) : ?>
+                        <?php if($row['isActive']=="no")  {?>
+                            <option><?php echo $row['nid'];?></option>
+                        <?php }?>
+                    <?php endwhile; ?>
+                </select> 
+                <div align="center">
+                    <input type="button" value="Submit" class="btn btn-primary" onclick="reActivateNodes()">
+                    <input type="button" class="btn btn-default" value="Hide" onclick="hideDiv('reActivate')">
+                </div>
+            </form>
+        </div>
+        <input type="button" class="btn btn-warning" value="Add node" onclick="displayDiv('addNode')">
+        <div style="display: none; position: absolute; border: 5px; left: 30%; top: 30%;z-index: 9;background:#ffffff;width: 40%" id="addNode" class="container">
+            <form style="margin-top: 20px; margin-bottom: 20px" action="../ser/addNode.php" id="form" method="post" class="form-signin">
+                <label id="newPatternLabel">Would you like to add the node to an existing pattern?</label>
+                <select id="isConnector" name="isConnector" class="form-signin" onchange="enableDrop()">
+                    <option disabled selected> -- select an option -- </option>
+                    <option value="0">Yes</option>
+                    <option value="1">No</option>
+                </select>
+                <br>
+                <label id="patternLabel">Please select an existing pattern to connect with</label>
+                <br>
+                <select onchange="getNodesFromPattern()" disabled class="form-control" name="pid" id="existingPatternConnector">
+                    <option disabled selected> -- select an option -- </option>
+                        <?php while($row=mysql_fetch_array($nodeResult)) : ?>
+                            <?php if($row['isConnector']==1)  {?>
+                                <option value="<?php echo $row['pid'];?>"><?php echo $row['pid'];?></option>
+                            <?php }?>
+                        <?php endwhile; ?>
+                        <?php $nodeResult = getAllNodes();
+                    ?>
+                </select>
+                <br>
+                <label id="existingLabel">Please select one or more nodes from the pattern to connect with</label>
+                <br>
+                <select multiple="multiple" class="form-signin" name="nodes0[]" id="existingNodeConnectors"></select>
+                <br>
+                <label id="connectorLabel">Please select the connector node with which to connect</label>
+                <br>
+                <select multiple="multiple" class="form-signin" name="nodes1[]" id="newPatternConnectors">
+                    <?php while($row=mysql_fetch_array($nodeResult)) : ?>
+                        <?php if($row['isConnector']==1)  {?>
+                            <option><?php echo $row['nid'];?></option>
+                        <?php }?>
+                    <?php endwhile; ?>
+                    <?php $nodeResult = getAllNodes(); ?>
+                </select>
+                <br>
+                <br>
+                <button class="btn btn-lg btn-primary" type="button" onclick="differentSubmit()">Add Node</button>
+                <button class="btn btn-lg btn-warning" type="reset">Reset</button>            
+            </form>
+        </div>
     </div>
-    <div style="display: none;position: absolute;left: 35%;top: 30%;z-index: 9;background:#ffffff;width: auto" id="sendMessage" class="container">
+    <div style="display: none; position: absolute; left: 25%;top: 30%; z-index: 9;background:#ffffff;width: 50%" id="sendMessage" class="container">
         <form action="#" method="post" id="messageForm">
             <h4 > Start Node</h4> 
                 <select name="from" id="from" class="form-control" style="width: 80%">
@@ -79,10 +148,10 @@ $destinationNodeList=getAllNodes();
             <br>
         </form>
     </div>
-    <div align="center">
-        <div id="mynetwork"></div>
+    <div style="margin-bottom: 50px" align="center">
+        <div style="width: 75%" id="mynetwork"></div>
     </div>
-    <div style="display: none;position: absolute;left: 35%;top: 30%;z-index: 9;background: #ffffff;width: auto" id="messageDiv" class="container">
+    <div style="display: none; position: absolute; left: 35%;top: 30%;z-index: 9;background: #ffffff;width: auto" id="messageDiv" class="container">
         <div id="showMessage"></div>
         <div align="right">
             <input type="button" class="btn btn-default" value="Hide" onclick="hideMessageDiv()" >
@@ -149,17 +218,19 @@ $destinationNodeList=getAllNodes();
             nodes.update(nodesArray[i]);
         }
     }
-function hideMessageDiv(){
-    document.getElementById('messageDiv').style.display='none';
-}
+    function hideMessageDiv(){
+        document.getElementById('messageDiv').style.display='none';
+    }
     function resetAllNodesStabilize() {
         resetAllNodes();
         network.stabilize();
     }
+
     var global;
     var from;
     var to;
     var message;
+
     function beforeSendMessage(start,end,messageContext){
         hideDiv("sendMessage");
         resetAllNodesStabilize();
@@ -167,6 +238,22 @@ function hideMessageDiv(){
         to=end;
         message=messageContext;
         global=setInterval("sendMessage()",1500);
+    }
+    function reActivateNodes()  {
+
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url:"../ser/reActivateNode.php",
+            data:$('#form2').serialize(),
+            async: false,
+            error: function(request) {
+                alert("Connection error");
+            },
+            success: function(data) {
+                window.location="Main.php";
+            }
+        });
     }
     function showMessages(){
         var xmlhttp = new XMLHttpRequest();
@@ -213,7 +300,6 @@ function hideMessageDiv(){
                 }else {
                     nodes.update([{id: from, color: {background: 'red'}}]);
                     from=result;
-
                 }
             }
         };
@@ -265,9 +351,137 @@ function hideMessageDiv(){
         // alert(nodeId);
         // document.getElementById('eventSpan').innerHTML = '<h2>doubleClick event:</h2>' + JSON.stringify(params, null, 4);
     });
-</script>
-<script type="text/javascript">
+    function enableDrop(){
+        if (document.getElementById("isConnector").value == "0")  {
+            $('option', $('#newPatternConnectors')).each(function(element) {
+                $(this).removeAttr('selected').prop('selected', false);
+            });
+            $('#newPatternConnectors').multiselect("refresh");
+            $('#newPatternConnectors').multiselect("disable");
+            document.getElementById("existingPatternConnector").disabled = false;
+            $('#existingNodeConnectors').multiselect("enable");
+        }
+        else  {
+            $('#newPatternConnectors').multiselect("enable");
+            document.getElementById("existingPatternConnector").disabled = true;
+            $('#existingPatternConnector').prop('selectedIndex',0);
+            $('option', $('#existingNodeConnectors')).each(function(element) {
+                $(this).removeAttr('selected').prop('selected', false);
+            });
+            $('#existingNodeConnectors').multiselect("refresh");
+            $('#existingNodeConnectors').multiselect("disable");
+        }
+    }
+    function differentSubmit(){
+        if (document.getElementById("isConnector").value == "0")  {
+            if ($('#existingPatternConnector').val() != null)  {
+                if ($('#existingNodeConnectors').val() != null)  {
+                    var numberOfConnectedNodes = $('#existingNodeConnectors').val().length
+                    if (numberOfConnectedNodes <= 3)  {
+                       // document.getElementById("form").submit();
+                        $.ajax({
+                            cache: true,
+                            type: "POST",
+                            url:"../ser/addNode.php",
+                            data:$('#form').serialize(),// 你的formid
+                            async: false,
+                            error: function(request) {
+                                alert("Connection error");
+                            },
+                            success: function(data) {
+                                if(data!="success"){ alert(data);
+                                }else{
+                                    window.location="Main.php";
+                                }
+                                // $("#commonLayout_appcreshi").parent().html(data);
+                            }
+                        });
+                        // alert("success");
+                    }
+                    else  {
+                        alert("Please select at most three nodes to connect to");
+                    }
+                }
+                else  {
+                    alert("Please connect to at least one node in the pattern");
+                }
+            }
+            else  {
+                alert("Please enter a pattern to connect to");
+            }
+        }
+        else if (document.getElementById("isConnector").value == "1")  {
+            if ($('#newPatternConnectors').prop("options")[0] == undefined)  {
+                $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url:"../ser/addFirstPattern.php",
+                    data:$('#form').serialize(),
+                    async: false,
+                    error: function(request) {
+                        alert("Connection error");
+                    },
+                    success: function(data) {
+                       if(data!="success"){ alert(data);
+                       }else{
+                           window.location="Main.php";
+                       }
+                       // $("#commonLayout_appcreshi").parent().html(data);
+                    }
+                });                
+            }
+            else  {
+                if ($('#newPatternConnectors').val() != null)  {
+                $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url:"../ser/addNode.php",
+                    data:$('#form').serialize(),// 你的formid
+                    async: false,
+                    error: function(request) {
+                        alert("Connection error");
+                    },
+                    success: function(data) {
+                       if(data!="success"){ alert(data);
+                       }else{
+                           window.location="Main.php";
+                       }
+                       // $("#commonLayout_appcreshi").parent().html(data);
+                    }
+                });
+              //  document.getElementById("form").submit();
+                // alert("success");
+                }
+                else  {
+                    alert("Please select at least one connector node to be connected with");
+                }
+            }
+        }
+        else  {
+            alert("Please select whether or not you would like to add a node to an existing pattern");
+        }
+        // document.getElementById("form").submit();
+    }
+    function getNodesFromPattern(){
+        var patternID = document.getElementById('existingPatternConnector').value;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
 
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var result = xmlhttp.responseText;
+                // alert(result);
+                result=eval(result);
+                document.getElementById("existingNodeConnectors").innerHTML = "";
+                for (var i = 0; i < result.length; i++)  {
+                    document.getElementById("existingNodeConnectors").innerHTML += "<option>"+result[i].nid+"</option>";
+                }
+                $('#existingNodeConnectors').multiselect("rebuild");
+            }
+        };
+        xmlhttp.open("POST", "/cs744/ser/getNodes.php", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("pid=" + patternID);
+    }
 </script>
 <script src="../js/googleAnalytics.js"></script>
 </body>

@@ -70,6 +70,5 @@ function getPidByNid($nid){
 function deleteNodesByNid($nid){
     $sql="delete from node where nid='".$nid."'";
     mysql_query($sql);
-
 }
 ?>

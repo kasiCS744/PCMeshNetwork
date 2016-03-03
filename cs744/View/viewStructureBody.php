@@ -28,9 +28,6 @@ if($uid!=null){
                 <li>
                     <a href="changeQuestion.php">Account settings</a>
                 </li>
-                <li>
-                    <a href="displayAddNode.php">Add Node</a>
-                </li>
             </u1>
         </u1>
         <u1 class="nav navbar-nav navbar-right">

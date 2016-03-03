@@ -22,6 +22,10 @@
 	align-content: left;
 }
 
+#buttonSection  {
+	width: 500px;
+}
+
 #logout  {
 /*	color: red;*/
 }
