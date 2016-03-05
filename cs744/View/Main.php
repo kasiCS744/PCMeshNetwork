@@ -7,49 +7,53 @@
  */
 include_once "../dao/getNode.php";
 include_once "../dao/getLink.php";
-session_start();
-$uid=$_SESSION['uid'];
-if($uid==null){
-    header("location:../Login.html");
-}
 $nodeResult=getAllNodes();
 $linkResult=getAllLinks();
 $startNodeList=getAllNodes();
 $destinationNodeList=getAllNodes();
+$nodeList=$startNodeList;
 ?>
 <!doctype html>
 <html>
 <head>
-<!--    <title>Network | Basic usage</title>-->
-<!--    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">-->
-<!--    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>-->
-<!--    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>-->
-<!--    <script type="text/javascript" src="../js/vis.js"></script>-->
-<!--    <link href="../css/vis.css" rel="stylesheet" type="text/css" />-->
-<?php include_once "viewStructureHead.php";?>
+    <!--    <title>Network | Basic usage</title>-->
+    <!--    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">-->
+    <!--    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>-->
+    <!--    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>-->
+    <!--    <script type="text/javascript" src="../js/vis.js"></script>-->
+    <!--    <link href="../css/vis.css" rel="stylesheet" type="text/css" />-->
+    <?php include_once "viewStructureHead.php";?>
     <style type="text/css">
         #mynetwork {
-            width: 1200px;
-            height: 700px;
+            width: 1000px;
+            height: 600px;
             border: 1px solid lightgray;
 
 
         }
 
         p {
-            max-width:700px;
+            max-width:800px;
         }
     </style>
 </head>
 <body>
 <?php include_once "viewStructureBody.php";?>
+
+
 <div class="container" id="firstContainer" align="center">
     <div class="well bs-component">
-    <input type="button" class="btn btn-success" value="sendMessage" onclick="displayDiv('sendMessage')">
-    <input type="button" class="btn btn-info" value="reset Nodes" onclick="resetAllNodesStabilize()">
+        <input type="button" class="btn btn-success" value="send Message" onclick="displayDiv('sendMessage')">
+        <input type="button" class="btn btn-info" value="reset Nodes" onclick="resetAllNodesStabilize()">
         <input type="button" class="btn btn-default" value="show Message Log" onclick="showMessages()">
-        </div>
+        <input type="button" class="btn btn-success" value="show Message By Node ID" onclick="displaySingleNodeMessages()">
+        <input type="button" class="btn btn-info" value="Active" onclick="displayActiveNodeDiv()">
     </div>
+</div>
+
+
+
+
 <div style="display: none;position: absolute;left: 35%;top: 30%;z-index: 9;background:#ffffff;width: auto" id="sendMessage" class="container">
     <form action="#" method="post" id="messageForm">
         <h4 > Start Node</h4> <select name="from" id="from" class="form-control" style="width: 80%">
@@ -65,8 +69,6 @@ $destinationNodeList=getAllNodes();
                 echo "<option value='".$row1['nid']."' id='to".$row1['nid']."'>Node".$row1['nid']."</option>";
             }?>
         </select><br>
-        <!--        <label>Start Node<input type="text" name="from" id="from"></label>-->
-        <!--        <label>Destination Node<input type="text" name="to" id="to"></label><br>-->
         <h4> Message Context<br></h4><label><textarea rows="4" cols="50" name="messageContext" id="messageContext" class="form-control"></textarea></label><br>
         <div align="center"><input type="button" value="Submit" class="btn btn-primary" onclick="beforeSendMessage(document.getElementById('from').value,
         document.getElementById('to').value,document.getElementById('messageContext').value)">
@@ -74,19 +76,53 @@ $destinationNodeList=getAllNodes();
         </div><br>
     </form>
 </div>
+
 <div align="center">
-<div id="mynetwork"></div>
+    <div id="mynetwork"></div>
 </div>
+
+
+
 <div style="display: none;position: absolute;left: 35%;top: 30%;z-index: 9;background: #ffffff;width: auto" id="messageDiv" class="container">
     <div id="showMessage"></div>
     <div align="right">
-    <input type="button" class="btn btn-default" value="Hide" onclick="hideMessageDiv()" >
+        <input type="button" class="btn btn-default" value="Hide" onclick="hideMessageDiv()" >
     </div>
+</div>
+
+
+
+
+<div style="display: none;position: absolute;left: 35%;top: 30%;z-index: 9;background: #ffffff;width: auto" id="singleMessageDiv" class="container">
+    Please select the Node:
+    <select id="singleMessage" class="form-control">
+    </select>
+    <div align="right">
+        <input type="button" value="Confirm" class="btn btn-submit" onclick="receivedMessages()">
+        <input type="button" class="btn btn-default" value="Hide" onclick="hideDiv('singleMessageDiv')">
     </div>
+</div>
+
+
+
+
+<div style="display: none;position: absolute;left: 45%;top: 40%;z-index: 9; background: #ffffff;width: auto" id="activeNodeDiv" class="container">
+  <h4> Please select a Node:</h4><select id="activeNode" class="form-control">
+    </select>
+    <input type="button" class="btn btn-submit" value="submit" onclick="activeNode()">
+    <input type="button" class="btn btn-default" value="Hide" onclick="hideDiv('activeNodeDiv')">
+</div>
 <script type="text/javascript">
     // create an array with nodes
     nodesArray= [
         <?php
+        $point=-1;
+            $pid=-1;
+            $x=0;
+            $y=0;
+            $count=0;
+            $remainder=0;
+            $quotient=0;
         while($row=mysql_fetch_array($nodeResult)){?>
         <?php
         $color="";
@@ -101,8 +137,48 @@ $destinationNodeList=getAllNodes();
         if($row['isActive']=="no"){
         $color='gray';
         }
+        }
+         if($point!=$row['pid']){
+           $count=0;
+            $pid++;
+            $point=$row['pid'];
+           $remainder=$pid%4;
+           $quotient=(int)($pid/4);
+        }
+        $x1=((int)($pid/4)%2*(-1)*15);
+        switch($count){
+        case 0:
+            $x=120+300*$remainder+$x1;
+            $y=70+300*$quotient+($pid%2*(-1)*15);
+            $count++;
+            break;
+        case 1:
+            $x=180+300*$remainder+$x1;
+            $y=70+300*$quotient+($pid%2*(-1)*15);
+            $count++;
+            break;
+        case 2:
+            $x=60+300*$remainder+$x1;
+            $y=140+300*$quotient+($pid%2*(-1)*15);
+            $count++;
+            break;
+        case 3:
+            $x=240+300*$remainder+$x1;
+            $y=140+300*$quotient+($pid%2*(-1)*15);
+            $count++;
+            break;
+        case 4:
+            $x=120+300*$remainder+$x1;
+            $y=210+300*$quotient+($pid%2*(-1)*15);
+            $count++;
+            break;
+        case 5:
+            $x=180+300*$remainder+$x1;
+            $y=210+300*$quotient+($pid%2*(-1)*15);
+            $count++;
+            break;
         }?>
-        {id: <?php echo $row['nid'];?>, label:'<?php echo "Node".$row['nid']?>', color: '<?php echo $color;?>'},
+        {id: <?php echo $row['nid'];?>, label:'<?php echo "N".$row['nid']; if($row['isConnector']==1){echo ",P".$row['pid'];}?>', color: '<?php echo $color;?>',x:<?php echo $x;?>,y:<?php echo $y;?>},
         <?php }?>
 //        {id: 3, label:'hex color', color: '#7BE141'},
 //        {id: 4, label:'rgba color', color: 'rgba(97,195,238,0.5)'},
@@ -129,13 +205,14 @@ $destinationNodeList=getAllNodes();
         edges: edges
     };
     var options = {
-        nodes: {shape:'dot',borderWidth: 1},
+        physics:false,
+        nodes: {shape:'dot',borderWidth: 1,size:15,fixed:false},
+        edges:{},
         interaction: {hover: true}
-    }
+    };
     var network = new vis.Network(container, data, options);
     function change(){
         nodes.update([{id:10, color:'rgb(255,255,7)'}]);
-
     }
     function resetAllNodes() {
         for(var i=0;i<nodesArray.length;i++){
@@ -143,12 +220,51 @@ $destinationNodeList=getAllNodes();
             nodes.update(nodesArray[i]);
         }
     }
-function hideMessageDiv(){
-    document.getElementById('messageDiv').style.display='none';
-}
+    function hideMessageDiv(){
+        document.getElementById('messageDiv').style.display='none';
+    }
+    function activeNode(){
+       // alert(1);
+        var nid=document.getElementById("activeNode").value;
+
+        if(nid==null||nid==undefined){
+            return;
+        }
+        //alert(1);
+        $.post("../ser/activeNodesByNid.php",{nid: nid},function(result){
+            //alert(1);
+            //alert(result);
+            //result=eval(result);
+            result=JSON.parse(result);
+           // alert(result.isConnector);
+            if(result.isConnector==1){
+               // alert(1);
+                nodes.update([{id: result.nid, color:"rgb(255,168,7)"}]);
+            }else if(result.isConnector==0){
+              //  alert(0);
+                nodes.update([{id: result.nid, color:"#7BE141"}]);
+            }
+
+        });
+    }
+    function displaySingleNodeMessages(){
+        document.getElementById('singleMessageDiv').style.display='block';
+       // alert(1);
+        $.post("../ser/getAllNodesId.php", function(result){
+           // alert(result);
+           // $("#div1").html(result);
+            result=eval(result);
+           // alert(document.getElementById("singleMessage").innerHTML);
+            document.getElementById("singleMessage").innerHTML="";
+            for(var i=0;i<result.length;i++){
+               // alert(i);
+                document.getElementById("singleMessage").innerHTML+="<option value='"+result[i]+"'>"+result[i]+"</option>";
+            }
+        });
+    }
     function resetAllNodesStabilize() {
         resetAllNodes();
-        network.stabilize();
+        // network.stabilize();
     }
     var global;
     var from;
@@ -156,11 +272,42 @@ function hideMessageDiv(){
     var message;
     function beforeSendMessage(start,end,messageContext){
         hideDiv("sendMessage");
-        resetAllNodesStabilize();
+        resetAllNodes();
+        //resetAllNodesStabilize();
         from=start;
         to=end;
         message=messageContext;
         global=setInterval("sendMessage()",1500);
+    }
+    function receivedMessages(){
+        var nid=document.getElementById("singleMessage").value;
+      //  alert(nid);
+        $.post("../ser/getMessageByNid.php",{nid: nid},function(result){
+          var string="";
+            result=eval(result);
+            for(var i=0;i<result.length;i++){
+                string+=(i+1)+". "+result[i]+"\n";
+            }
+            if(string==""){
+                alert("No message received for this node");
+            }else {
+                alert(string);
+            }
+        });
+    }
+    function displayActiveNodeDiv(){
+        document.getElementById('activeNodeDiv').style.display='block';
+        $.post("../ser/getInactiveNodes.php", function(result){
+            // alert(result);
+            // $("#div1").html(result);
+            result=eval(result);
+            // alert(document.getElementById("singleMessage").innerHTML);
+            document.getElementById("activeNode").innerHTML="";
+            for(var i=0;i<result.length;i++){
+                // alert(i);
+                document.getElementById("activeNode").innerHTML+="<option value='"+result[i]+"'>"+result[i]+"</option>";
+            }
+        });
     }
     function showMessages(){
         var xmlhttp = new XMLHttpRequest();
@@ -168,7 +315,7 @@ function hideMessageDiv(){
         xmlhttp.onreadystatechange = function() {
 
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-               result=eval(xmlhttp.responseText);
+                result=eval(xmlhttp.responseText);
                 var table="<table class='table table-bordered'><tr><td>Start Node</td><td>End Node</td><td>MessageContext</td><td>State</td></tr>";
                 for(var i=0;i<result.length;i++){
                     table+="<tr><td>";
@@ -192,17 +339,16 @@ function hideMessageDiv(){
     function sendMessage(){
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
-
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 result=xmlhttp.responseText;
-               // result=eval(result);
+                // result=eval(result);
                 if(result=="fail"){
-                    alert("Cannot find a path to send this message");
+                    alert("Can not find a way to send this message");
                     clearInterval(global);
 
                 }else if(result=="success"){
                     nodes.update([{id: from, color: {background: 'red'}}]);
-                    alert("Node "+to+" received the message\nContent is:"+message);
+                    alert("Node"+to+" already received the message\n Content is:"+message);
                     clearInterval(global);
                 }else {
                     nodes.update([{id: from, color: {background: 'red'}}]);
@@ -222,6 +368,7 @@ function hideMessageDiv(){
         document.getElementById(id).style.display="none";
     }
     network.on("doubleClick", function (params) {
+        //  alert(1);
         if(params.nodes==""){
             return;
         }
@@ -236,16 +383,16 @@ function hideMessageDiv(){
                     var result = xmlhttp.responseText;
                     // alert(result);
                     if (result == "fail") {
-                        alert("Cannot delete this node because one or more nodes rely on it");
+                        alert("Can not delete this node because one or more nodes are rely on it");
                     }else if(result=="patternFail"){
-                        alert("This connector node can not be deleted because there are still normal node(s) in its pattern");
+                        alert("This connector node can not be deleted because there still has normal node(s) in this pattern");
 
                     } else if (result == "normalSuccess") {
                         nodes.remove({id: nodeId});
                         nodesArray=nodes;
                         //alert(document.getElementById("from"+nodeId));
                     } else if (result = "connectorSuccess") {
-                      //  window.location.reload();
+                        //  window.location.reload();
                         nodes.remove({id: nodeId});
                         nodesArray=nodes;
                     }

@@ -8,11 +8,11 @@
 //include_once "../dao/getUser_Security.php";
 //include_once "../dao/getSecurity.php";
 //include_once "../dao/DBHelper.php";
-$con=mysql_connect("localhost:3306","root","");
+$con=mysql_connect("localhost:3306","root","5656123ljx");
 if(!$con){
     die('Could not connect: ' . mysql_error());
 }
-mysql_select_db("cs744",$con);
+mysql_select_db("test",$con);
 
 function getQuestionAndAnswerPairByUid($uid){
     $result=getUser_SecurityByUid($uid);

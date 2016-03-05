@@ -211,49 +211,51 @@ $nodeResult=getAllNodes();
 <!--        </u1>-->
 <!--    </div>-->
 <!--</div>-->
-<div id="nodeContainer" class="container" align="center">
-    <div class="well bs-component">
-        <form action="../ser/addNode.php" id="form" method="post" class="form-signin">
-            <label id="newPatternLabel">Would you like to add the node to an existing pattern?</label>
-            <select id="isConnector" name="isConnector" class="form-signin" onchange="enableDrop()">
-                <option disabled selected> -- select an option -- </option>
-                <option value="0">Yes</option>
-                <option value="1">No</option>
-            </select>
-            <br>
-            <label id="patternLabel">Please select an existing pattern to connect with</label>
-            <br>
-            <select onchange="getNodesFromPattern()" disabled class="form-control" name="pid" id="existingPatternConnector">
-                <option disabled selected> -- select an option -- </option>
-                <?php while($row=mysql_fetch_array($nodeResult)) : ?>
-                    <?php if($row['isConnector']==1)  {?>
-                        <option value="<?php echo $row['pid'];?>"><?php echo $row['pid'];?></option>
-                    <?php }?>
-                <?php endwhile; ?>
-                <?php $nodeResult = getAllNodes();
-                ?>
-            </select>
-            <br>
-            <label id="existingLabel">Please select one or more nodes from the pattern to connect with</label>
-            <br>
-            <select multiple="multiple" class="form-signin" name="nodes0[]" id="existingNodeConnectors"></select>
-            <br>
-            <label id="connectorLabel">Please select the connector node with which to connect</label>
-            <br>
-            <select multiple="multiple" class="form-signin" name="nodes1[]" id="newPatternConnectors">
-                <?php while($row=mysql_fetch_array($nodeResult)) : ?>
-                    <?php if($row['isConnector']==1)  {?>
-                        <option><?php echo $row['nid'];?></option>
-                    <?php }?>
-                <?php endwhile; ?>
-                <?php $nodeResult = getAllNodes(); ?>
-            </select>
-            <br>
-            <br>
-            <button class="btn btn-lg btn-primary" type="button" onclick="differentSubmit()">Add Node</button>
-            <button class="btn btn-lg btn-warning" type="reset">Reset</button>            
-        </form>
-    </div>
+<div id="firstSmallContainer" class="container" align="center">
+    <div id="nodeContainer" class="container" align="center">
+        <div class="well bs-component">
+            <form action="../ser/addNode.php" id="form" method="post" class="form-signin">
+                <label id="newPatternLabel">Would you like to add the node to an existing pattern?</label>
+                <select id="isConnector" name="isConnector" class="form-signin" onchange="enableDrop()">
+                    <option disabled selected> -- select an option -- </option>
+                    <option value="0">Yes</option>
+                    <option value="1">No</option>
+                </select>
+                <br>
+                <label id="patternLabel">Please select an existing pattern to connect with</label>
+                <br>
+                <select onchange="getNodesFromPattern()" disabled class="form-control" name="pid" id="existingPatternConnector">
+                    <option disabled selected> -- select an option -- </option>
+                    <?php while($row=mysql_fetch_array($nodeResult)) : ?>
+                        <?php if($row['isConnector']==1)  {?>
+                            <option value="<?php echo $row['pid'];?>"><?php echo $row['pid'];?></option>
+                        <?php }?>
+                    <?php endwhile; ?>
+                    <?php $nodeResult = getAllNodes();
+                    ?>
+                </select>
+                <br>
+                <label id="existingLabel">Please select one or more nodes from the pattern to connect with</label>
+                <br>
+                <select multiple="multiple" class="form-signin" name="nodes0[]" id="existingNodeConnectors"></select>
+                <br>
+                <label id="connectorLabel">Please select the connector node with which to connect</label>
+                <br>
+                <select multiple="multiple" class="form-signin" name="nodes1[]" id="newPatternConnectors">
+                    <?php while($row=mysql_fetch_array($nodeResult)) : ?>
+                        <?php if($row['isConnector']==1)  {?>
+                            <option><?php echo $row['nid'];?></option>
+                        <?php }?>
+                    <?php endwhile; ?>
+                    <?php $nodeResult = getAllNodes(); ?>
+                </select>
+                <br>
+                <br>
+                <button class="btn btn-lg btn-primary" type="button" onclick="differentSubmit()">Add Node</button>
+                <button class="btn btn-lg btn-warning" type="reset">Reset</button>            
+            </form>
+        </div>
+    </div>    
 </div>
 </body>
 <script type="text/javascript">
@@ -317,7 +319,27 @@ $nodeResult=getAllNodes();
             }
         }
         else if (document.getElementById("isConnector").value == "1")  {
-            if ($('#newPatternConnectors').val() != null)  {
+            if ($('#newPatternConnectors').prop("options")[0] == undefined)  {
+                $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url:"../ser/addFirstPattern.php",
+                    data:$('#form').serialize(),
+                    async: false,
+                    error: function(request) {
+                        alert("Connection error");
+                    },
+                    success: function(data) {
+                       if(data!="success"){ alert(data);
+                       }else{
+                           window.location="Main.php";
+                       }
+                       // $("#commonLayout_appcreshi").parent().html(data);
+                    }
+                });                
+            }
+            else  {
+                if ($('#newPatternConnectors').val() != null)  {
                 $.ajax({
                     cache: true,
                     type: "POST",
@@ -337,9 +359,10 @@ $nodeResult=getAllNodes();
                 });
               //  document.getElementById("form").submit();
                 // alert("success");
-            }
-            else  {
-                alert("Please select at least one connector node to be connected with");
+                }
+                else  {
+                    alert("Please select at least one connector node to be connected with");
+                }
             }
         }
         else  {

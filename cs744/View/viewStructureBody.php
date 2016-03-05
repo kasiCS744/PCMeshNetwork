@@ -16,6 +16,9 @@ if($uid!=null){
 }
 ?>
 <div class="navbar navbar-default navbar-fixed-top">
+    <div align="center" style="background-image: url('../css/login_background.jpg')">
+        <img src="../css/titleImage.PNG" align="middle" style="height:100px; width: 50%">
+    </div>
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="Main.php">Home</a>

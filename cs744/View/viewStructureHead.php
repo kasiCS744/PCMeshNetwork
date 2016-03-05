@@ -13,3 +13,4 @@
 <link href="../css/bootstrap.css" rel="stylesheet">
 <link href="../css/loginScreen.css" rel="stylesheet">
 <link href="../css/nodeDisplay.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>

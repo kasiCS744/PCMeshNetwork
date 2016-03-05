@@ -14,4 +14,13 @@ function getAllMessages(){
     $sql="select * from message";
     return mysql_query($sql);
 }
+function getMessagesByDestinationID($id){
+    $sql="select * from message where destination='".$id."'";
+    return mysql_query($sql);
+   // return $sql;
+}
+function getMessageByStartID($id){
+    $sql="select * from message where nid='".$id."'";
+    return mysql_query($sql);
+}
 ?>

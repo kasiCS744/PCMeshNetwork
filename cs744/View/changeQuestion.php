@@ -23,46 +23,24 @@ if($uid!=null){
     $lastName=$user['lastName'];
 }
 ?>
-<div class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="Main.php">Home</a>
-        </div>
-        <u1 class="nav navbar-nav">
-            <u1 class="nav navbar-nav">
-                <li>
-                    <a href="changeQuestion.php">Account settings</a>
-                </li>
-                <li>
-                    <a href="displayAddNode.php">Add Node</a>
-                </li>
-            </u1>
-        </u1>
-        <u1 class="nav navbar-nav navbar-right">
-            <li>
-                <p class="navbar-text">Logged in as <?php echo "".$firstName." ".$lastName;?></p>
-            </li>
-            <li>
-                <a id="logout" href="../ser/logout.php"> Logout</a>
-            </li>
-        </u1>
-    </div>
-</div>
+<?php include_once "viewStructureBody.php";?>
 <br>
 <br><br>
 
-<div class="containers" ng-app="myApp" ng-controller="customersCtrl">
+<div class="container" id="firstSmallContainer" align="center">
+    <div class="containers" ng-app="myApp" ng-controller="customersCtrl">
 
-    <h3>Change Security Questions</h3></br>
+        <h3>Change Security Questions</h3></br>
 
-    <div>
-        <div class="div_qanda" ng-repeat="val in values">
-            <label class="lab_question col-md-8">{{ val.question }}</label>
-            <input type="text" class="col-md-3" ng-model="val.answer">
-        </div>
-        <div class="div_button">
-            <button type="button" class="btn btn-success" ng-click="saveQuestions()">Save</button>
-            <button type="button" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+        <div>
+            <div class="div_qanda" ng-repeat="val in values">
+                <label class="lab_question col-md-8">{{ val.question }}</label>
+                <input type="text" class="col-md-3" ng-model="val.answer">
+            </div>
+            <div class="div_button">
+                <button type="button" class="btn btn-success" ng-click="saveQuestions()">Save</button>
+                <button type="button" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+            </div>
         </div>
     </div>
 </div>
