@@ -7,6 +7,7 @@
  */
 include_once "../dao/getNode.php";
 include_once "../dao/getLink.php";
+include_once "../dao/getSetting.php";
 session_start();
 $uid=$_SESSION['uid'];
 if($uid==null){
@@ -17,6 +18,7 @@ $linkResult=getAllLinks();
 $startNodeList=getAllNodes();
 $destinationNodeList=getAllNodes();
 $reActivateNodeList=getAllNodes();
+$activeNodes=getAllNodes();
 ?>
 <!doctype html>
 <html>
@@ -26,17 +28,6 @@ $reActivateNodeList=getAllNodes();
 <link rel="stylesheet" href="../css/bootstrap-multiselect.css" type="text/css">
 <script type="text/javascript" src="../js/bootstrap-multiselect.js"></script>
 <?php include_once "viewStructureHead.php";?>
-    <style type="text/css">
-/*        #mynetwork {
-            width: 1200px;
-            height: 700px;
-            border: 1px solid lightgray;
-        }*/
-/*        p {
-            max-width:700px;
-        }*/
-    </style>
-
     <script type="text/javascript">
         $(document).ready(function() {
             $('#newPatternConnectors').multiselect();
@@ -44,6 +35,7 @@ $reActivateNodeList=getAllNodes();
             $('#existingNodeConnectors').multiselect();
             $('#existingNodeConnectors').multiselect("disable");            
             $('#inactiveNodeList').multiselect();
+            $('#activeNodeList').multiselect();            
         });
     </script>
 </head>
@@ -158,8 +150,24 @@ $reActivateNodeList=getAllNodes();
             <input type="button" class="btn btn-default" value="Hide" onclick="hideMessageDiv()" >
         </div>
     </div>
+    <form action="#" method="post" id="sliderForm">
+        <input id="sliderSetting" name="sliderSetting" value="<?php echo getSetting();?>" type="range" min="0" max="100" step="20" onchange="beforeInactivateNode()" />
+        <div style="display: none">
+            <select multiple="multiple" class="form-signin" name="activeNodes[]" id="activeNodeList">
+                <?php while($row=mysql_fetch_array($activeNodes)) : ?>
+                <?php if($row['isActive']=="yes")  {?>
+                    <option><?php echo $row['nid'];?></option>
+                <?php }?>
+                <?php endwhile; ?>
+            </select>
+        </div> 
+    </form>
 </div>
 <script type="text/javascript">
+
+    $('option', $('#activeNodeList').multiselect()).each(function(element) {
+        $('#activeNodeList').multiselect('select', $(this).val());
+    });   
     // create an array with nodes
     nodesArray= [
         <?php
@@ -232,6 +240,20 @@ $reActivateNodeList=getAllNodes();
     var to;
     var message;
 
+    function postValue()  {
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                result=xmlhttp.responseText;
+                //alert(result);
+            }
+        };
+        xmlhttp.open("POST", "/cs744/static/timerManagement.php", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("sliderSetting="+document.getElementById('sliderSetting').value);     
+    }
     function beforeSendMessage(start,end,messageContext){
         hideDiv("sendMessage");
         resetAllNodesStabilize();
@@ -240,6 +262,11 @@ $reActivateNodeList=getAllNodes();
         message=messageContext;
         global=setInterval("sendMessage()",1500);
     }
+
+    function beforeInactivateNode(){
+        setInterval("postValue()",10000);
+    }
+
     function reActivateNodes()  {
 
         if ($('#inactiveNodeList').val() == "NONE SELECTED")  {
