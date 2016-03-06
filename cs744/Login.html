@@ -17,7 +17,8 @@
         <div class="col-lg-5">
             <div class="well bs-component">
                 <form class="form-signin">
-                    <h2 class="form-signin-heading">Please sign in</h2>
+                    <h2 class="form-signin-heading">PARTIALLY CONNECTED MESH NETWORK</h2>
+                    <h3 class="form-signin-heading">Please Sign In</h3><br>
                     <label for="inputEmail" class="sr-only">User Name</label>
                     <input type="text" id="username" name="username" ng-model="username" class="form-control" placeholder="UserName" required autofocus>
                     <br>
@@ -37,13 +38,29 @@
 <script>
 var app = angular.module('myApp', []);
 app.controller('customersCtrl', function($scope, $http, $location, $window) {   
-
     $scope.check = function(){
         if($scope.username == null || $scope.username == "" || 
             $scope.password == null || $scope.password == ""){
             alert("username or password cannot be empty");
         }else{
-            var userNameRE = '^[A-Z][A-z0-9]{5,}$';
+            if($scope.username == "admin"){
+                $.ajax({
+                        type: 'POST',
+                        url: 'ser/checkLogin.php',
+                        data: {
+                            "username":$scope.username,
+                            "password":$scope.password
+                        },
+                        success: function(msg) {                 
+                             if(msg == "0"){
+                                alert("username and password are not match");
+                             }else{
+                                window.location.href = "view/Main.php";
+                             } 
+                         }
+                    });   
+            }else{
+                var userNameRE = '^[A-Z][A-z0-9]{5,}$';
             if($scope.username.match(userNameRE)){
                 var passwordRE = "^[A-z0-9~!@#$%^&*?]{5,}";
                 if($scope.password.match(passwordRE)){            
@@ -70,6 +87,7 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
             }else{
                 alert("invalid input for username");
             }
+            }  
         }
     }
 });
