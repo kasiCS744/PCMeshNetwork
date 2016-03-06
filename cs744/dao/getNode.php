@@ -28,12 +28,24 @@ function getMaxNid(){
     $result=mysql_query($sql);
     return mysql_fetch_array($result)[0];
 }
-function getAllNodes(){
-    $sql="select * from node";
+function getAllNodesByPid(){
+    $sql="select * from node order by pid";
+    return mysql_query($sql);
+}
+function getAllNodes()  {
+    $sql = "select * from node order by nid";
     return mysql_query($sql);
 }
 function getAllActiveNodes()  {
     $sql="select * from node where isActive='yes'";
+    return mysql_query($sql);
+}
+function updateIsActiveToYesByNid($nid){
+    $sql="update node set isActive='yes' where nid='".$nid."'";
+    mysql_query($sql);
+}
+function getInactiveNodes(){
+    $sql="select * from node where isActive='no'";
     return mysql_query($sql);
 }
 function getNodeCount(){

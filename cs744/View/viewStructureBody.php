@@ -25,10 +25,36 @@ if($uid!=null){
         </div>
         <u1 class="nav navbar-nav">
             <u1 class="nav navbar-nav">
-                <li>
-                    <a href="changeQuestion.php">Account settings</a>
+                <?php 
+                    echo $user['username'];
+                    if ($user['username'] != "admin")  {
+                ?>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account Settings <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                    <li><a href="changeQuestion.php">Update Security Questions</a></li>
+                    <li><a href="ChangePassword.php">Change Password</a></li>
+                    </ul>
                 </li>
+                <?php 
+                    }
+                ?>
+                <?php 
+                    echo $user['username'];
+                    if ($user['username'] == "admin")  {
+                ?>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin Settings <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                    <li><a href="createUser.php">Create User</a></li>
+                    <li><a href="allUsers.php">View/Delete User</a></li>
+                    </ul>
+                </li>
+                <?php 
+                    }
+                ?>
             </u1>
+
         </u1>
         <u1 class="nav navbar-nav navbar-right">
             <li>

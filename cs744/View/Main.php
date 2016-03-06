@@ -18,15 +18,11 @@ $linkResult=getAllLinks();
 $startNodeList=getAllNodes();
 $destinationNodeList=getAllNodes();
 $reActivateNodeList=getAllNodes();
-$activeNodes=getAllNodes();
+
 ?>
 <!doctype html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="../css/bootstrap-multiselect.css" type="text/css">
-<script type="text/javascript" src="../js/bootstrap-multiselect.js"></script>
 <?php include_once "viewStructureHead.php";?>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -46,26 +42,8 @@ $activeNodes=getAllNodes();
         <input type="button" class="btn btn-success" value="send Message" onclick="displayDiv('sendMessage')">
         <input type="button" class="btn btn-info" value="reset Nodes" onclick="resetAllNodesStabilize()">
         <input type="button" class="btn btn-default" value="show Message Log" onclick="showMessages()">
-        <input type="button" class="btn btn-primary" value="Re-Activate Nodes" onclick="displayDiv('reActivate')">
-        <div style="display: none; position: absolute; left: 45%; top: 30%;z-index: 9; background:#e6f9ff; width: auto; margin-top: 20px" id="reActivate" class="container">
-            <label id="reactivationLabel">Reactivate a node</label>
-            <br>
-            <form action="../ser/reActivateNode.php" id="form2" method="post" class="form-signin">
-                <select multiple="multiple" class="form-signin" name="inactiveNodes[]" id="inactiveNodeList">
-                    <?php while($row=mysql_fetch_array($reActivateNodeList)) : ?>
-                        <?php if($row['isActive']=="no")  {?>
-                            <option><?php echo $row['nid'];?></option>
-                        <?php }?>
-                    <?php endwhile; ?>
-                </select> 
-                <br>
-                <br>
-                <div align="center">
-                    <input type="button" value="Submit" class="btn btn-primary" onclick="reActivateNodes()">
-                    <input type="button" class="btn btn-default" value="Hide" onclick="hideDiv('reActivate')">
-                </div>
-            </form>
-        </div>
+        <input type="button" class="btn btn-success" value="show Message By Node ID" onclick="displaySingleNodeMessages()">
+        <input type="button" class="btn btn-info" value="Re-Activate" onclick="displayActiveNodeDiv()">
         <input type="button" class="btn btn-warning" value="Add node" onclick="displayDiv('addNode')">
         <div style="display: none; position: absolute; border: 5px; left: 30%; top: 30%; z-index: 9; background:#e6f9ff; width: 40%" id="addNode" class="container">
             <form style="margin-top: 20px; margin-bottom: 20px" action="../ser/addNode.php" id="form" method="post" class="form-signin">
@@ -85,7 +63,7 @@ $activeNodes=getAllNodes();
                                 <option value="<?php echo $row['pid'];?>"><?php echo $row['pid'];?></option>
                             <?php }?>
                         <?php endwhile; ?>
-                        <?php $nodeResult = getAllNodes();
+                        <?php $nodeResult = getAllNodesByPid();
                     ?>
                 </select>
                 <br>
@@ -101,7 +79,7 @@ $activeNodes=getAllNodes();
                             <option><?php echo $row['nid'];?></option>
                         <?php }?>
                     <?php endwhile; ?>
-                    <?php $nodeResult = getAllNodes(); ?>
+                    <?php $nodeResult = getAllNodesByPid(); ?>
                 </select>
                 <br>
                 <br>
@@ -162,31 +140,91 @@ $activeNodes=getAllNodes();
             </select>
         </div> 
     </form>
+    <div style="display: none;position: absolute;left: 35%;top: 30%;z-index: 9;background: #ffffff;width: auto" id="singleMessageDiv" class="container">
+        Please select the Node:
+        <select id="singleMessage" class="form-control">
+        </select>
+        <div align="right">
+            <input type="button" value="Confirm" class="btn btn-submit" onclick="receivedMessages()">
+            <input type="button" class="btn btn-default" value="Hide" onclick="hideDiv('singleMessageDiv')">
+        </div>
+    </div>
+    <div style="display: none;position: absolute;left: 45%;top: 40%;z-index: 9; background: #ffffff;width: auto" id="activeNodeDiv" class="container">
+        <h4> Please select a Node:</h4>
+        <select id="activeNode" class="form-control">
+        </select>
+        <input type="button" class="btn btn-submit" value="submit" onclick="activeNode()">
+        <input type="button" class="btn btn-default" value="Hide" onclick="hideDiv('activeNodeDiv')">
+    </div>    
 </div>
 <script type="text/javascript">
 
-    $('option', $('#activeNodeList').multiselect()).each(function(element) {
-        $('#activeNodeList').multiselect('select', $(this).val());
-    });   
     // create an array with nodes
     nodesArray= [
         <?php
+        $point=-1;
+            $pid=-1;
+            $x=0;
+            $y=0;
+            $count=0;
+            $remainder=0;
+            $quotient=0;
         while($row=mysql_fetch_array($nodeResult)){?>
         <?php
         $color="";
-        if($row['isConnector']==1){
-        $color="rgb(255,168,7)";
-        if($row['isActive']=="no"){
-        $color='gray';
+        if($row['isConnector'] ==1)  {
+            $color = "rgb(255,168,7)";
+            if($row['isActive']=="no"){
+                $color='gray';
+            }
         }
-        }else
-        {
-         $color="#7BE141";
-        if($row['isActive']=="no"){
-        $color='gray';
+        else  {
+            $color = "#7BE141";
+            if ($row['isActive'] == "no")  {
+                $color = 'gray';
+            }  
         }
+        if($point!=$row['pid']){
+            $count=0;
+            $pid++;
+            $point=$row['pid'];
+            $remainder=$pid%4;
+            $quotient=(int)($pid/4);
+        }
+        $x1=((int)($pid/4)%2*(-1)*15);
+        switch($count){
+        case 0:
+            $x=120+300*$remainder+$x1;
+            $y=70+300*$quotient+($pid%2*(-1)*15);
+            $count++;
+            break;
+        case 1:
+            $x=180+300*$remainder+$x1;
+            $y=70+300*$quotient+($pid%2*(-1)*15);
+            $count++;
+            break;
+        case 2:
+            $x=60+300*$remainder+$x1;
+            $y=140+300*$quotient+($pid%2*(-1)*15);
+            $count++;
+            break;
+        case 3:
+            $x=240+300*$remainder+$x1;
+            $y=140+300*$quotient+($pid%2*(-1)*15);
+            $count++;
+            break;
+        case 4:
+            $x=120+300*$remainder+$x1;
+            $y=210+300*$quotient+($pid%2*(-1)*15);
+            $count++;
+            break;
+        case 5:
+            $x=180+300*$remainder+$x1;
+            $y=210+300*$quotient+($pid%2*(-1)*15);
+            $count++;
+            break;
         }?>
-        {id: <?php echo $row['nid'];?>, label:'<?php echo "Node".$row['nid']?>', color: '<?php echo $color;?>'},
+         {id: <?php echo $row['nid'];?>, label:'<?php echo "N".$row['nid']; if($row['isConnector']==1){echo ",P".$row['pid'];}?>', color: '<?php echo $color;?>',x:<?php echo $x;?>,y:<?php echo $y;?>},
         <?php }?>
 //        {id: 3, label:'hex color', color: '#7BE141'},
 //        {id: 4, label:'rgba color', color: 'rgba(97,195,238,0.5)'},
@@ -194,6 +232,7 @@ $activeNodes=getAllNodes();
 //        {id: 6, label:'colorObject + highlight', color: {background:'#F03967', border:'#713E7F',highlight:{background:'red',border:'black'}}},
 //        {id: 7, label:'colorObject + highlight + hover', color: {background:'cyan', border:'blue',highlight:{background:'red',border:'blue'},hover:{background:'white',border:'red'}}}
     ];
+
     nodes = new vis.DataSet(nodesArray);
 
     // create an array with edges
@@ -213,9 +252,11 @@ $activeNodes=getAllNodes();
         edges: edges
     };
     var options = {
-        nodes: {shape:'dot',borderWidth: 1},
+        physics:false,
+        nodes: {shape:'dot',borderWidth: 1,size:15,fixed:false},
+        edges:{},
         interaction: {hover: true}
-    }
+    };
     var network = new vis.Network(container, data, options);
     function change(){
         nodes.update([{id:10, color:'rgb(255,255,7)'}]);
@@ -230,9 +271,48 @@ $activeNodes=getAllNodes();
     function hideMessageDiv(){
         document.getElementById('messageDiv').style.display='none';
     }
+    function activeNode(){
+       // alert(1);
+        var nid=document.getElementById("activeNode").value;
+
+        if(nid==null||nid==undefined){
+            return;
+        }
+        //alert(1);
+        $.post("../ser/activeNodesByNid.php",{nid: nid},function(result){
+            //alert(1);
+            //alert(result);
+            //result=eval(result);
+            result=JSON.parse(result);
+           // alert(result.isConnector);
+            if(result.isConnector==1){
+               // alert(1);
+                nodes.update([{id: result.nid, color:"rgb(255,168,7)"}]);
+            }else if(result.isConnector==0){
+              //  alert(0);
+                nodes.update([{id: result.nid, color:"#7BE141"}]);
+            }
+
+        });
+    }
+    function displaySingleNodeMessages(){
+        document.getElementById('singleMessageDiv').style.display='block';
+       // alert(1);
+        $.post("../ser/getAllNodesId.php", function(result){
+           // alert(result);
+           // $("#div1").html(result);
+            result=eval(result);
+           // alert(document.getElementById("singleMessage").innerHTML);
+            document.getElementById("singleMessage").innerHTML="";
+            for(var i=0;i<result.length;i++){
+               // alert(i);
+                document.getElementById("singleMessage").innerHTML+="<option value='"+result[i]+"'>"+result[i]+"</option>";
+            }
+        });
+    }
     function resetAllNodesStabilize() {
         resetAllNodes();
-        network.stabilize();
+        // network.stabilize();
     }
 
     var global;
@@ -256,38 +336,67 @@ $activeNodes=getAllNodes();
     }
     function beforeSendMessage(start,end,messageContext){
         hideDiv("sendMessage");
-        resetAllNodesStabilize();
+        resetAllNodes();
         from=start;
         to=end;
         message=messageContext;
         global=setInterval("sendMessage()",1500);
     }
-
+    function receivedMessages(){
+        var nid=document.getElementById("singleMessage").value;
+      //  alert(nid);
+        $.post("../ser/getMessageByNid.php",{nid: nid},function(result){
+          var string="";
+            result=eval(result);
+            for(var i=0;i<result.length;i++){
+                string+=(i+1)+". "+result[i]+"\n";
+            }
+            if(string==""){
+                alert("No message received for this node");
+            }else {
+                alert(string);
+            }
+        });
+    }
+    function displayActiveNodeDiv(){
+        document.getElementById('activeNodeDiv').style.display='block';
+        $.post("../ser/getInactiveNodes.php", function(result){
+            // alert(result);
+            // $("#div1").html(result);
+            result=eval(result);
+            // alert(document.getElementById("singleMessage").innerHTML);
+            document.getElementById("activeNode").innerHTML="";
+            for(var i=0;i<result.length;i++){
+                // alert(i);
+                document.getElementById("activeNode").innerHTML+="<option value='"+result[i]+"'>"+result[i]+"</option>";
+            }
+        });
+    }
     function beforeInactivateNode(){
         setInterval("postValue()",10000);
     }
 
-    function reActivateNodes()  {
+    // function reActivateNodes()  {
 
-        if ($('#inactiveNodeList').val() == "NONE SELECTED")  {
-            $.ajax({
-                cache: true,
-                type: "POST",
-                url:"../ser/reActivateNode.php",
-                data:$('#form2').serialize(),
-                async: false,
-                error: function(request) {
-                    alert("Connection error");
-                },
-                success: function(data) {
-                    window.location="Main.php";
-                }
-            });
-        }
-        else  {
-            alert("Please select at least one node to re-activate");
-        }
-    }
+    //     if ($('#inactiveNodeList').val() == "NONE SELECTED")  {
+    //         $.ajax({
+    //             cache: true,
+    //             type: "POST",
+    //             url:"../ser/reActivateNode.php",
+    //             data:$('#form2').serialize(),
+    //             async: false,
+    //             error: function(request) {
+    //                 alert("Connection error");
+    //             },
+    //             success: function(data) {
+    //                 window.location="Main.php";
+    //             }
+    //         });
+    //     }
+    //     else  {
+    //         alert("Please select at least one node to re-activate");
+    //     }
+    // }
     function showMessages(){
         var xmlhttp = new XMLHttpRequest();
         var result="";

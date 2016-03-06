@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<!--<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
 <link href="../css/securityQuestion.css" rel="stylesheet">
-<script type="text/javascript" src="../js/vis.js"></script>
-<link href="css/vis.css" rel="stylesheet" type="text/css" />
-<link href="../css/bootstrap.css" rel="stylesheet">
-<link href="../css/loginScreen.css" rel="stylesheet">
-<link href="../css/nodeDisplay.css" rel="stylesheet">
+<head> <?php include_once "viewStructureHead.php"; ?></head>
 <body>
 <?php
 session_start();
