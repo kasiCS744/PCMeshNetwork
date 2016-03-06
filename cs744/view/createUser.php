@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html>
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <link href="../css/securityQuestion.css" rel="stylesheet">
-<link href="../css/bootstrap.css" rel="stylesheet">
-<link href="../css/loginScreen.css" rel="stylesheet">
+<head> <?php include_once "viewStructureHead.php"; ?></head>
 <body>
+<?php
+session_start();
+$uid=$_SESSION['uid'];
+include_once "../dao/getUser.php";
+$firstName="";
+$lastName="";
+if($uid!=null){
+    $user=mysql_fetch_array(getUserByUid($uid));
+    $firstName=$user['firstName'];
+    $lastName=$user['lastName'];
+}
+?>
 <?php include_once "viewStructureBody.php";?>
 <br>
 <br><br><br><br><br>
@@ -30,7 +39,11 @@
 			<label class="col-md-4">Password: </label>
 			<input type="password" ng-model="password">			
 		</div>
-	
+		<div style="margin-bottom:20px;">
+			<label class="col-md-4">Confirm Password: </label>
+			<input type="password" ng-model="confirmPassword">	
+			<label style="color:red;" ng-show="checkTwoPassword()">password not match</label>		
+		</div>	
 		<div>
 			<button type="button" class="btn btn-success col-md-3" 
 				style="margin-top:50px;margin-bottom:50px;" ng-click="createUser()" 
@@ -63,10 +76,14 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
 		if($scope.password == "" || $scope.password == null){
 			return true;
 		}
+		if($scope.confirmPassword == "" || $scope.confirmPassword == null){
+			return true;
+		}
 		return false;
 	}
 
 	$scope.createUser = function(){
+
 		var userNameRE = '^[A-Z][A-z0-9]{5,}$';
         if($scope.userName.match(userNameRE)){
         	var passwordRE = "^[A-z0-9~!@#$%^&*?]{5,}";
@@ -80,7 +97,7 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
                         	"lastName" : $scope.lastName,
                             "password" : $scope.password
                         },
-                        success: function(response) {                         	
+                        success: function(response) {                     	
                              if(response == "0"){
                              	alert("create user successfully");
                                 window.location.href = "Main.php";
@@ -99,6 +116,13 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
 	}
 	$scope.cancel = function(){
 		window.location.href = "Main.php";
+	}
+
+	$scope.checkTwoPassword = function(){
+		if($scope.password == $scope.confirmPassword){
+			return false;
+		}
+		return true;
 	}
 
 });

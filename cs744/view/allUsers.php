@@ -7,9 +7,11 @@
 <link href="../css/securityQuestion.css" rel="stylesheet">
 <link href="../css/loginScreen.css" rel="stylesheet">
 <link href="../css/bootstrap.css" rel="stylesheet">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <body>
-<?php include_once "viewStructureBody.php";?>
+<?php session_start();
+	$uid=$_SESSION['uid']; 
+	include_once "viewStructureBody.php";
+?>
 <br>
 <br><br><br><br><br>
 
@@ -34,8 +36,7 @@
 				<td>{{user.firstName}}</td>
 				<td>{{user.lastName}}</td>
 				<td>				
-				<a href="#"><span class="glyphicon glyphicon-remove" ng-click="deleteUser(user)"></span></a>
-				</button> 
+				<button type="button" class="btn btn-danger" ng-click="deleteUser(user)">Delete</button>
 				</td>
 			</tr>
 			</tbody>
@@ -64,6 +65,7 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
 
 	$scope.deleteUser = function(user){
 		console.log("delete user: "+user.uid);
+		if(confirm("Are you sure you would like to delete " + user.userName + "?"))  {
 			$.ajax({
                 type: 'post',
                 url: '../ser/deleteUser.php',
@@ -80,6 +82,7 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
                     }
                 }
             }); 
+		}
 	}
 
 	$scope.getUsers = function(){		

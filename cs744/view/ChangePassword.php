@@ -5,8 +5,12 @@
 <link href="../css/securityQuestion.css" rel="stylesheet">
 <link href="../css/bootstrap.css" rel="stylesheet">
 <link href="../css/loginScreen.css" rel="stylesheet">
+<head> <?php include_once "viewStructureHead.php"; ?></head>
 <body>
-<?php include_once "viewStructureBody.php";?>
+<?php
+session_start();
+$uid=$_SESSION['uid'];
+include_once "viewStructureBody.php";?>
 <br>
 <br><br><br><br><br>
 
