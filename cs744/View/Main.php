@@ -35,17 +35,31 @@ $reActivateNodeList=getAllNodes();
         });
     </script>
 </head>
-<body>
 <?php include_once "viewStructureBody.php";?>
 <div class="container" id="firstContainer" align="center">
-    <div style="width: 60%" id="buttonSection" class="well bs-component">
-        <input type="button" class="btn btn-success" value="send Message" onclick="displayDiv('sendMessage')">
+    <div style="width: 20%; float: left" id="buttonSection" class="well bs-component">
+        <input type="button" class="btn btn-danger" value="send Message" onclick="displayDiv('sendMessage')">
         <input type="button" class="btn btn-info" value="reset Nodes" onclick="resetAllNodesStabilize()">
-        <input type="button" class="btn btn-default" value="show Message Log" onclick="showMessages()">
+        <input type="button" class="btn btn-warning" value="show Message Log" onclick="showMessages()">
         <input type="button" class="btn btn-success" value="show Message By Node ID" onclick="displaySingleNodeMessages()">
-        <input type="button" class="btn btn-info" value="Re-Activate" onclick="displayActiveNodeDiv()">
-        <input type="button" class="btn btn-warning" value="Add node" onclick="displayDiv('addNode')">
-        <div style="display: none; position: absolute; border: 5px; left: 30%; top: 30%; z-index: 9; background:#e6f9ff; width: 40%" id="addNode" class="container">
+        <input type="button" class="btn btn-primary" value="Re-Activate" onclick="displayActiveNodeDiv()">
+        <input type="button" class="btn btn-default" value="Add node" onclick="displayDiv('addNode')">
+        <br>
+        <br>
+        <label id="newPatternLabel">Inactivation Frequency</label>
+        <form action="#" method="post" id="sliderForm">
+            <input id="sliderSetting" name="sliderSetting" value="<?php echo getSetting();?>" type="range" min="0" max="100" step="20" onchange="postValue()" />
+            <div style="display: none">
+                <select multiple="multiple" class="form-signin" name="activeNodes[]" id="activeNodeList">
+                    <?php while($row=mysql_fetch_array($activeNodes)) : ?>
+                    <?php if($row['isActive']=="yes")  {?>
+                        <option><?php echo $row['nid'];?></option>
+                    <?php }?>
+                    <?php endwhile; ?>
+                </select>
+            </div> 
+        </form>
+        <div style="display: none; position: absolute; border: 5px; left: 35%;top: 25%; z-index: 9; background:#80b3ff; width: 40%" id="addNode" class="container">
             <form style="margin-top: 20px; margin-bottom: 20px" action="../ser/addNode.php" id="form" method="post" class="form-signin">
                 <label id="newPatternLabel">Would you like to add the node to an existing pattern?</label>
                 <select id="isConnector" name="isConnector" class="form-signin" onchange="enableDrop()">
@@ -89,7 +103,7 @@ $reActivateNodeList=getAllNodes();
             <input type="button" class="btn btn-default" value="Hide" onclick="hideDiv('addNode')">
         </div>
     </div>
-    <div style="display: none; position: absolute; left: 25%;top: 30%; z-index: 9;background:#e6f9ff;width: 50%" id="sendMessage" class="container">
+    <div style="display: none; position: absolute; left: 35%;top: 25%; z-index: 9; background:#80b3ff;width: 50%" id="sendMessage" class="container">
         <form action="#" method="post" id="messageForm">
             <h4 > Start Node</h4> 
                 <select name="from" id="from" class="form-control" style="width: 80%">
@@ -119,45 +133,34 @@ $reActivateNodeList=getAllNodes();
             <br>
         </form>
     </div>
-    <div style="margin-bottom: 50px" align="center">
+    <div style="margin-bottom: 50px; margin-left: 200px; width: 90%" align="center">
         <div style="width: 80%" id="mynetwork"></div>
     </div>
-    <div style="display: none; position: absolute; left: 35%;top: 30%;z-index: 9;background: #e6f9ff;width: auto" id="messageDiv" class="container">
-        <div id="showMessage"></div>
+    <div style="display: none; position: absolute; left: 35%;top: 25%; z-index: 9; background: #80b3ff;width: auto" id="messageDiv" class="container">
+        <div style='overflow: auto; height: 400px' id="showMessage"></div>
         <div align="right">
             <input type="button" class="btn btn-default" value="Hide" onclick="hideMessageDiv()" >
         </div>
     </div>
-    <form action="#" method="post" id="sliderForm">
-        <input id="sliderSetting" name="sliderSetting" value="<?php echo getSetting();?>" type="range" min="0" max="100" step="20" onchange="beforeInactivateNode()" />
-        <div style="display: none">
-            <select multiple="multiple" class="form-signin" name="activeNodes[]" id="activeNodeList">
-                <?php while($row=mysql_fetch_array($activeNodes)) : ?>
-                <?php if($row['isActive']=="yes")  {?>
-                    <option><?php echo $row['nid'];?></option>
-                <?php }?>
-                <?php endwhile; ?>
-            </select>
-        </div> 
-    </form>
-    <div style="display: none;position: absolute;left: 35%;top: 30%;z-index: 9;background: #ffffff;width: auto" id="singleMessageDiv" class="container">
+    <div style="display: none;position: absolute; left: 35%;top: 25%;z-index: 9; background: #80b3ff;width: auto" id="singleMessageDiv" class="container">
         Please select the Node:
         <select id="singleMessage" class="form-control">
         </select>
         <div align="right">
-            <input type="button" value="Confirm" class="btn btn-submit" onclick="receivedMessages()">
+            <input type="button" value="Confirm" class="btn btn-primary" onclick="receivedMessages()">
             <input type="button" class="btn btn-default" value="Hide" onclick="hideDiv('singleMessageDiv')">
         </div>
     </div>
-    <div style="display: none;position: absolute;left: 45%;top: 40%;z-index: 9; background: #ffffff;width: auto" id="activeNodeDiv" class="container">
+    <div style="display: none;position: absolute; left: 35%;top: 25%;z-index: 9; background: #80b3ff;width: auto" id="activeNodeDiv" class="container">
         <h4> Please select a Node:</h4>
         <select id="activeNode" class="form-control">
         </select>
-        <input type="button" class="btn btn-submit" value="submit" onclick="activeNode()">
+        <input type="button" class="btn btn-primary" value="submit" onclick="activeNode()">
         <input type="button" class="btn btn-default" value="Hide" onclick="hideDiv('activeNodeDiv')">
     </div>    
 </div>
 <script type="text/javascript">
+    setInterval("getNewestData()",5000);
 
     // create an array with nodes
     nodesArray= [
@@ -262,11 +265,23 @@ $reActivateNodeList=getAllNodes();
         nodes.update([{id:10, color:'rgb(255,255,7)'}]);
 
     }
+    function reSet(){
+
+        for(var i=0;i<nodes.length;i++){
+            // alert(1);
+            //alert(nodes.get(nodesArray[i].id).color.toString());
+            if(nodes.get(nodesArray[i].id).color.toString()!="red"){
+                nodesArray[i].color=nodes.get(nodesArray[i].id).color;
+            }
+        }
+    }
     function resetAllNodes() {
+        //location.reload();
         for(var i=0;i<nodesArray.length;i++){
             //alert(nodesArray[i]);
             nodes.update(nodesArray[i]);
         }
+       // nodes=nodesArray;
     }
     function hideMessageDiv(){
         document.getElementById('messageDiv').style.display='none';
@@ -293,7 +308,12 @@ $reActivateNodeList=getAllNodes();
                 nodes.update([{id: result.nid, color:"#7BE141"}]);
             }
 
+
         });
+        displayActiveNodeDiv();
+        //document.refresh($("#activeNode"));
+        $("#activeNode").show();
+        reSet();
     }
     function displaySingleNodeMessages(){
         document.getElementById('singleMessageDiv').style.display='block';
@@ -320,6 +340,23 @@ $reActivateNodeList=getAllNodes();
     var to;
     var message;
 
+    function getNewestData()  {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                result=xmlhttp.responseText;
+                result = eval(result);
+                for (var i =0; i < result.length; i++)  {
+                    nodes.update([{id: result[i], color:"gray"}]);
+                }
+                reSet();
+            }
+        };
+        xmlhttp.open("POST", "/cs744/ser/getInactiveNodes.php", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send();  
+    }
     function postValue()  {
 
         var xmlhttp = new XMLHttpRequest();
@@ -330,7 +367,7 @@ $reActivateNodeList=getAllNodes();
                 //alert(result);
             }
         };
-        xmlhttp.open("POST", "/cs744/static/timerManagement.php", true);
+        xmlhttp.open("POST", "/cs744/ser/updateSlider.php", true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xmlhttp.send("sliderSetting="+document.getElementById('sliderSetting').value);     
     }
@@ -372,31 +409,7 @@ $reActivateNodeList=getAllNodes();
             }
         });
     }
-    function beforeInactivateNode(){
-        setInterval("postValue()",10000);
-    }
 
-    // function reActivateNodes()  {
-
-    //     if ($('#inactiveNodeList').val() == "NONE SELECTED")  {
-    //         $.ajax({
-    //             cache: true,
-    //             type: "POST",
-    //             url:"../ser/reActivateNode.php",
-    //             data:$('#form2').serialize(),
-    //             async: false,
-    //             error: function(request) {
-    //                 alert("Connection error");
-    //             },
-    //             success: function(data) {
-    //                 window.location="Main.php";
-    //             }
-    //         });
-    //     }
-    //     else  {
-    //         alert("Please select at least one node to re-activate");
-    //     }
-    // }
     function showMessages(){
         var xmlhttp = new XMLHttpRequest();
         var result="";
@@ -404,12 +417,12 @@ $reActivateNodeList=getAllNodes();
 
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                result=eval(xmlhttp.responseText);
-                var table="<table class='table table-bordered'><tr><td>Start Node</td><td>End Node</td><td>MessageContext</td><td>State</td></tr>";
+                var table="<table class='table table-bordered'><thead><tr style='border: 3px solid black'><td style='border: 3px solid black'>Start Node</td><td style='border: 3px solid black'>End Node</td><td style='border: 3px solid black'>MessageContext</td><td style='border: 3px solid black'>State</td></tr></thead>";
                 for(var i=0;i<result.length;i++){
-                    table+="<tr><td>";
-                    table+="Node"+result[i].nid+"</td><td>";
-                    table+="Node"+result[i].destination+"</td><td>";
-                    table+=result[i].messageContext+"</td><td>";
+                    table+="<tr style='border: 3px solid black'><td style='border: 3px solid black'>";
+                    table+="Node"+result[i].nid+"</td><td style='border: 3px solid black'>";
+                    table+="Node"+result[i].destination+"</td><td style='border: 3px solid black'>";
+                    table+=result[i].messageContext+"</td><td style='border: 3px solid black'>";
                     table+=result[i].state;
                     table+="</td></tr>";
                 }
@@ -436,11 +449,11 @@ $reActivateNodeList=getAllNodes();
                     clearInterval(global);
 
                 }else if(result=="success"){
-                    nodes.update([{id: from, color: {background: 'red'}}]);
+                    nodes.update([{id: from, color: 'red'}]);
                     alert("Node "+to+" received the message\nContent is:"+message);
                     clearInterval(global);
                 }else {
-                    nodes.update([{id: from, color: {background: 'red'}}]);
+                    nodes.update([{id: from, color: 'red'}]);
                     from=result;
                 }
             }

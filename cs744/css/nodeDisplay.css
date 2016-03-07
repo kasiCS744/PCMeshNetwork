@@ -18,6 +18,10 @@
 	border: 5px solid lightgray;
 }
 
+.btn  {
+	width: 200px;
+}
+
 .label	{
 	align-content: left;
 }

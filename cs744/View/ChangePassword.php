@@ -6,7 +6,6 @@
 <link href="../css/bootstrap.css" rel="stylesheet">
 <link href="../css/loginScreen.css" rel="stylesheet">
 <head> <?php include_once "viewStructureHead.php"; ?></head>
-<body>
 <?php
 session_start();
 $uid=$_SESSION['uid'];

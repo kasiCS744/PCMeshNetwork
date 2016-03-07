@@ -2,7 +2,6 @@
 <html>
 <link href="../css/securityQuestion.css" rel="stylesheet">
 <head> <?php include_once "viewStructureHead.php"; ?></head>
-<body>
 <?php
 session_start();
 $uid=$_SESSION['uid'];
