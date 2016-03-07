@@ -79,6 +79,9 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
 		if($scope.confirmPassword == "" || $scope.confirmPassword == null){
 			return true;
 		}
+		if($scope.password != $scope.confirmPassword){
+			return true;
+		}
 		return false;
 	}
 
