@@ -7,7 +7,6 @@
 <link href="../css/securityQuestion.css" rel="stylesheet">
 <link href="../css/loginScreen.css" rel="stylesheet">
 <link href="../css/bootstrap.css" rel="stylesheet">
-<body>
 <?php session_start();
 	$uid=$_SESSION['uid']; 
 	include_once "viewStructureBody.php";
@@ -117,6 +116,5 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
 });
 
 </script>
-
 </body>
 </html>

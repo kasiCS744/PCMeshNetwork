@@ -24,7 +24,7 @@ $list=getQuestionAndAnswerPairByUid($uid);
     <link href="css/loginScreen.css" rel="stylesheet">
     <link href="css/securityScreenQuestions.css" rel="stylesheet">
 </head>
-<body>
+<body id="login">
 <div class="container" id="firstContainer" align="center">
     <div class="well bs-component">
         <h3 class="form-signin-heading">Please answer a security question</h3>
