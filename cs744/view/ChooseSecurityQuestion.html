@@ -21,7 +21,7 @@
 		</div>
 	
 		<div>
-			<button type="button" class="btn btn-success col-md-3" style="margin-top:50px;margin-bottom:50px;" ng-click="saveQuestions()">Save</button>
+			<button type="button" class="btn btn-success col-md-3" style="margin-top:50px;margin-bottom:50px;" ng-click="saveQuestions()" ng-disabled="check()">Save</button>
 			<label class="col-md-8"></label>
 		</div>
 	
@@ -33,21 +33,16 @@
 var app = angular.module('myApp', []);
 app.controller('customersCtrl', function($scope, $http, $location, $window) {	
 	
-	$scope.hasSelected = [];
-	$scope.disabled = false;
-	
-	$scope.saveQuestions = function(){		
+	$scope.hasSelected = [];	
+
+	$scope.saveQuestions = function(){	
 		angular.forEach($scope.values, function(val){
 			if(val.selected){
 				$scope.hasSelected.push(val);				
 			}	
-		});
-		console.log("size: "+$scope.hasSelected.length);
-		
-		if($scope.hasSelected.length != 3){
-			alert("you must choose 3 questions");
-			$scope.hasSelected = [];
-		}else if($scope.hasSelected[0].answer==null || $scope.hasSelected[0].answer == "" ||
+		});		
+
+		if($scope.hasSelected[0].answer==null || $scope.hasSelected[0].answer == "" ||
 			$scope.hasSelected[1].answer==null || $scope.hasSelected[1].answer == "" ||
 			$scope.hasSelected[2].answer==null || $scope.hasSelected[2].answer == "" ){
 			alert("answer cannot be empty");
@@ -63,7 +58,20 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
     			}
   			});			
 		};
-		
+	}
+
+	$scope.check = function(){	
+		$scope.questionSize = 0;
+		angular.forEach($scope.values, function(val){
+			if(val.selected){
+				$scope.questionSize++;				
+			}	
+		});	
+		if($scope.questionSize == 3){
+
+			return false;
+		}	
+		return true;
 	}
 
    	$scope.selectQuestion = function(val){
