@@ -18,13 +18,22 @@ function getNonConnectorByPid($pid){
     $sql="select * from node where pid='".$pid."'";
     return mysql_query($sql);
 }
-function insertNode($nid,$isConnector,$pid,$pName,$nName,$isActive){
-    $sql="insert into node(nid,isConnector,pid,pName,nName,isActive) VALUES ('".$nid."','".$isConnector."','".$pid."','".$pName."','".$nName."','".$isActive."')";
-   // echo $sql;
+function getNodesByDid($did){
+    $sql="select * from node where did='".$did."'";
+    return  mysql_query($sql);
+}
+function insertNode($nid,$isConnector,$pid,$pName,$nName,$isActive,$did){
+    $sql="insert into node(nid,isConnector,pid,pName,nName,isActive,did) VALUES ('".$nid."','".$isConnector."','".$pid."','".$pName."','".$nName."','".$isActive."','".$did."')";
+    //echo $sql;
     mysql_query($sql);
 }
 function getMaxNid(){
     $sql="select Max(nid) from node";
+    $result=mysql_query($sql);
+    return mysql_fetch_array($result)[0];
+}
+function getMaxDid(){
+    $sql="select Max(did) from node";
     $result=mysql_query($sql);
     return mysql_fetch_array($result)[0];
 }
@@ -35,6 +44,10 @@ function getAllNodesByPid(){
 function getAllNodes()  {
     $sql = "select * from node order by nid";
     return mysql_query($sql);
+}
+function getAllDomainNodes()  {
+    $sql="select * from node where isConnector='2'";
+    return  mysql_query($sql);
 }
 function getAllActiveNodes()  {
     $sql="select * from node where isActive='yes'";
