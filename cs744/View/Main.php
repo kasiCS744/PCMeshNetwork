@@ -92,13 +92,6 @@ $reActivateNodeList=getAllNodes();
                     <br>
                     <select onchange="getNodesFromPattern()" disabled class="form-control" name="pid" id="existingPatternConnector">
                         <option disabled selected> -- select an option -- </option>
-                            <?php while($row=mysql_fetch_array($nodeResult)) : ?>
-                                <?php if($row['isConnector']==1)  {?>
-                                    <option value="<?php echo $row['pid'];?>"><?php echo $row['pid'];?></option>
-                                <?php }?>
-                            <?php endwhile; ?>
-                            <?php $nodeResult = getAllNodesByPid();
-                        ?>
                     </select>
                     <br>
                     <label id="existingLabel">Please select one or more nodes from the pattern to connect with</label>
@@ -120,7 +113,7 @@ $reActivateNodeList=getAllNodes();
                         ?>
                     </select>
                     <br>
-                    <label id="domainLabel">Please select the connector node(s) with which to connect</label>
+                    <label id="domainLabel">Select any additional connector nodes in the domain to connect to?</label>
                     <br>
                     <select multiple="multiple" class="form-signin" name="nodes1[]" id="newDomain"></select>
                 </div>
@@ -555,6 +548,8 @@ $reActivateNodeList=getAllNodes();
             displayDiv('patternDiv');
             displayDiv('addNodeDiv');
             hideDiv('connectorDiv');
+
+            getExistingPattern()
         }
         else  {
             document.getElementById("existingPatternConnector").disabled = true;
@@ -652,7 +647,7 @@ $reActivateNodeList=getAllNodes();
                 }
             }
             else if (document.getElementById("isConnector").value == "0")  {
-                if ($('#newDomain').val() != null)  {
+                if ($('#existingDomain').val() != null)  {
                     $.ajax({
                         cache: true,
                         type: "POST",
@@ -663,15 +658,12 @@ $reActivateNodeList=getAllNodes();
                             alert("Connection error");
                         },
                         success: function(data) {
-                           if(data!="success"){ alert(data);
-                           }else{
-                               window.location="Main.php";
-                           }
+                            window.location="Main.php";
                         }
                     });
                 }
                 else  {
-                    alert("Please select at least one connector node to be connected with");
+                    alert("Please select a domain to add the pattern");
                 }
             }
             else  {
@@ -781,6 +773,26 @@ $reActivateNodeList=getAllNodes();
             }
         };
         xmlhttp.open("POST", "/cs744/ser/getDomainsInit.php", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("");
+    }
+    function getExistingPattern()  {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var result = xmlhttp.responseText;
+                // alert(result);
+                result=eval(result);
+                document.getElementById("existingPatternConnector").innerHTML = "";
+                document.getElementById("existingPatternConnector").innerHTML += "<option disabled selected> -- select an option -- </option>";
+                for (var i = 0; i < result.length; i++)  {
+                    document.getElementById("existingPatternConnector").innerHTML += "<option>"+result[i].pid+"</option>";
+                }
+                //$('#existingPatternConnector').multiselect("rebuild");
+            }
+        };
+        xmlhttp.open("POST", "/cs744/ser/getPatterns.php", true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xmlhttp.send("");
     }

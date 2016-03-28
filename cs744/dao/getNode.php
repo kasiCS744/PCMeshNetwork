@@ -6,6 +6,10 @@
  * Time: 1:52
  */
 include_once "DBHelper.php";
+function getPatterns()  {
+    $sql="select * from node where isConnector='1'";
+    return  mysql_query($sql);
+}
 function getMaxPatternID(){
     $sql="select Max(pid) from node";
     return mysql_fetch_array(mysql_query($sql))[0];
@@ -19,8 +23,12 @@ function getNonConnectorByPid($pid){
     return mysql_query($sql);
 }
 function getNodesByDid($did){
-    $sql="select * from node where did='".$did."'";
+    $sql="select * from node where did='".$did."' and isConnector='1'";
     return  mysql_query($sql);
+}
+function getDomainByDid($did)  {
+    $sql="select * from node where did='".$did."' and isConnector='2'";
+    return mysql_fetch_array(mysql_query($sql));
 }
 function insertNode($nid,$isConnector,$pid,$pName,$nName,$isActive,$did){
     $sql="insert into node(nid,isConnector,pid,pName,nName,isActive,did) VALUES ('".$nid."','".$isConnector."','".$pid."','".$pName."','".$nName."','".$isActive."','".$did."')";
