@@ -18,9 +18,13 @@ function getNonConnectorByPid($pid){
     $sql="select * from node where pid='".$pid."'";
     return mysql_query($sql);
 }
-function insertNode($nid,$isConnector,$pid,$pName,$nName,$isActive){
-    $sql="insert into node(nid,isConnector,pid,pName,nName,isActive) VALUES ('".$nid."','".$isConnector."','".$pid."','".$pName."','".$nName."','".$isActive."')";
-   // echo $sql;
+function getNodesByDid($did){
+    $sql="select * from node where did='".$did."'";
+    return  mysql_query($sql);
+}
+function insertNode($nid,$isConnector,$pid,$pName,$nName,$isActive,$did){
+    $sql="insert into node(nid,isConnector,pid,pName,nName,isActive,did) VALUES ('".$nid."','".$isConnector."','".$pid."','".$pName."','".$nName."','".$isActive."','".$did."')";
+    //echo $sql;
     mysql_query($sql);
 }
 function getMaxNid(){
@@ -28,16 +32,57 @@ function getMaxNid(){
     $result=mysql_query($sql);
     return mysql_fetch_array($result)[0];
 }
+function getMaxDid(){
+    $sql="select Max(did) from node";
+    $result=mysql_query($sql);
+    return mysql_fetch_array($result)[0];
+}
+function getAllNodesByPid(){
+    $sql="select * from node order by pid";
+    return mysql_query($sql);
+}
+function getAllNodes()  {
+    $sql = "select * from node order by nid";
+    return mysql_query($sql);
+}
+function getAllNullDomainNodes(){
+    $sql="select * from node where isConnector<>'2' order by did,pid";
+    return mysql_query($sql);
+}
+function getAllNullDomainNodesOrderByNid(){
+    $sql="select * from node where isConnector<>'2' order by nid";
+    return mysql_query($sql);
+}
+function getAllDomainNodes()  {
+    $sql="select * from node where isConnector='2' order by did";
+    return  mysql_query($sql);
+}
+function getAllActiveNodes()  {
+    $sql="select * from node where isActive='yes'";
+    return mysql_query($sql);
+}
+function isDomainNode($nid){
+    $sql="select isConnector from node where nid='".$nid."'";
+    if(mysql_fetch_array(mysql_query($sql))[0]==2){
+        return true;
+    }else{
+        return false;
+    }
+}
+function getDomainByDid($did){
+    $sql = "select * from node where did='".$did."' and isConnector='2'";
+    return mysql_fetch_array(mysql_query($sql));
+}
+function getDidByNid($nid){
+    $sql = "select did from node where nid ='".$nid."'";
+    return mysql_fetch_array(mysql_query($sql))[0];
+}
 function updateIsActiveToYesByNid($nid){
     $sql="update node set isActive='yes' where nid='".$nid."'";
     mysql_query($sql);
 }
 function getInactiveNodes(){
     $sql="select * from node where isActive='no'";
-    return mysql_query($sql);
-}
-function getAllNodes(){
-    $sql="select * from node order by pid";
     return mysql_query($sql);
 }
 function getNodeCount(){
@@ -78,6 +123,5 @@ function getPidByNid($nid){
 function deleteNodesByNid($nid){
     $sql="delete from node where nid='".$nid."'";
     mysql_query($sql);
-
 }
 ?>

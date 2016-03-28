@@ -10,4 +10,9 @@ function getUserByUid($uid){
     $sql="select * from user where uid='".$uid."'";
     return mysql_query($sql);
 }
+
+function getUserByUserName($userName){
+	$sql = "select * from user where username='".$userName."'";
+	return mysql_query($sql);
+}
 ?>

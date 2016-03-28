@@ -33,7 +33,7 @@ if($from==$to){
     $result = array();
     $result = sendMessage($from, $to, array(), array());
     if (count($result) == 0) {
-        blockMessage($from, $to, $messageContext, "blocked");
+        blockMessage($original, $to, $messageContext, "blocked");
         echo "fail";
     } else {
         if (count($result) > 1) {

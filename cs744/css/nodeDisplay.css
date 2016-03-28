@@ -18,8 +18,17 @@
 	border: 5px solid lightgray;
 }
 
+.side-btn  {
+	width: 90%;
+}
+
 .label	{
 	align-content: left;
+}
+
+#buttonSection  {
+	float: left;
+	width: 250px;
 }
 
 #logout  {

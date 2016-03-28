@@ -1,7 +1,6 @@
 <?php
 	include_once "../dao/getNode.php"; 
-	$pid = $_POST['pid'];
-	$result = getNonConnectorByPid($pid);
+	$result = getAllDomainNodes();
 	$list = array();
 	while($row=mysql_fetch_array($result))  {
 		array_push($list, $row);
