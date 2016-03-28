@@ -8,6 +8,8 @@
 include_once "../dao/getNode.php";
 include_once "../dao/getLink.php";
 $isConnector=$_POST['isConnector'];
+$pid = $_POST['pid'];
+$did = getDomainIDByPid($pid);
 $pName="";
 $nName="";
 $nid=getMaxNid()+1;
@@ -27,7 +29,7 @@ if($isConnector==0){
         $flag=false;
     }
     if($flag){
-        insertNode($nid, 1, $pid, $pName, $nName, "yes", 0);
+        insertNode($nid, 1, $pid, $pName, $nName, "yes", $did);
         foreach ($nodes1 as $key => $value) {
             insertLink($nid, $value);
         }
@@ -55,7 +57,7 @@ if($isConnector==0){
         $flag=false;
     }
 
-        $pid = $_POST['pid'];
+
 
 
         foreach ($nodes0 as $key => $value) {
@@ -84,7 +86,7 @@ if($isConnector==0){
             insertLink($nid, $value);
         }
 
-        insertNode($nid, 0, $pid, $pName, $nName, "yes", 0);
+        insertNode($nid, 0, $pid, $pName, $nName, "yes", $did);
         echo "success";
     }
 }

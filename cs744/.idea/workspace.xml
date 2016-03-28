@@ -28,42 +28,45 @@
       <file leaf-file-name="Main.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/View/Main.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7217806" vertical-offset="12960" max-vertical-offset="18525">
-              <caret line="706" column="14" selection-start-line="706" selection-start-column="14" selection-end-line="706" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.93640697" vertical-offset="19570" max-vertical-offset="20349">
+              <caret line="1061" column="9" selection-start-line="1061" selection-start-column="9" selection-end-line="1061" selection-end-column="9" />
               <folding>
-                <marker date="1459197367930" expanded="true" signature="24553:24576" placeholder="..." />
-                <marker date="1459197367930" expanded="true" signature="24589:24612" placeholder="..." />
-                <marker date="1459197367930" expanded="true" signature="24640:24663" placeholder="..." />
-                <marker date="1459197367930" expanded="true" signature="24689:24712" placeholder="..." />
-                <marker date="1459197367930" expanded="true" signature="24744:24767" placeholder="..." />
-                <marker date="1459197367930" expanded="true" signature="24884:24907" placeholder="..." />
-                <marker date="1459197367930" expanded="true" signature="24920:24943" placeholder="..." />
-                <marker date="1459197367930" expanded="true" signature="25013:25036" placeholder="..." />
-                <marker date="1459197367930" expanded="true" signature="25114:25137" placeholder="..." />
-                <marker date="1459197367930" expanded="true" signature="25211:25234" placeholder="..." />
+                <element signature="n#style#0;n#div#0;n#form#0;n#div#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#form#0;n#div#0;n#div#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#form#0;n#div#0;n#div#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#4;n#form#0;n#div#1;n#div#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+                <marker date="1459204986926" expanded="true" signature="28230:28253" placeholder="..." />
+                <marker date="1459204986926" expanded="true" signature="28266:28289" placeholder="..." />
+                <marker date="1459204986926" expanded="true" signature="28317:28340" placeholder="..." />
+                <marker date="1459204986926" expanded="true" signature="28366:28389" placeholder="..." />
+                <marker date="1459204986926" expanded="true" signature="28421:28444" placeholder="..." />
+                <marker date="1459204986926" expanded="true" signature="28561:28584" placeholder="..." />
+                <marker date="1459204986926" expanded="true" signature="28597:28620" placeholder="..." />
+                <marker date="1459204986926" expanded="true" signature="28690:28713" placeholder="..." />
+                <marker date="1459204986926" expanded="true" signature="28791:28814" placeholder="..." />
+                <marker date="1459204986926" expanded="true" signature="28888:28911" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="getSetting.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dao/getSetting.php">
+      <file leaf-file-name="getAllNodes.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ser/getAllNodes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.821428" vertical-offset="0" max-vertical-offset="361">
-              <caret line="13" column="2" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
-              <folding>
-                <marker date="1457217851105" expanded="true" signature="92:138" placeholder="update slide..." />
-                <marker date="1457217851105" expanded="true" signature="220:240" placeholder="select * fro..slider..." />
-              </folding>
+            <state vertical-scroll-proportion="-8.821428" vertical-offset="0" max-vertical-offset="380">
+              <caret line="13" column="24" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="deleteNode.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ser/deleteNode.php">
+      <file leaf-file-name="getNodes.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ser/getNodes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.392857" vertical-offset="882" max-vertical-offset="3306">
-              <caret line="75" column="29" selection-start-line="75" selection-start-column="29" selection-end-line="75" selection-end-column="29" />
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="304">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -72,44 +75,114 @@
       <file leaf-file-name="getNode.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dao/getNode.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.5" vertical-offset="1102" max-vertical-offset="2508">
-              <caret line="72" column="70" selection-start-line="72" selection-start-column="70" selection-end-line="72" selection-end-column="70" />
+            <state vertical-scroll-proportion="-2.4597702" vertical-offset="1154" max-vertical-offset="3154">
+              <caret line="72" column="23" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="23" />
               <folding>
-                <marker date="1459196433554" expanded="true" signature="150:175" placeholder="select Max(p..node..." />
-                <marker date="1459196433554" expanded="true" signature="401:440" placeholder="select * fro..node..." />
-                <marker date="1459196433554" expanded="true" signature="515:554" placeholder="select * fro..node..." />
-                <marker date="1459196433554" expanded="true" signature="674:839" placeholder="insert into ..." />
-                <marker date="1459196433554" expanded="true" signature="916:941" placeholder="select Max(n..node..." />
-                <marker date="1459196433554" expanded="true" signature="1051:1076" placeholder="select Max(d..node..." />
-                <marker date="1459196433554" expanded="true" signature="1193:1224" placeholder="select * fro..node..." />
-                <marker date="1459196433554" expanded="true" signature="1297:1328" placeholder="select * fro..node..." />
-                <marker date="1459196433554" expanded="true" signature="1407:1465" placeholder="select * fro..node..." />
-                <marker date="1459196433554" expanded="true" signature="1554:1608" placeholder="select * fro..node..." />
-                <marker date="1459196433554" expanded="true" signature="1685:1738" placeholder="select * fro..node..." />
-                <marker date="1459196433554" expanded="true" signature="1816:1855" placeholder="select * fro..node..." />
-                <marker date="1459196433554" expanded="true" signature="1929:1978" placeholder="select isCon..node..." />
-                <marker date="1459196433554" expanded="true" signature="2138:2197" placeholder="select * fro..node..." />
-                <marker date="1459196433554" expanded="true" signature="2291:2333" placeholder="select did f..node..." />
-                <marker date="1459196433554" expanded="true" signature="2441:2492" placeholder="update node ..." />
-                <marker date="1459196433554" expanded="true" signature="2559:2597" placeholder="select * fro..node..." />
-                <marker date="1459196433554" expanded="true" signature="2667:2692" placeholder="select count..node..." />
-                <marker date="1459196433554" expanded="true" signature="2788:2827" placeholder="select * fro..node..." />
-                <marker date="1459196433554" expanded="true" signature="2938:2977" placeholder="select * fro..node..." />
-                <marker date="1459196433554" expanded="true" signature="3069:3115" placeholder="select count..node..." />
-                <marker date="1459196433554" expanded="true" signature="3233:3292" placeholder="select * fro..node..." />
-                <marker date="1459196433554" expanded="true" signature="3396:3442" placeholder="select isAct..node..." />
-                <marker date="1459196433554" expanded="true" signature="3602:3643" placeholder="select pid f..node..." />
-                <marker date="1459196433554" expanded="true" signature="3743:3780" placeholder="delete from ..." />
+                <marker date="1459199328035" expanded="true" signature="150:175" placeholder="select Max(p..node..." />
+                <marker date="1459199328035" expanded="true" signature="401:440" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="517:556" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="569:628" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="748:913" placeholder="insert into ..." />
+                <marker date="1459199328035" expanded="true" signature="990:1015" placeholder="select Max(n..node..." />
+                <marker date="1459199328035" expanded="true" signature="1125:1150" placeholder="select Max(d..node..." />
+                <marker date="1459199328035" expanded="true" signature="1267:1298" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="1371:1402" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="1481:1539" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="1628:1682" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="1759:1812" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="1890:1929" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="2003:2052" placeholder="select isCon..node..." />
+                <marker date="1459199328035" expanded="true" signature="2212:2271" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="2370:2431" placeholder="select did f..node..." />
+                <marker date="1459199328035" expanded="true" signature="2528:2570" placeholder="select did f..node..." />
+                <marker date="1459199328035" expanded="true" signature="2678:2729" placeholder="update node ..." />
+                <marker date="1459199328035" expanded="true" signature="2796:2834" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="2904:2929" placeholder="select count..node..." />
+                <marker date="1459199328035" expanded="true" signature="3024:3065" placeholder="select did f..node..." />
+                <marker date="1459199328035" expanded="true" signature="3161:3202" placeholder="select pid f..node..." />
+                <marker date="1459199328035" expanded="true" signature="3298:3337" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="3451:3500" placeholder="select isCon..node..." />
+                <marker date="1459199328035" expanded="true" signature="3597:3636" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="3728:3774" placeholder="select count..node..." />
+                <marker date="1459199328035" expanded="true" signature="3884:3924" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="4014:4093" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="4183:4243" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="4333:4392" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="4488:4547" placeholder="select * fro..node..." />
+                <marker date="1459199328035" expanded="true" signature="4651:4697" placeholder="select isAct..node..." />
+                <marker date="1459199328035" expanded="true" signature="4857:4898" placeholder="select pid f..node..." />
+                <marker date="1459199328035" expanded="true" signature="4998:5035" placeholder="delete from ..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="newSendMessage2.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ser/newSendMessage2.php">
+      <file leaf-file-name="addPattern.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ser/addPattern.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="230" max-vertical-offset="931">
-              <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+            <state vertical-scroll-proportion="-11.535714" vertical-offset="0" max-vertical-offset="475">
+              <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="getPatterns.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ser/getPatterns.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.428571" vertical-offset="0" max-vertical-offset="266">
+              <caret line="8" column="2" selection-start-line="8" selection-start-column="2" selection-end-line="8" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addEdge.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ser/addEdge.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.586207" vertical-offset="76" max-vertical-offset="1406">
+              <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="getLink.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dao/getLink.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.464286" vertical-offset="95" max-vertical-offset="1349">
+              <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+              <folding>
+                <marker date="1459203224723" expanded="true" signature="184:233" placeholder="insert into ..." />
+                <marker date="1459203224723" expanded="true" signature="308:422" placeholder="select count..link..." />
+                <marker date="1459203224723" expanded="true" signature="513:531" placeholder="select * fro..link..." />
+                <marker date="1459203224723" expanded="true" signature="610:657" placeholder="select count..link..." />
+                <marker date="1459203224723" expanded="true" signature="722:769" placeholder="select count..link..." />
+                <marker date="1459203224723" expanded="true" signature="889:946" placeholder="delete from ..." />
+                <marker date="1459203224723" expanded="true" signature="1019:1062" placeholder="select nid2 ..link..." />
+                <marker date="1459203224723" expanded="true" signature="1229:1272" placeholder="select nid1 ..link..." />
+                <marker date="1459203224723" expanded="true" signature="1475:1518" placeholder="select nid2 ..link..." />
+                <marker date="1459203224723" expanded="true" signature="1745:1788" placeholder="select nid1 ..link..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="getRelatedNodes.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ser/getRelatedNodes.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-19.0" vertical-offset="0" max-vertical-offset="646">
+              <caret line="28" column="2" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addNode.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ser/addNode.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-23.321428" vertical-offset="1057" max-vertical-offset="1862">
+              <caret line="90" column="5" selection-start-line="90" selection-start-column="5" selection-end-line="90" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -128,7 +201,6 @@
         <option value="$PROJECT_DIR$/service/logout.php" />
         <option value="$PROJECT_DIR$/service/findPath.php" />
         <option value="$PROJECT_DIR$/service/test.php" />
-        <option value="$PROJECT_DIR$/dao/getLink.php" />
         <option value="$PROJECT_DIR$/View/sendMessage.php" />
         <option value="$PROJECT_DIR$/View/newDisplayNode.php" />
         <option value="$PROJECT_DIR$/ser/checkNodeIsActive.php" />
@@ -153,7 +225,6 @@
         <option value="$PROJECT_DIR$/css/loginScreen.css" />
         <option value="$PROJECT_DIR$/View/viewStructureBody.php" />
         <option value="$PROJECT_DIR$/View/changeQuestion.php" />
-        <option value="$PROJECT_DIR$/ser/addNode.php" />
         <option value="$PROJECT_DIR$/View/displayAddNode.php" />
         <option value="$PROJECT_DIR$/Login.html" />
         <option value="$PROJECT_DIR$/dao/DBHelper.php" />
@@ -162,8 +233,14 @@
         <option value="$PROJECT_DIR$/View/test2.php" />
         <option value="$PROJECT_DIR$/ser/newSendMessage2.php" />
         <option value="$PROJECT_DIR$/ser/getAllNodesId.php" />
-        <option value="$PROJECT_DIR$/dao/getNode.php" />
         <option value="$PROJECT_DIR$/ser/deleteNode.php" />
+        <option value="$PROJECT_DIR$/ser/addNode.php" />
+        <option value="$PROJECT_DIR$/ser/getRelatedNodes.php" />
+        <option value="$PROJECT_DIR$/dao/getNode.php" />
+        <option value="$PROJECT_DIR$/ser/addPattern.php" />
+        <option value="$PROJECT_DIR$/ser/getPatterns.php" />
+        <option value="$PROJECT_DIR$/dao/getLink.php" />
+        <option value="$PROJECT_DIR$/ser/addEdge.php" />
         <option value="$PROJECT_DIR$/View/Main.php" />
       </list>
     </option>
@@ -373,7 +450,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1612" height="867" extended-state="0" />
+    <frame x="-7" y="0" width="1612" height="867" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -442,62 +519,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/dao/getUser.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27104136" vertical-offset="0" max-vertical-offset="701">
-          <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dao/getLink.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25392297" vertical-offset="544" max-vertical-offset="1273">
-          <caret line="38" column="31" selection-start-line="38" selection-start-column="31" selection-end-line="38" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ser/messageList.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48787448" vertical-offset="0" max-vertical-offset="701">
-          <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dao/getMessage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35235378" vertical-offset="0" max-vertical-offset="701">
-          <caret line="13" column="33" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ser/updateQuestions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4549296" vertical-offset="0" max-vertical-offset="710">
-          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dao/getUser_Security.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26760563" vertical-offset="0" max-vertical-offset="710">
-          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dao/getQAndA.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9098592" vertical-offset="0" max-vertical-offset="912">
-          <caret line="38" column="41" selection-start-line="38" selection-start-column="41" selection-end-line="38" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dao/getAllQuestions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="152" max-vertical-offset="589">
-          <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ser/saveQuestion.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="380" max-vertical-offset="570">
@@ -659,13 +680,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ser/addNode.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6205421" vertical-offset="1123" max-vertical-offset="1824">
-          <caret line="82" column="45" selection-start-line="82" selection-start-column="45" selection-end-line="82" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/View/displayAddNode.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6205421" vertical-offset="5265" max-vertical-offset="7144">
@@ -796,47 +810,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dao/getNode.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.5" vertical-offset="1102" max-vertical-offset="2508">
-          <caret line="72" column="70" selection-start-line="72" selection-start-column="70" selection-end-line="72" selection-end-column="70" />
-          <folding>
-            <marker date="1459196433554" expanded="true" signature="150:175" placeholder="select Max(p..node..." />
-            <marker date="1459196433554" expanded="true" signature="401:440" placeholder="select * fro..node..." />
-            <marker date="1459196433554" expanded="true" signature="515:554" placeholder="select * fro..node..." />
-            <marker date="1459196433554" expanded="true" signature="674:839" placeholder="insert into ..." />
-            <marker date="1459196433554" expanded="true" signature="916:941" placeholder="select Max(n..node..." />
-            <marker date="1459196433554" expanded="true" signature="1051:1076" placeholder="select Max(d..node..." />
-            <marker date="1459196433554" expanded="true" signature="1193:1224" placeholder="select * fro..node..." />
-            <marker date="1459196433554" expanded="true" signature="1297:1328" placeholder="select * fro..node..." />
-            <marker date="1459196433554" expanded="true" signature="1407:1465" placeholder="select * fro..node..." />
-            <marker date="1459196433554" expanded="true" signature="1554:1608" placeholder="select * fro..node..." />
-            <marker date="1459196433554" expanded="true" signature="1685:1738" placeholder="select * fro..node..." />
-            <marker date="1459196433554" expanded="true" signature="1816:1855" placeholder="select * fro..node..." />
-            <marker date="1459196433554" expanded="true" signature="1929:1978" placeholder="select isCon..node..." />
-            <marker date="1459196433554" expanded="true" signature="2138:2197" placeholder="select * fro..node..." />
-            <marker date="1459196433554" expanded="true" signature="2291:2333" placeholder="select did f..node..." />
-            <marker date="1459196433554" expanded="true" signature="2441:2492" placeholder="update node ..." />
-            <marker date="1459196433554" expanded="true" signature="2559:2597" placeholder="select * fro..node..." />
-            <marker date="1459196433554" expanded="true" signature="2667:2692" placeholder="select count..node..." />
-            <marker date="1459196433554" expanded="true" signature="2788:2827" placeholder="select * fro..node..." />
-            <marker date="1459196433554" expanded="true" signature="2938:2977" placeholder="select * fro..node..." />
-            <marker date="1459196433554" expanded="true" signature="3069:3115" placeholder="select count..node..." />
-            <marker date="1459196433554" expanded="true" signature="3233:3292" placeholder="select * fro..node..." />
-            <marker date="1459196433554" expanded="true" signature="3396:3442" placeholder="select isAct..node..." />
-            <marker date="1459196433554" expanded="true" signature="3602:3643" placeholder="select pid f..node..." />
-            <marker date="1459196433554" expanded="true" signature="3743:3780" placeholder="delete from ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dao/getSetting.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.821428" vertical-offset="0" max-vertical-offset="361">
           <caret line="13" column="2" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
           <folding>
-            <marker date="1457217851105" expanded="true" signature="92:138" placeholder="update slide..." />
-            <marker date="1457217851105" expanded="true" signature="220:240" placeholder="select * fro..slider..." />
+            <marker date="1457217851105" expanded="true" signature="-1:-1" placeholder="update slide..." />
+            <marker date="1457217851105" expanded="true" signature="-1:-1" placeholder="select * fro..slider..." />
           </folding>
         </state>
       </provider>
@@ -849,21 +829,153 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ser/getNodes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="729">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ser/addNode.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-23.321428" vertical-offset="1057" max-vertical-offset="1862">
+          <caret line="90" column="5" selection-start-line="90" selection-start-column="5" selection-end-line="90" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ser/getRelatedNodes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-19.0" vertical-offset="0" max-vertical-offset="646">
+          <caret line="28" column="2" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dao/getNode.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.4597702" vertical-offset="1154" max-vertical-offset="3154">
+          <caret line="72" column="23" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="23" />
+          <folding>
+            <marker date="1459199328035" expanded="true" signature="150:175" placeholder="select Max(p..node..." />
+            <marker date="1459199328035" expanded="true" signature="401:440" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="517:556" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="569:628" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="748:913" placeholder="insert into ..." />
+            <marker date="1459199328035" expanded="true" signature="990:1015" placeholder="select Max(n..node..." />
+            <marker date="1459199328035" expanded="true" signature="1125:1150" placeholder="select Max(d..node..." />
+            <marker date="1459199328035" expanded="true" signature="1267:1298" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="1371:1402" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="1481:1539" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="1628:1682" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="1759:1812" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="1890:1929" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="2003:2052" placeholder="select isCon..node..." />
+            <marker date="1459199328035" expanded="true" signature="2212:2271" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="2370:2431" placeholder="select did f..node..." />
+            <marker date="1459199328035" expanded="true" signature="2528:2570" placeholder="select did f..node..." />
+            <marker date="1459199328035" expanded="true" signature="2678:2729" placeholder="update node ..." />
+            <marker date="1459199328035" expanded="true" signature="2796:2834" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="2904:2929" placeholder="select count..node..." />
+            <marker date="1459199328035" expanded="true" signature="3024:3065" placeholder="select did f..node..." />
+            <marker date="1459199328035" expanded="true" signature="3161:3202" placeholder="select pid f..node..." />
+            <marker date="1459199328035" expanded="true" signature="3298:3337" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="3451:3500" placeholder="select isCon..node..." />
+            <marker date="1459199328035" expanded="true" signature="3597:3636" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="3728:3774" placeholder="select count..node..." />
+            <marker date="1459199328035" expanded="true" signature="3884:3924" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="4014:4093" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="4183:4243" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="4333:4392" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="4488:4547" placeholder="select * fro..node..." />
+            <marker date="1459199328035" expanded="true" signature="4651:4697" placeholder="select isAct..node..." />
+            <marker date="1459199328035" expanded="true" signature="4857:4898" placeholder="select pid f..node..." />
+            <marker date="1459199328035" expanded="true" signature="4998:5035" placeholder="delete from ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ser/addPattern.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.535714" vertical-offset="0" max-vertical-offset="475">
+          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ser/getPatterns.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.428571" vertical-offset="0" max-vertical-offset="266">
+          <caret line="8" column="2" selection-start-line="8" selection-start-column="2" selection-end-line="8" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ser/getAllNodes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.821428" vertical-offset="0" max-vertical-offset="380">
+          <caret line="13" column="24" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/addEdge.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.10841655" vertical-offset="0" max-vertical-offset="1311">
+          <caret line="4" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="63" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dao/getLink.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.464286" vertical-offset="95" max-vertical-offset="1349">
+          <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+          <folding>
+            <marker date="1459203224723" expanded="true" signature="184:233" placeholder="insert into ..." />
+            <marker date="1459203224723" expanded="true" signature="308:422" placeholder="select count..link..." />
+            <marker date="1459203224723" expanded="true" signature="513:531" placeholder="select * fro..link..." />
+            <marker date="1459203224723" expanded="true" signature="610:657" placeholder="select count..link..." />
+            <marker date="1459203224723" expanded="true" signature="722:769" placeholder="select count..link..." />
+            <marker date="1459203224723" expanded="true" signature="889:946" placeholder="delete from ..." />
+            <marker date="1459203224723" expanded="true" signature="1019:1062" placeholder="select nid2 ..link..." />
+            <marker date="1459203224723" expanded="true" signature="1229:1272" placeholder="select nid1 ..link..." />
+            <marker date="1459203224723" expanded="true" signature="1475:1518" placeholder="select nid2 ..link..." />
+            <marker date="1459203224723" expanded="true" signature="1745:1788" placeholder="select nid1 ..link..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ser/addEdge.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.586207" vertical-offset="76" max-vertical-offset="1406">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/View/Main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7217806" vertical-offset="12960" max-vertical-offset="18525">
-          <caret line="706" column="14" selection-start-line="706" selection-start-column="14" selection-end-line="706" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.93640697" vertical-offset="19570" max-vertical-offset="20349">
+          <caret line="1061" column="9" selection-start-line="1061" selection-start-column="9" selection-end-line="1061" selection-end-column="9" />
           <folding>
-            <marker date="1459197367930" expanded="true" signature="24553:24576" placeholder="..." />
-            <marker date="1459197367930" expanded="true" signature="24589:24612" placeholder="..." />
-            <marker date="1459197367930" expanded="true" signature="24640:24663" placeholder="..." />
-            <marker date="1459197367930" expanded="true" signature="24689:24712" placeholder="..." />
-            <marker date="1459197367930" expanded="true" signature="24744:24767" placeholder="..." />
-            <marker date="1459197367930" expanded="true" signature="24884:24907" placeholder="..." />
-            <marker date="1459197367930" expanded="true" signature="24920:24943" placeholder="..." />
-            <marker date="1459197367930" expanded="true" signature="25013:25036" placeholder="..." />
-            <marker date="1459197367930" expanded="true" signature="25114:25137" placeholder="..." />
-            <marker date="1459197367930" expanded="true" signature="25211:25234" placeholder="..." />
+            <element signature="n#style#0;n#div#0;n#form#0;n#div#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#form#0;n#div#0;n#div#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#form#0;n#div#0;n#div#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#4;n#form#0;n#div#1;n#div#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1459204986926" expanded="true" signature="28230:28253" placeholder="..." />
+            <marker date="1459204986926" expanded="true" signature="28266:28289" placeholder="..." />
+            <marker date="1459204986926" expanded="true" signature="28317:28340" placeholder="..." />
+            <marker date="1459204986926" expanded="true" signature="28366:28389" placeholder="..." />
+            <marker date="1459204986926" expanded="true" signature="28421:28444" placeholder="..." />
+            <marker date="1459204986926" expanded="true" signature="28561:28584" placeholder="..." />
+            <marker date="1459204986926" expanded="true" signature="28597:28620" placeholder="..." />
+            <marker date="1459204986926" expanded="true" signature="28690:28713" placeholder="..." />
+            <marker date="1459204986926" expanded="true" signature="28791:28814" placeholder="..." />
+            <marker date="1459204986926" expanded="true" signature="28888:28911" placeholder="..." />
           </folding>
         </state>
       </provider>

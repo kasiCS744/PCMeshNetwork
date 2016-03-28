@@ -49,6 +49,7 @@ $reActivateNodeList=getAllNodes();
         $(document).ready(function() {
             $('#newDomain').multiselect();
             $('#newDomain').multiselect("disable");
+            $('#nextNode').multiselect();
             $('#domains').multiselect();
             $('#domains').multiselect("disable");
             $('#existingNodeConnectors').multiselect();
@@ -67,6 +68,7 @@ $reActivateNodeList=getAllNodes();
         <input type="button" class="side-btn btn btn-success" value="show Message By Node ID" onclick="displaySingleNodeMessages()">
         <input type="button" class="side-btn btn btn-primary" value="Re-Activate" onclick="displayActiveNodeDiv()">
         <input type="button" class="side-btn btn btn-default" value="Add node" onclick="displayDiv('addNode')">
+        <input type="button" class="side-btn btn btn-danger" value="Add edge(s)" onclick="readyNodes()">
         <br>
         <br>
         <label id="newPatternLabel">Inactivation Frequency</label>
@@ -82,6 +84,27 @@ $reActivateNodeList=getAllNodes();
                 </select>
             </div> 
         </form>
+        <div style="display: none; position: absolute; border: 5px; left: 35%;top: 20%; z-index: 9; background:#80b3ff; width: 40%" id="addEdge" class="container">
+            <form style="margin-top: 20px; margin-bottom: 20px" id="edgeForm" method="post" class="form-signin">
+                <label id="startingNodes">Please select a node</label>
+                <br>
+                <select onchange="getRelatedNodes()" class="form-control" name="startNode" id="startNode">
+                    <option disabled selected> -- select an option -- </option>
+                </select>
+                <div style="display: none" id="nextNodeDiv">
+                    <br>
+                    <label id="nextNodes">Please select a node(s) to connect with</label>
+                    <br>
+                    <select onchange="displayDiv('addEdgeDiv')" multiple="multiple" class="form-signin" name="nextNode[]" id="nextNode"></select>
+                </div>
+                <div style="display: none" id="addEdgeDiv">
+                    <br>
+                    <button class="btn btn-lg btn-primary" type="button" onclick="edgeSubmit()">Add Edge</button>
+                    <button class="btn btn-lg btn-warning" type="reset">Reset</button>
+                </div>
+            </form>
+            <input style="margin-bottom: 20px" type="button" class="btn btn-default" value="Hide" onclick="hideDiv('addEdge')">
+        </div>
         <div style="display: none; position: absolute; border: 5px; left: 35%;top: 20%; z-index: 9; background:#80b3ff; width: 40%" id="addNode" class="container">
             <form style="margin-top: 20px; margin-bottom: 20px" action="../ser/addNode.php" id="form" method="post" class="form-signin">
                 <label id="newDomainLabel">Would you like to create a new domain?</label>
@@ -113,13 +136,13 @@ $reActivateNodeList=getAllNodes();
                     <br>
                     <select onchange="getNodesFromPattern()" disabled class="form-control" name="pid" id="existingPatternConnector">
                         <option disabled selected> -- select an option -- </option>
-                            <?php while($row=mysql_fetch_array($nodeResult)) : ?>
-                                <?php if($row['isConnector']==1)  {?>
-                                    <option value="<?php echo $row['pid'];?>"><?php echo $row['pid'];?></option>
-                                <?php }?>
-                            <?php endwhile; ?>
-                            <?php $nodeResult = getAllNodesByPid();
-                        ?>
+<!--                            --><?php //while($row=mysql_fetch_array($nodeResult)) : ?>
+<!--                                --><?php //if($row['isConnector']==1)  {?>
+<!--                                    <option value="--><?php //echo $row['pid'];?><!--">--><?php //echo $row['pid'];?><!--</option>-->
+<!--                                --><?php //}?>
+<!--                            --><?php //endwhile; ?>
+<!--                            --><?php //$nodeResult = getAllNodesByPid();
+//                        ?>
                     </select>
                     <br>
                     <label id="existingLabel">Please select one or more nodes from the pattern to connect with</label>
@@ -141,7 +164,7 @@ $reActivateNodeList=getAllNodes();
                         ?>
                     </select>
                     <br>
-                    <label id="domainLabel">Please select the connector node(s) with which to connect</label>
+                    <label id="domainLabel">Select any additional connector nodes in the domain to connect to?</label>
                     <br>
                     <select multiple="multiple" class="form-signin" name="nodes1[]" id="newDomain"></select>
                 </div>
@@ -349,6 +372,57 @@ $reActivateNodeList=getAllNodes();
         }
        // nodes=nodesArray;
     }
+   function readyNodes()  {
+       document.getElementById('addEdge').style.display='block';
+       $.post("../ser/getAllNodes.php", function(result){
+           result=eval(result);
+           document.getElementById("startNode").innerHTML="";
+           document.getElementById("startNode").innerHTML += "<option disabled selected> -- select an option -- </option>";
+           for(var i=0;i<result.length;i++){
+               document.getElementById("startNode").innerHTML+="<option value='"+result[i]+"'>"+result[i]+"</option>";
+           }
+       });
+   }
+   function edgeSubmit()  {
+       $.ajax({
+           cache: true,
+           type: "POST",
+           url:"../ser/addEdge.php",
+           data:$('#edgeForm').serialize(),
+           async: false,
+           error: function(request) {
+               alert("Connection error");
+           },
+           success: function(data) {
+               if(data!="success"){ alert(data);
+               }else{
+                   window.location="Main.php";
+               }
+           }
+       });
+   }
+   function getRelatedNodes()  {
+       displayDiv('nextNodeDiv');
+       hideDiv('addEdgeDiv');
+       var nodeID = document.getElementById('startNode').value;
+       var xmlhttp = new XMLHttpRequest();
+       xmlhttp.onreadystatechange = function () {
+
+           if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+               var result = xmlhttp.responseText;
+               //alert(result);
+               result=eval(result);
+               document.getElementById("nextNode").innerHTML = "";
+               for (var i = 0; i < result.length; i++)  {
+                   document.getElementById("nextNode").innerHTML += "<option>"+result[i].nid+"</option>";
+               }
+               $('#nextNode').multiselect("rebuild");
+           }
+       };
+       xmlhttp.open("POST", "/cs744/ser/getRelatedNodes.php", true);
+       xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+       xmlhttp.send("startNode=" + nodeID);
+   }
     function hideMessageDiv(){
         document.getElementById('messageDiv').style.display='none';
     }
@@ -731,6 +805,7 @@ $reActivateNodeList=getAllNodes();
             displayDiv('patternDiv');
             displayDiv('addNodeDiv');
             hideDiv('connectorDiv');
+            getExistingPattern();
         }
         else  {
             document.getElementById("existingPatternConnector").disabled = true;
@@ -828,7 +903,7 @@ $reActivateNodeList=getAllNodes();
                 }
             }
             else if (document.getElementById("isConnector").value == "0")  {
-                if ($('#newDomain').val() != null)  {
+                if ($('#existingDomain').val() != null)  {
                     $.ajax({
                         cache: true,
                         type: "POST",
@@ -839,15 +914,16 @@ $reActivateNodeList=getAllNodes();
                             alert("Connection error");
                         },
                         success: function(data) {
-                           if(data!="success"){ alert(data);
-                           }else{
-                               window.location="Main.php";
-                           }
+//                           if(data!="success"){ alert(data);
+//                           }else{
+//                               window.location="Main.php";
+//                           }
+                            window.location="Main.php";
                         }
                     });
                 }
                 else  {
-                    alert("Please select at least one connector node to be connected with");
+                    alert("Please select a domain to add the pattern");
                 }
             }
             else  {
@@ -921,6 +997,26 @@ $reActivateNodeList=getAllNodes();
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xmlhttp.send("pid=" + patternID);
     }
+   function getExistingPattern()  {
+       var xmlhttp = new XMLHttpRequest();
+       xmlhttp.onreadystatechange = function () {
+
+           if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+               var result = xmlhttp.responseText;
+               // alert(result);
+               result=eval(result);
+               document.getElementById("existingPatternConnector").innerHTML = "";
+               document.getElementById("existingPatternConnector").innerHTML += "<option disabled selected> -- select an option -- </option>";
+               for (var i = 0; i < result.length; i++)  {
+                   document.getElementById("existingPatternConnector").innerHTML += "<option>"+result[i].pid+"</option>";
+               }
+               //$('#existingPatternConnector').multiselect("rebuild");
+           }
+       };
+       xmlhttp.open("POST", "/cs744/ser/getPatterns.php", true);
+       xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+       xmlhttp.send("");
+   }
     function getNodesFromDomain(){
         var patternID = document.getElementById('existingDomain').value;
         var xmlhttp = new XMLHttpRequest();
@@ -951,7 +1047,7 @@ $reActivateNodeList=getAllNodes();
                 result=eval(result);
                 document.getElementById("domains").innerHTML = "";
                 for (var i = 0; i < result.length; i++)  {
-                    document.getElementById("domains").innerHTML += "<option>"+result[i].nid+"</option>";
+                    document.getElementById("domains").innerHTML += "<option>"+result[i].did+"</option>";
                 }
                 $('#domains').multiselect("rebuild");
             }

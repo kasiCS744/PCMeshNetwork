@@ -19,7 +19,8 @@ function getNonConnectorByPid($pid){
     return mysql_query($sql);
 }
 function getNodesByDid($did){
-    $sql="select * from node where did='".$did."'";
+  //  $sql="select * from node where did='".$did."'";
+    $sql="select * from node where did='".$did."' and isConnector='1'";
     return  mysql_query($sql);
 }
 function insertNode($nid,$isConnector,$pid,$pName,$nName,$isActive,$did){
@@ -73,6 +74,10 @@ function getDomainByDid($did){
     $sql = "select * from node where did='".$did."' and isConnector='2'";
     return mysql_fetch_array(mysql_query($sql));
 }
+function getDomainIDByPid($pid)  {
+    $sql="select did from node where pid='".$pid."' and isConnector='1'";
+    return mysql_fetch_array(mysql_query($sql))[0];
+}
 function getDidByNid($nid){
     $sql = "select did from node where nid ='".$nid."'";
     return mysql_fetch_array(mysql_query($sql))[0];
@@ -89,10 +94,22 @@ function getNodeCount(){
     $sql="select count(*) from node";
     return mysql_fetch_array(mysql_query($sql))[0];
 }
+function getDomainID($nid){
+    $sql="select did from node where nid='".$nid."'";
+    return mysql_fetch_array(mysql_query($sql))[0];
+}
+function getPatternID($nid){
+    $sql="select pid from node where nid='".$nid."'";
+    return mysql_fetch_array(mysql_query($sql))[0];
+}
 function getNodeByNid($nid){
     $sql="select * from node where nid='".$nid."'";
     //echo $sql;
     return mysql_fetch_array(mysql_query($sql));
+}
+function getNodeConnector($nid){
+    $sql="select isConnector from node where nid='".$nid."'";
+    return mysql_fetch_array(mysql_query($sql))[0];
 }
 function getNodesByPid($pid){
     $sql="select * from node where pid='".$pid."'";
@@ -103,6 +120,23 @@ function getCountByPid($pid){
     $sql="select count(*) from node where pid='".$pid."'";
     //echo $sql;
     return mysql_fetch_array(mysql_query($sql))[0];
+}
+function getPatterns()  {
+    $sql="select * from node where isConnector='1'";
+    return  mysql_query($sql);
+}
+function getNodesByDidExceptMe($nid, $did){
+    $sql="select * from node where nid<>'".$nid."' and did='".$did."' and isConnector='1'";
+    return  mysql_query($sql);
+}
+function getAllDomainNodesExceptMe($nid)  {
+    $sql="select * from node where nid<>'".$nid."' and isConnector='2'";
+    return  mysql_query($sql);
+}
+function getNodesByPidExceptMe($nid, $pid){
+    $sql="select * from node where nid<>'".$nid."' and pid='".$pid."'";
+    //echo $sql;
+    return mysql_query($sql);
 }
 function getConnectorByPid($pid){
     $sql="select * from node where pid='".$pid."' and isConnector='1'";
