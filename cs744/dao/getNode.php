@@ -10,20 +10,32 @@ function getPatterns()  {
     $sql="select * from node where isConnector='1'";
     return  mysql_query($sql);
 }
+function getDomainID($nid){
+    $sql="select did from node where nid='".$nid."'";
+    return mysql_fetch_array(mysql_query($sql))[0];
+}
+function getPatternID($nid){
+    $sql="select pid from node where nid='".$nid."'";
+    return mysql_fetch_array(mysql_query($sql))[0];
+}
 function getMaxPatternID(){
     $sql="select Max(pid) from node";
     return mysql_fetch_array(mysql_query($sql))[0];
 }
-//function getMaxNodeID(){
-//    $sql="select Max(nid) from node";
-//    return mysql_fetch_array(mysql_query($sql));
-//}
+function getNodeConnector($nid){
+    $sql="select isConnector from node where nid='".$nid."'";
+    return mysql_fetch_array(mysql_query($sql))[0];
+}
 function getNonConnectorByPid($pid){
     $sql="select * from node where pid='".$pid."'";
     return mysql_query($sql);
 }
 function getNodesByDid($did){
     $sql="select * from node where did='".$did."' and isConnector='1'";
+    return  mysql_query($sql);
+}
+function getNodesByDidExceptMe($nid, $did){
+    $sql="select * from node where nid<>'".$nid."' and did='".$did."' and isConnector='1'";
     return  mysql_query($sql);
 }
 function getDomainByDid($did)  {
@@ -57,6 +69,10 @@ function getAllDomainNodes()  {
     $sql="select * from node where isConnector='2'";
     return  mysql_query($sql);
 }
+function getAllDomainNodesExceptMe($nid)  {
+    $sql="select * from node where nid<>'".$nid."' and isConnector='2'";
+    return  mysql_query($sql);
+}
 function getAllActiveNodes()  {
     $sql="select * from node where isActive='yes'";
     return mysql_query($sql);
@@ -80,6 +96,11 @@ function getNodeByNid($nid){
 }
 function getNodesByPid($pid){
     $sql="select * from node where pid='".$pid."'";
+    //echo $sql;
+    return mysql_query($sql);
+}
+function getNodesByPidExceptMe($nid, $pid){
+    $sql="select * from node where nid<>'".$nid."' and pid='".$pid."'";
     //echo $sql;
     return mysql_query($sql);
 }
