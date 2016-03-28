@@ -14,6 +14,10 @@ function getDomainID($nid){
     $sql="select did from node where nid='".$nid."'";
     return mysql_fetch_array(mysql_query($sql))[0];
 }
+function getDomainIDByPid($pid)  {
+    $sql="select did from node where pid='".$pid."' and isConnector='1'";
+    return mysql_fetch_array(mysql_query($sql))[0];
+}
 function getPatternID($nid){
     $sql="select pid from node where nid='".$nid."'";
     return mysql_fetch_array(mysql_query($sql))[0];

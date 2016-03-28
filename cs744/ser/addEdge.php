@@ -7,6 +7,7 @@
 	$to = $_POST['nextNode'];
 
 	$connector = getNodeConnector($from);
+	$result = "success";
 	if ($connector != 0)  {
 		foreach($to as $key=>$value){
 			$isConnector = getNodeConnector($value);
@@ -15,6 +16,9 @@
 			}
 			if ($isConnector == 0 && getLinkCountByNid($value) < 3)  {
         		insertLink($from, $value);
+			}
+			else  {
+				$result = "failure";
 			}
     	}
 	}
@@ -28,7 +32,13 @@
 			if ($isConnector == 0 && getLinkCountByNid($value) < 3)  {
         		insertLink($from, $value);
 			}
+			else  {
+				$result = "failure";
+			}
     	}
     }
-    echo "success";
+    else  {
+		$result = "failure";
+	}
+    echo $result;
 ?>

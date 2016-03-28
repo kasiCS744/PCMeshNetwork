@@ -656,7 +656,8 @@ $reActivateNodeList=getAllNodes();
                 alert("Connection error");
             },
             success: function(data) {
-                if(data!="success"){ alert(data);
+                if(data!="success"){
+                    alert(data);
                 }else{
                     window.location="Main.php";
                 }
