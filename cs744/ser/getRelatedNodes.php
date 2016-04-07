@@ -13,9 +13,8 @@ switch ($isConnector) {
         $domainID = getDomainID($eid);
         $result = getNodesByDidExceptMe($eid, $domainID);
         break;
-    case 2:
-        $domainID = getDomainID($eid);
-        $result = getAllDomainNodesExceptMe($domainID);
+    case 2:        
+        $result = getAllDomainNodesExceptMe($eid);
         break;
     default:
         break;

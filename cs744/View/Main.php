@@ -245,8 +245,12 @@ $reActivateNodeList=getAllNodes();
         $list=getDomainNodesAndTheirPatternCounts();
         $pointer=0;
         foreach($list as $key=>$value){
+            $domainColor="blue";
+             if($value[0]['isActive']=="no"){
+                $domainColor="gray";
+            }
         ?>
-        {id: <?php echo $value[0]['nid'];?>, label:'D<?php echo $value[0]['did']; echo ",N".$value[0]['nid']?>', shape:'diamond',color: 'blue',x:<?php echo ($pointer%4)*300;?>,y:<?php echo ((int)($pointer/4))*300;?>},
+        {id: <?php echo $value[0]['nid'];?>, label:'D<?php echo $value[0]['did']; echo ",N".$value[0]['nid']?>', shape:'diamond',color: '<?php echo $domainColor;?>',x:<?php echo ($pointer%4)*300;?>,y:<?php echo ((int)($pointer/4))*300;?>},
     <?php
     $pointer+=$value[1];
         }
@@ -312,7 +316,7 @@ $reActivateNodeList=getAllNodes();
             $count++;
             break;
         }?>
-         {id: <?php echo $row['nid'];?>, label:'<?php echo "N".$row['nid']; if($row['isConnector']==1){echo ",P".$row['pid'];}?>', color: '<?php echo $color;?>',x:<?php echo $x;?>,y:<?php echo $y;?>},
+         {id: <?php echo $row['nid'];?>, label:'<?php if($row['isConnector']==1){echo "P".$row['pid'].",";}echo "N".$row['nid']; ?>', color: '<?php echo $color;?>',x:<?php echo $x;?>,y:<?php echo $y;?>},
         <?php }?>
 //        {id: 3, label:'hex color', color: '#7BE141'},
 //        {id: 4, label:'rgba color', color: 'rgba(97,195,238,0.5)'},
@@ -481,6 +485,8 @@ $reActivateNodeList=getAllNodes();
             }else if(result.isConnector==0){
               //  alert(0);
                 nodes.update([{id: result.nid, color:"#7BE141"}]);
+            }else if(result.isConnector==2){
+                 nodes.update([{id: result.nid, color:"blue"}]);
             }
             reSet();
             if(checkHasBlockedMessages(result.nid)){
@@ -737,14 +743,41 @@ $reActivateNodeList=getAllNodes();
         }
     }
     function hideDiv(id){
+        if (id == "addEdge")  {
+            $('option', $('#nextNode')).each(function(element) {
+                $(this).removeAttr('selected').prop('selected', false);
+            });
+            $('#nextNode').multiselect("refresh");
+        }
         document.getElementById(id).style.display="none";
     }
     network.on("doubleClick", function (params) {
         if(params.nodes==""){
-            return;
-        }
+            if(params.edges!=null){
+                if(confirm("Are you sure you would like to delete an edge")) {
+                    var nodes = network.getConnectedNodes(params.edges);                    
 
-        if(confirm("Are you sure you would like to delete Node"+params.nodes)) {
+                    $.ajax({
+                        cache: true,
+                        type: "POST",
+                        url:"../ser/deleteEdge.php",
+                        data:{node1:nodes[0], node2:nodes[1]},
+                        async: false,
+                        error: function(request) {
+                            alert("delete error");
+                        },
+                        success: function(data) {
+                            if(data=="failed"){ 
+                                alert("delete edge failed");
+                            }else{
+                                edges.remove(params.edges);
+                            }
+                        }    
+                    });
+                } 
+            }    
+        }else{
+            if(confirm("Are you sure you would like to delete Node"+params.nodes)) {
             params.event = "[original event]";
             //var nodeId=JSON.stringify(params.nodes, null, 4);
             var nodeId = params.nodes;
@@ -783,6 +816,9 @@ $reActivateNodeList=getAllNodes();
             xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xmlhttp.send("nid=" + nodeId);
         }
+        }
+
+        
         // alert(nodeId);
         // document.getElementById('eventSpan').innerHTML = '<h2>doubleClick event:</h2>' + JSON.stringify(params, null, 4);
     });
@@ -845,6 +881,7 @@ $reActivateNodeList=getAllNodes();
             displayDiv('addNodeDiv');
             displayDiv('domainDiv');
             hideDiv('existingPatternChoiceDiv');
+            hideDiv('f')
             hideDiv('connectorDiv');
             hideDiv('patternDiv');
 

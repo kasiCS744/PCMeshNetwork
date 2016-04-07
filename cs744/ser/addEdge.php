@@ -13,17 +13,16 @@ if ($connector != 0)  {
 //        $linkCount=getLinkCountByNid($value);
 //        $receiver = getNodeConnector($value);
 //        if ($receiver != 0)  {
-//            if (linkExists($from, $value) == 0)  {
-//                insertLink($from, $value);
-//            }
-//            else  {
-//                $result = "Link already exists";
-//            }
-//        }
+        if (linkExists($from, $value) == 0)  {
+            insertLink($from, $value);
+        }
+        else  {
+            $result = "Link already exists";
+        }
 //        if ($receiver == 0 && $linkCount < 3)  {
-            if (linkExists($from, $value) == 0)  {
-                insertLink($from, $value);
-            }
+        if (linkExists($from, $value) == 0)  {
+            insertLink($from, $value);
+        }
 //            else  {
 //                $result = "Link already exists";
 //            }
