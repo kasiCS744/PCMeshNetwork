@@ -245,8 +245,12 @@ $reActivateNodeList=getAllNodes();
         $list=getDomainNodesAndTheirPatternCounts();
         $pointer=0;
         foreach($list as $key=>$value){
+            $domainColor="blue";
+             if($value[0]['isActive']=="no"){
+                $domainColor="gray";
+            }
         ?>
-        {id: <?php echo $value[0]['nid'];?>, label:'D<?php echo $value[0]['did']?>', shape:'diamond',color: 'blue',x:<?php echo ($pointer%4)*300;?>,y:<?php echo ((int)($pointer/4))*300;?>},
+        {id: <?php echo $value[0]['nid'];?>, label:'D<?php echo $value[0]['did']; echo ",N".$value[0]['nid']?>', shape:'diamond',color: '<?php echo $domainColor;?>',x:<?php echo ($pointer%4)*300;?>,y:<?php echo ((int)($pointer/4))*300;?>},
     <?php
     $pointer+=$value[1];
         }
@@ -312,7 +316,7 @@ $reActivateNodeList=getAllNodes();
             $count++;
             break;
         }?>
-         {id: <?php echo $row['nid'];?>, label:'<?php echo "N".$row['nid']; if($row['isConnector']==1){echo ",P".$row['pid'];}?>', color: '<?php echo $color;?>',x:<?php echo $x;?>,y:<?php echo $y;?>},
+         {id: <?php echo $row['nid'];?>, label:'<?php if($row['isConnector']==1){echo "P".$row['pid'].",";}echo "N".$row['nid']; ?>', color: '<?php echo $color;?>',x:<?php echo $x;?>,y:<?php echo $y;?>},
         <?php }?>
 //        {id: 3, label:'hex color', color: '#7BE141'},
 //        {id: 4, label:'rgba color', color: 'rgba(97,195,238,0.5)'},
@@ -481,6 +485,8 @@ $reActivateNodeList=getAllNodes();
             }else if(result.isConnector==0){
               //  alert(0);
                 nodes.update([{id: result.nid, color:"#7BE141"}]);
+            }else if(result.isConnector==2){
+                 nodes.update([{id: result.nid, color:"blue"}]);
             }
             reSet();
             if(checkHasBlockedMessages(result.nid)){
@@ -1047,7 +1053,7 @@ $reActivateNodeList=getAllNodes();
                 result=eval(result);
                 document.getElementById("domains").innerHTML = "";
                 for (var i = 0; i < result.length; i++)  {
-                    document.getElementById("domains").innerHTML += "<option>"+result[i].did+"</option>";
+                    document.getElementById("domains").innerHTML += "<option>"+result[i].nid+"</option>";
                 }
                 $('#domains').multiselect("rebuild");
             }
