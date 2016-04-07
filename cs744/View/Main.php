@@ -880,8 +880,7 @@ $reActivateNodeList=getAllNodes();
 
             displayDiv('addNodeDiv');
             displayDiv('domainDiv');
-            hideDiv('existingPatternChoiceDiv');
-            hideDiv('f')
+            hideDiv('existingPatternChoiceDiv');            
             hideDiv('connectorDiv');
             hideDiv('patternDiv');
 

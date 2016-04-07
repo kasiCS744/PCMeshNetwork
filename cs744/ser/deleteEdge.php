@@ -38,7 +38,13 @@ function countPatternNodes($pid){
 
 function deleteEdge($nid1, $nid2){
     
-    $list = array();
+    $result1 = getNodeByNid($nid1);
+    $result2 = getNodeByNid($nid2);
+
+    if($result1['isConnector']+$result2['isConnector']==3){
+        return "failed";
+    }else{
+        $list = array();
     //first delete edge from two nodes
     deleteEdgeBetweenNodes($nid1, $nid2);
     deleteEdgeBetweenNodes($nid2, $nid1);
@@ -50,13 +56,14 @@ function deleteEdge($nid1, $nid2){
     }else{
         return "success";
     } 
+    }
     
 }
 
 $nid1=$_POST['node1'];
 $nid2 = $_POST['node2'];    
 // $nid1 = 3;
-// $nid2 = 11;
+// $nid2 = 4;
 
 echo deleteEdge($nid1, $nid2);
 
