@@ -8,10 +8,8 @@
 include_once "../dao/getNode.php";
 include_once "../dao/getLink.php";
 $isConnector=$_POST['isConnector'];
-
 $pid = $_POST['pid'];
 $did = getDomainIDByPid($pid);
-
 $pName="";
 $nName="";
 $nid=getMaxNid()+1;
@@ -58,6 +56,9 @@ if($isConnector==0){
         echo "Please select at most three nodes\n";
         $flag=false;
     }
+
+
+
 
         foreach ($nodes0 as $key => $value) {
             if(getNodeByNid($value)['isConnector']==1){

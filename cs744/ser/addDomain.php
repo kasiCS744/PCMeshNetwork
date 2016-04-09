@@ -12,7 +12,7 @@
 
 	$domains=$_POST['domains'];
 
-	insertNode($nid, 2, 0, $pName, $nName, "yes", $did);
+	insertNode($nid, 2, -1, $pName, $nName, "yes", $did);
     foreach ($domains as $key => $value) {
         insertLink($nid, $value);
     }

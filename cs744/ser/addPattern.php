@@ -10,14 +10,11 @@
 	$pid=getMaxPatternID()+1;
 
 	$domains=$_POST['nodes1'];
-
-	$domain = getDomainByDid($did)[0];
-
+$domain = getDomainByDid($did)[0];
 	insertNode($nid, 1, $pid, $pName, $nName, "yes", $did);
     foreach ($domains as $key => $value) {
         insertLink($nid, $value);
     }
-    insertLink($domain, $nid);
-
+insertLink($domain, $nid);
 	echo "success";
 ?>
