@@ -420,6 +420,7 @@ $reActivateNodeList=getAllNodes();
        });
    }
    function getRelatedNodes()  {
+        document.getElementById("addEdge").style.height = "45%";
        displayDiv('nextNodeDiv');
        hideDiv('addEdgeDiv');
        var nodeID = document.getElementById('startNode').value;
@@ -837,8 +838,9 @@ $reActivateNodeList=getAllNodes();
         // document.getElementById('eventSpan').innerHTML = '<h2>doubleClick event:</h2>' + JSON.stringify(params, null, 4);
     });
     function enableDrop(){
-        if (document.getElementById("isConnector").value == "1")  {
 
+        document.getElementById("addNode").style.height = "80%";    
+        if (document.getElementById("isConnector").value == "1")  {
             document.getElementById("existingPatternConnector").disabled = false;
 
             document.getElementById("existingDomain").disabled = true;
@@ -877,6 +879,7 @@ $reActivateNodeList=getAllNodes();
         }
     }
     function enableDomainDrop(){
+        document.getElementById("addNode").style.height= "50%";
         if (document.getElementById("isDomain").value == "0")  {
             document.getElementById("existingPatternConnector").disabled = true;
             $('#existingPatternConnector').prop('selectedIndex',0);
