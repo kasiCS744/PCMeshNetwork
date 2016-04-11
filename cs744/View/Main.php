@@ -600,7 +600,7 @@ $reActivateNodeList=getAllNodes();
         flag=0;
 //        alert(from+to);
         //  alert(from);
-        $.ajax({url:'../ser/checkInactiveNodeByNid.php',data:{nid:from},async:true,type:'post',
+        $.ajax({url:'../ser/checkInactiveNodeByNid.php',data:{from:from,fnid:from},async:true,type:'post',
             success:function(result){
                 if(result=="inactive"){
                     alert("Can not send message because it is not activate");
@@ -700,7 +700,7 @@ $reActivateNodeList=getAllNodes();
       //  alert(message);
         // alert(next);
         $.ajax({
-            url: '../ser/checkInactiveNodeByNid.php', data: {nid: next}, async: false, type: 'post',
+            url: '../ser/checkInactiveNodeByNid.php', data: {from:path[path.length-1-flag],nid: next}, async: false, type: 'post',
             success:function(result){
                 //  alert(result);
                 if(result=="active"){
