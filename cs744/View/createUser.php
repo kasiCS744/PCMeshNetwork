@@ -38,6 +38,12 @@ if($uid!=null){
 			<label class="col-md-4">Password: </label>
 			<input type="password" ng-model="password">			
 		</div>
+		<div style="margin-bottom:20px;">
+			<label class="col-md-4">Confirm Password:</label>
+			<input type="password" ng-model="confirmPassword">
+			<label style="color:red" ng-show="checkTwoPassword()">password not match</label>
+		</div>
+
 	
 		<div>
 			<button type="button" class="btn btn-success col-md-3" 
@@ -69,6 +75,12 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
 			return true;
 		}
 		if($scope.password == "" || $scope.password == null){
+			return true;
+		}
+		if($scope.confirmPassword == "" || $scope.confirmPassword == null){
+			return true;
+		}
+		if($scope.password!=$scope.confirmPassword){
 			return true;
 		}
 		return false;
@@ -110,6 +122,12 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
 		window.location.href = "Main.php";
 	}
 
+	$scope.checkTwoPassword = function(){
+		if($scope.password == $scope.confirmPassword){
+			return false;
+		}
+		return true;
+	}
 });
  
 
