@@ -19,7 +19,7 @@ if ($user['username'] != "admin")  { ?>
 <?php } else  {?>
     <body style ="background-image: url('../css/admin_background.gif'); background-attachment: fixed">
 <?php } ?>
-    <div class="navbar navbar-default navbar-fixed-top">
+    <div style="z-index: 0" class="navbar navbar-default navbar-fixed-top">
         <?php if ($user['username'] != "admin")  { ?>
             <div align="center" style="background-image: url('../css/login_background.jpg')">
                 <img src="../css/titleImage.PNG" align="middle" style="height:50px; width: 40%">

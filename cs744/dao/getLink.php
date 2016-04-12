@@ -11,6 +11,10 @@ function insertLink($nid1,$nid2){
     $sql="insert into link VALUES ('".$nid1."','".$nid2."')";
     mysql_query($sql);
 }
+function linkExists($nid1, $nid2)  {
+    $sql="select count(*) from link where (nid1='".$nid1."' and nid2='".$nid2."') or (nid1='".$nid2."' and nid2='".$nid1."')";
+    return mysql_fetch_array(mysql_query($sql))[0];
+}
 function getAllLinks(){
     $sql="select * from link";
     return mysql_query($sql);
@@ -58,5 +62,13 @@ function getActiveLinksArrayByNid($nid){
         }
     }
     return $linkList;
+}
+function deleteEdgeBetweenNodes($nid1, $nid2){
+    $sql = "delete from link where nid1=".$nid1." and nid2=".$nid2;
+    mysql_query($sql);
+}
+function addEdgeBetweenNodes($nid1, $nid2){
+    $sql = "insert into link (nid1, nid2) values (".$nid1.", ".$nid2.")";
+    mysql_query($sql);
 }
 ?>

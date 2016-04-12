@@ -59,9 +59,9 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
                          }
                     });   
             }else{
-                var userNameRE = '^[A-Z][A-z0-9]{5,}$';
+                var userNameRE = '^[A-z][A-z0-9]{5,}$';
             if($scope.username.match(userNameRE)){
-                var passwordRE = "^[A-z0-9~!@#$%^&*?]{5,}";
+                var passwordRE = "^[A-z0-9~!@#$%^&*?]{5,}$";
                 if($scope.password.match(passwordRE)){            
                     $.ajax({
                         type: 'POST',
@@ -70,7 +70,8 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
                             "username":$scope.username,
                             "password":$scope.password
                         },
-                        success: function(msg) {                 
+                        success: function(msg) {
+                          //  alert(msg);
                              if(msg == "0"){
                                 alert("username and password are not match");
                              }else if(msg == "1"){

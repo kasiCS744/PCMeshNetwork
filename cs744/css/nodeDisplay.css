@@ -18,8 +18,40 @@
 	border: 5px solid lightgray;
 }
 
-.btn  {
-	width: 200px;
+#addEdge  {
+	display: none; 
+	position: absolute; 
+	z-index: 1000; 
+	border: 5px; 
+	left: 35%;
+	top: 20%; 
+	z-index: 9; 
+	background:#80b3ff; 
+	width: 40%;
+}
+
+#activeNodeDiv  {
+	display: none;position: absolute; left: 35%;top: 25%;z-index: 9; background: #80b3ff;width: auto;
+}
+
+#singleMessageDiv  {
+	display: none;position: absolute; left: 35%;top: 25%;z-index: 9; background: #80b3ff;width: auto;
+}
+
+#messageDiv  {
+	display: none; position: absolute; left: 35%;top: 25%; z-index: 9; background: #80b3ff;width: auto;
+}
+
+#addNode  {
+	display: none; position: absolute; border: 5px; left: 35%;top: 20%; z-index: 9; background:#80b3ff; width: 40%;
+}
+
+#sendMessage  {
+	display: none; position: absolute; left: 35%;top: 25%; z-index: 9; background:#80b3ff;width: 50%;
+}
+
+.side-btn  {
+	width: 90%;
 }
 
 .label	{
@@ -27,7 +59,8 @@
 }
 
 #buttonSection  {
-	width: 500px;
+	float: left;
+	width: 250px;
 }
 
 #logout  {

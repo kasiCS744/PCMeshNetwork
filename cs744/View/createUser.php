@@ -76,9 +76,9 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
 
 	$scope.createUser = function(){
 
-		var userNameRE = '^[A-Z][A-z0-9]{5,}$';
+		var userNameRE = '^[A-z][A-z0-9]{5,}$';
         if($scope.userName.match(userNameRE)){
-        	var passwordRE = "^[A-z0-9~!@#$%^&*?]{5,}";
+        	var passwordRE = "^[A-z0-9~!@#$%^&*?]{5,}$";
 	 	if($scope.password.match(passwordRE)){
 	 		$.ajax({
                         type: 'POST',
