@@ -1,0 +1,17 @@
+#login {
+    background-image: url("login_background.jpg");
+    background-attachment: fixed;
+}
+
+#firstContainer	{
+	padding-top: 150px;
+	width: 90%;
+	padding-right: 5px;
+}
+#firstSmallContainer	{
+	padding-top: 50px;
+}
+#nodeContainer{
+	padding-top: 50px;
+    width: 500px;
+}
