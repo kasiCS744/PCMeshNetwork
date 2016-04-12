@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Liu
- * Date: 2016/2/12
- * Time: 6:31
- */
+
 include_once "findPath.php";
 include_once "../dao/getNode.php";
 include_once "../dao/getLink.php";
@@ -72,18 +67,20 @@ function delete($nid){
           return "connectorSuccess";
         }else{               
           //get all neighbors of this domain, includes one connector node
-          $tempDid = $neighbourList[0];
-          //echo "did ".$tempDid."</br>";
-          $tempNeighbourList = findNodeNeighbour($tempDid);          
+          //$tempDid = $neighbourList[0];
+          //echo "did ".$tempDid."</br>";                  
+          $tempNeighbourList = findNodeNeighbour($domainId);          
 
           $tempCount = 0;
+          $srcDid = getDidByNid($domainId);
           for($i=0;$i<count($tempNeighbourList);$i++){
                 $tempNode = $tempNeighbourList[$i];  
-                if($tempDid == getDidByNid($tempNode)){
+                $tempDid = getDidByNid($tempNode);                
+                if($srcDid == $tempDid){
                     $tempCount++;
                 } 
-          }
-          //echo "count ".$tempCount;
+          }          
+
           if($tempCount>=1){
               deleteNodesByNid($row['nid']);
               deleteLinksByNid($row['nid']);

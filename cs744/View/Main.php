@@ -593,7 +593,7 @@ $reActivateNodeList=getAllNodes();
         flag=0;
 //        alert(from+to);
         //  alert(from);
-        $.ajax({url:'../ser/checkInactiveNodeByNid.php',data:{nid:from},async:true,type:'post',
+        $.ajax({url:'../ser/checkInactiveNodeByNid.php',data:{from:from,nid:from},async:true,type:'post',
             success:function(result){
                 if(result=="inactive"){
                     alert("Can not send message because it is not activate");
@@ -693,7 +693,7 @@ $reActivateNodeList=getAllNodes();
       //  alert(message);
         // alert(next);
         $.ajax({
-            url: '../ser/checkInactiveNodeByNid.php', data: {nid: next}, async: false, type: 'post',
+            url: '../ser/checkInactiveNodeByNid.php', data: {from:path[path.length-1-flag],nid: next}, async: false, type: 'post',
             success:function(result){
                 //  alert(result);
                 if(result=="active"){
@@ -757,30 +757,7 @@ $reActivateNodeList=getAllNodes();
         document.getElementById(id).style.display="none";
     }
     network.on("doubleClick", function (params) {
-        // if(params.nodes==""){
-        //     if(params.edges!=null){
-        //         if(confirm("Are you sure you would like to delete an edge")) {
-        //             var nodes = network.getConnectedNodes(params.edges);                    
-        //             $.ajax({
-        //                 cache: true,
-        //                 type: "POST",
-        //                 url:"../ser/deleteEdge.php",
-        //                 data:{node1:nodes[0], node2:nodes[1]},
-        //                 async: false,
-        //                 error: function(request) {
-        //                     alert("delete error");
-        //                 },
-        //                 success: function(data) {
-        //                     if(data=="failed"){ 
-        //                         alert("delete edge failed");
-        //                     }else{
-        //                         edges.remove(params.edges);
-        //                     }
-        //                 }    
-        //             });
-        //         } 
-        //     }    
-        // } else  {
+
                     if(params.nodes==""){
                         if(params.edges!=null){
                 if(confirm("Are you sure you would like to delete an edge")) {
@@ -797,7 +774,7 @@ $reActivateNodeList=getAllNodes();
                         },
                         success: function(data) {
                             if(data=="failed"){ 
-                                alert("delete edge failed");
+                                alert("Cannot delete this edge because one or more nodes rely on it");
                             }else{
                                 edges.remove(params.edges);
                             }
