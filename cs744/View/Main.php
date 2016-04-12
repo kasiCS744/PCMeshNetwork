@@ -84,7 +84,7 @@ $reActivateNodeList=getAllNodes();
                 </select>
             </div> 
         </form>
-        <div style="display: none; position: absolute; border: 5px; left: 35%;top: 20%; z-index: 9; background:#80b3ff; width: 40%" id="addEdge" class="container">
+        <div id="addEdge" class="container">
             <form style="margin-top: 20px; margin-bottom: 20px" id="edgeForm" method="post" class="form-signin">
                 <label id="startingNodes">Please select a node</label>
                 <br>
@@ -105,7 +105,7 @@ $reActivateNodeList=getAllNodes();
             </form>
             <input style="margin-bottom: 20px" type="button" class="btn btn-default" value="Hide" onclick="hideDiv('addEdge')">
         </div>
-        <div style="display: none; position: absolute; border: 5px; left: 35%;top: 20%; z-index: 9; background:#80b3ff; width: 40%" id="addNode" class="container">
+        <div id="addNode" class="container">
             <form style="margin-top: 20px; margin-bottom: 20px" action="../ser/addNode.php" id="form" method="post" class="form-signin">
                 <label id="newDomainLabel">Would you like to create a new domain?</label>
                 <br>
@@ -136,13 +136,6 @@ $reActivateNodeList=getAllNodes();
                     <br>
                     <select onchange="getNodesFromPattern()" disabled class="form-control" name="pid" id="existingPatternConnector">
                         <option disabled selected> -- select an option -- </option>
-<!--                            --><?php //while($row=mysql_fetch_array($nodeResult)) : ?>
-<!--                                --><?php //if($row['isConnector']==1)  {?>
-<!--                                    <option value="--><?php //echo $row['pid'];?><!--">--><?php //echo $row['pid'];?><!--</option>-->
-<!--                                --><?php //}?>
-<!--                            --><?php //endwhile; ?>
-<!--                            --><?php //$nodeResult = getAllNodesByPid();
-//                        ?>
                     </select>
                     <br>
                     <label id="existingLabel">Please select one or more nodes from the pattern to connect with</label>
@@ -177,7 +170,7 @@ $reActivateNodeList=getAllNodes();
             <input style="margin-bottom: 20px" type="button" class="btn btn-default" value="Hide" onclick="hideDiv('addNode')">
         </div>
     </div>
-    <div style="display: none; position: absolute; left: 35%;top: 25%; z-index: 9; background:#80b3ff;width: 50%" id="sendMessage" class="container">
+    <div id="sendMessage" class="container">
         <form action="#" method="post" id="messageForm">
             <h4 > Start Node</h4> 
                 <select name="from" id="from" class="form-control" style="width: 80%">
@@ -210,13 +203,13 @@ $reActivateNodeList=getAllNodes();
     <div style="margin-bottom: 50px; margin-left: 200px; width: 90%" align="center">
         <div style="width: 80%" id="mynetwork"></div>
     </div>
-    <div style="display: none; position: absolute; left: 35%;top: 25%; z-index: 9; background: #80b3ff;width: auto" id="messageDiv" class="container">
+    <div id="messageDiv" class="container">
         <div style='overflow: auto; height: 400px' id="showMessage"></div>
         <div align="right">
             <input type="button" class="btn btn-default" value="Hide" onclick="hideMessageDiv()" >
         </div>
     </div>
-    <div style="display: none;position: absolute; left: 35%;top: 25%;z-index: 9; background: #80b3ff;width: auto" id="singleMessageDiv" class="container">
+    <div id="singleMessageDiv" class="container">
         Please select the Node:
         <select id="singleMessage" class="form-control" onchange="document.getElementById('singleMessageTable').innerHTML=''">
         </select>
@@ -227,7 +220,7 @@ $reActivateNodeList=getAllNodes();
             <input type="button" class="btn btn-default" value="Hide" onclick="hideDiv('singleMessageDiv')">
         </div>
     </div>
-    <div style="display: none;position: absolute; left: 35%;top: 25%;z-index: 9; background: #80b3ff;width: auto" id="activeNodeDiv" class="container">
+    <div id="activeNodeDiv" class="container">
         <h4> Please select a Node:</h4>
         <select id="activeNode" class="form-control">
         </select>
@@ -236,6 +229,20 @@ $reActivateNodeList=getAllNodes();
     </div>    
 </div>
 <script type="text/javascript">
+
+    $("#addEdge").draggable();
+    $("#addEdge").resizable();
+    $("#addNode").draggable();
+    $("#addNode").resizable();
+    $("#sendMessage").draggable();
+    $("#sendMessage").resizable();
+    $("#messageDiv").draggable();
+    $("#messageDiv").resizable();
+    $("#singleMessageDiv").draggable();
+    $("#singleMessageDiv").resizable();
+    $("#activeNodeDiv").draggable();
+    $("#activeNodeDiv").resizable();
+
    // var blockedMessages;
     setInterval("getNewestData()",5000);
 
@@ -406,6 +413,7 @@ $reActivateNodeList=getAllNodes();
        });
    }
    function getRelatedNodes()  {
+        document.getElementById("addEdge").style.height = "45%";
        displayDiv('nextNodeDiv');
        hideDiv('addEdgeDiv');
        var nodeID = document.getElementById('startNode').value;
@@ -734,6 +742,9 @@ $reActivateNodeList=getAllNodes();
         });
     }
     function displayDiv(id){
+        if(id == "addEdgeDiv")  {
+            document.getElementById("addEdge").style.height= "60%";
+        }
         if(id!="sendMessage") {
             document.getElementById(id).style.display = "block";
         }else{
@@ -743,25 +754,43 @@ $reActivateNodeList=getAllNodes();
         }
     }
     function hideDiv(id){
-        if (id == "addEdge")  {
-            $('option', $('#nextNode')).each(function(element) {
-                $(this).removeAttr('selected').prop('selected', false);
-            });
-            $('#nextNode').multiselect("refresh");
-        }
         document.getElementById(id).style.display="none";
     }
     network.on("doubleClick", function (params) {
-        if(params.nodes==""){
-            if(params.edges!=null){
+        // if(params.nodes==""){
+        //     if(params.edges!=null){
+        //         if(confirm("Are you sure you would like to delete an edge")) {
+        //             var nodes = network.getConnectedNodes(params.edges);                    
+        //             $.ajax({
+        //                 cache: true,
+        //                 type: "POST",
+        //                 url:"../ser/deleteEdge.php",
+        //                 data:{node1:nodes[0], node2:nodes[1]},
+        //                 async: false,
+        //                 error: function(request) {
+        //                     alert("delete error");
+        //                 },
+        //                 success: function(data) {
+        //                     if(data=="failed"){ 
+        //                         alert("delete edge failed");
+        //                     }else{
+        //                         edges.remove(params.edges);
+        //                     }
+        //                 }    
+        //             });
+        //         } 
+        //     }    
+        // } else  {
+                    if(params.nodes==""){
+                        if(params.edges!=null){
                 if(confirm("Are you sure you would like to delete an edge")) {
-                    var nodes = network.getConnectedNodes(params.edges);                    
+                     var tempNodes = network.getConnectedNodes(params.edges);   
 
                     $.ajax({
                         cache: true,
                         type: "POST",
                         url:"../ser/deleteEdge.php",
-                        data:{node1:nodes[0], node2:nodes[1]},
+                        data:{node1:tempNodes[0], node2:tempNodes[1]},
                         async: false,
                         error: function(request) {
                             alert("delete error");
@@ -775,54 +804,54 @@ $reActivateNodeList=getAllNodes();
                         }    
                     });
                 } 
-            }    
+            }                
         }else{
             if(confirm("Are you sure you would like to delete Node"+params.nodes)) {
-            params.event = "[original event]";
-            //var nodeId=JSON.stringify(params.nodes, null, 4);
-            var nodeId = params.nodes;
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
+                params.event = "[original event]";
+                //var nodeId=JSON.stringify(params.nodes, null, 4);
+                var nodeId = params.nodes;
+                console.log("type",nodeId[0]);
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
 
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    var result = xmlhttp.responseText;
-                   //  alert(result);
-                    if (result == "fail") {
-                        alert("Cannot delete this node because one or more nodes rely on it");
-                    }else if(result=="patternFail"){
-                        alert("This connector node can not be deleted because there are still normal node(s) in its pattern");
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        var result = xmlhttp.responseText;
+                       //  alert(result);
+                        if (result == "fail") {
+                            alert("Cannot delete this node because one or more nodes rely on it");
+                        }else if(result=="patternFail"){
+                            alert("This connector node can not be deleted because there are still normal node(s) in its pattern");
 
-                    } else if (result == "normalSuccess") {
-                        nodes.remove({id: nodeId});
-                        nodesArray=nodes;
-                        //alert(document.getElementById("from"+nodeId));
-                    } else if (result == "connectorSuccess") {
-                      //  window.location.reload();
-                        nodes.remove({id: nodeId});
-                        nodesArray=nodes;
-                    }else if(result=="domainFail"){
-                          //  alert(1);
-                        alert("Can not delete a domain node directly");
-                    }else{
-                        nodes.remove({id: nodeId});
-                        nodes.remove({id: result});
-                        nodesArray=nodes;
+                        } else if (result == "normalSuccess") {
+                            nodes.remove({id: nodeId});
+                            nodesArray=nodes;
+                            //alert(document.getElementById("from"+nodeId));
+                        } else if (result == "connectorSuccess") {
+                          //  window.location.reload();
+                            nodes.remove({id: nodeId});
+                            nodesArray=nodes;
+                        }else if(result=="domainFail"){
+                              //  alert(1);
+                            alert("Can not delete a domain node directly");
+                        }else{
+                            nodes.remove({id: nodeId});
+                            nodes.remove({id: result});
+                            nodesArray=nodes;
+
+                        }
 
                     }
-
-                }
-            };
-            xmlhttp.open("POST", "/cs744/ser/deleteNode.php", true);
-            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xmlhttp.send("nid=" + nodeId);
+                };
+                xmlhttp.open("POST", "/cs744/ser/deleteNode.php", true);
+                xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlhttp.send("nid=" + nodeId);
+            }
         }
-        }
-
-        
         // alert(nodeId);
         // document.getElementById('eventSpan').innerHTML = '<h2>doubleClick event:</h2>' + JSON.stringify(params, null, 4);
     });
     function enableDrop(){
+        document.getElementById("addNode").style.height = "80%"; 
         if (document.getElementById("isConnector").value == "1")  {
 
             document.getElementById("existingPatternConnector").disabled = false;
@@ -863,6 +892,7 @@ $reActivateNodeList=getAllNodes();
         }
     }
     function enableDomainDrop(){
+        document.getElementById("addNode").style.height= "50%";
         if (document.getElementById("isDomain").value == "0")  {
             document.getElementById("existingPatternConnector").disabled = true;
             $('#existingPatternConnector').prop('selectedIndex',0);
@@ -880,7 +910,7 @@ $reActivateNodeList=getAllNodes();
 
             displayDiv('addNodeDiv');
             displayDiv('domainDiv');
-            hideDiv('existingPatternChoiceDiv');            
+            hideDiv('existingPatternChoiceDiv');
             hideDiv('connectorDiv');
             hideDiv('patternDiv');
 

@@ -61,7 +61,7 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
             }else{
                 var userNameRE = '^[A-z][A-z0-9]{5,}$';
             if($scope.username.match(userNameRE)){
-                var passwordRE = "^[A-z0-9~!@#$%^&*?]{5,}";
+                var passwordRE = "^[A-z0-9~!@#$%^&*?]{5,}$";
                 if($scope.password.match(passwordRE)){            
                     $.ajax({
                         type: 'POST',

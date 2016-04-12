@@ -18,3 +18,6 @@
 <link rel="stylesheet" href="../css/bootstrap-multiselect.css" type="text/css">
 <script type="text/javascript" src="../js/bootstrap-multiselect.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
