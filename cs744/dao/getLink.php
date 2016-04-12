@@ -63,7 +63,6 @@ function getActiveLinksArrayByNid($nid){
     }
     return $linkList;
 }
-
 function deleteEdgeBetweenNodes($nid1, $nid2){
     $sql = "delete from link where nid1=".$nid1." and nid2=".$nid2;
     mysql_query($sql);
@@ -72,5 +71,4 @@ function addEdgeBetweenNodes($nid1, $nid2){
     $sql = "insert into link (nid1, nid2) values (".$nid1.", ".$nid2.")";
     mysql_query($sql);
 }
-
 ?>

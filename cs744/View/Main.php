@@ -60,7 +60,7 @@ $reActivateNodeList=getAllNodes();
     </script>
 </head>
 <?php include_once "viewStructureBody.php";?>
-<div style="z-index: -1" class="container" id="firstContainer" align="center">
+<div class="container" id="firstContainer" align="center">
     <div style="margin: 0 auto" id="buttonSection" class="well bs-component">
         <input type="button" class="side-btn btn btn-danger" value="send Message" onclick="displayDiv('sendMessage')">
         <input type="button" class="side-btn btn btn-info" value="reset Nodes" onclick="resetAllNodesStabilize()">
@@ -136,13 +136,6 @@ $reActivateNodeList=getAllNodes();
                     <br>
                     <select onchange="getNodesFromPattern()" disabled class="form-control" name="pid" id="existingPatternConnector">
                         <option disabled selected> -- select an option -- </option>
-<!--                            --><?php //while($row=mysql_fetch_array($nodeResult)) : ?>
-<!--                                --><?php //if($row['isConnector']==1)  {?>
-<!--                                    <option value="--><?php //echo $row['pid'];?><!--">--><?php //echo $row['pid'];?><!--</option>-->
-<!--                                --><?php //}?>
-<!--                            --><?php //endwhile; ?>
-<!--                            --><?php //$nodeResult = getAllNodesByPid();
-//                        ?>
                     </select>
                     <br>
                     <label id="existingLabel">Please select one or more nodes from the pattern to connect with</label>
@@ -600,7 +593,7 @@ $reActivateNodeList=getAllNodes();
         flag=0;
 //        alert(from+to);
         //  alert(from);
-        $.ajax({url:'../ser/checkInactiveNodeByNid.php',data:{from:from,fnid:from},async:true,type:'post',
+        $.ajax({url:'../ser/checkInactiveNodeByNid.php',data:{nid:from},async:true,type:'post',
             success:function(result){
                 if(result=="inactive"){
                     alert("Can not send message because it is not activate");
@@ -700,7 +693,7 @@ $reActivateNodeList=getAllNodes();
       //  alert(message);
         // alert(next);
         $.ajax({
-            url: '../ser/checkInactiveNodeByNid.php', data: {from:path[path.length-1-flag],nid: next}, async: false, type: 'post',
+            url: '../ser/checkInactiveNodeByNid.php', data: {nid: next}, async: false, type: 'post',
             success:function(result){
                 //  alert(result);
                 if(result=="active"){
@@ -749,6 +742,9 @@ $reActivateNodeList=getAllNodes();
         });
     }
     function displayDiv(id){
+        if(id == "addEdgeDiv")  {
+            document.getElementById("addEdge").style.height= "60%";
+        }
         if(id!="sendMessage") {
             document.getElementById(id).style.display = "block";
         }else{
@@ -758,12 +754,6 @@ $reActivateNodeList=getAllNodes();
         }
     }
     function hideDiv(id){
-        if (id == "addEdge")  {
-            $('option', $('#nextNode')).each(function(element) {
-                $(this).removeAttr('selected').prop('selected', false);
-            });
-            $('#nextNode').multiselect("refresh");
-        }
         document.getElementById(id).style.display="none";
     }
     network.on("doubleClick", function (params) {
@@ -771,7 +761,6 @@ $reActivateNodeList=getAllNodes();
             if(params.edges!=null){
                 if(confirm("Are you sure you would like to delete an edge")) {
                     var nodes = network.getConnectedNodes(params.edges);                    
-
                     $.ajax({
                         cache: true,
                         type: "POST",
@@ -791,56 +780,54 @@ $reActivateNodeList=getAllNodes();
                     });
                 } 
             }    
-        }else{
+        } else  {
             if(confirm("Are you sure you would like to delete Node"+params.nodes)) {
-            params.event = "[original event]";
-            //var nodeId=JSON.stringify(params.nodes, null, 4);
-            var nodeId = params.nodes;
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
+                params.event = "[original event]";
+                //var nodeId=JSON.stringify(params.nodes, null, 4);
+                var nodeId = params.nodes;
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
 
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    var result = xmlhttp.responseText;
-                   //  alert(result);
-                    if (result == "fail") {
-                        alert("Cannot delete this node because one or more nodes rely on it");
-                    }else if(result=="patternFail"){
-                        alert("This connector node can not be deleted because there are still normal node(s) in its pattern");
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        var result = xmlhttp.responseText;
+                       //  alert(result);
+                        if (result == "fail") {
+                            alert("Cannot delete this node because one or more nodes rely on it");
+                        }else if(result=="patternFail"){
+                            alert("This connector node can not be deleted because there are still normal node(s) in its pattern");
 
-                    } else if (result == "normalSuccess") {
-                        nodes.remove({id: nodeId});
-                        nodesArray=nodes;
-                        //alert(document.getElementById("from"+nodeId));
-                    } else if (result == "connectorSuccess") {
-                      //  window.location.reload();
-                        nodes.remove({id: nodeId});
-                        nodesArray=nodes;
-                    }else if(result=="domainFail"){
-                          //  alert(1);
-                        alert("Can not delete a domain node directly");
-                    }else{
-                        nodes.remove({id: nodeId});
-                        nodes.remove({id: result});
-                        nodesArray=nodes;
+                        } else if (result == "normalSuccess") {
+                            nodes.remove({id: nodeId});
+                            nodesArray=nodes;
+                            //alert(document.getElementById("from"+nodeId));
+                        } else if (result == "connectorSuccess") {
+                          //  window.location.reload();
+                            nodes.remove({id: nodeId});
+                            nodesArray=nodes;
+                        }else if(result=="domainFail"){
+                              //  alert(1);
+                            alert("Can not delete a domain node directly");
+                        }else{
+                            nodes.remove({id: nodeId});
+                            nodes.remove({id: result});
+                            nodesArray=nodes;
+
+                        }
 
                     }
-
-                }
-            };
-            xmlhttp.open("POST", "/cs744/ser/deleteNode.php", true);
-            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xmlhttp.send("nid=" + nodeId);
+                };
+                xmlhttp.open("POST", "/cs744/ser/deleteNode.php", true);
+                xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlhttp.send("nid=" + nodeId);
+            }
         }
-        }
-
-        
         // alert(nodeId);
         // document.getElementById('eventSpan').innerHTML = '<h2>doubleClick event:</h2>' + JSON.stringify(params, null, 4);
     });
     function enableDrop(){
-
-        document.getElementById("addNode").style.height = "80%";    
+        document.getElementById("addNode").style.height = "80%"; 
         if (document.getElementById("isConnector").value == "1")  {
+
             document.getElementById("existingPatternConnector").disabled = false;
 
             document.getElementById("existingDomain").disabled = true;
@@ -897,7 +884,7 @@ $reActivateNodeList=getAllNodes();
 
             displayDiv('addNodeDiv');
             displayDiv('domainDiv');
-            hideDiv('existingPatternChoiceDiv');            
+            hideDiv('existingPatternChoiceDiv');
             hideDiv('connectorDiv');
             hideDiv('patternDiv');
 
@@ -967,6 +954,10 @@ $reActivateNodeList=getAllNodes();
                             alert("Connection error");
                         },
                         success: function(data) {
+//                           if(data!="success"){ alert(data);
+//                           }else{
+//                               window.location="Main.php";
+//                           }
                             window.location="Main.php";
                         }
                     });
