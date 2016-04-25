@@ -1,13 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Liu
- * Date: 2016/2/12
- * Time: 6:31
- */
+
 include_once "findPath.php";
 include_once "../dao/getNode.php";
 include_once "../dao/getLink.php";
+include_once "../dao/getMessage.php";
 
 function isConnector($nid){
     $row=getNodeByNid($nid);
@@ -25,6 +21,7 @@ function deletePatternByConnectorId($nid){
        // echo $row['nid'];
         deleteLinksByNid($row['nid']);
         deleteNodesByNid($row['nid']);
+        deleteMessageByNid($row['nid']);
     }
 }
 function countPatternNodes($pid){
@@ -68,25 +65,29 @@ function delete($nid){
           }  
           deleteNodesByNid($row['nid']);
           deleteLinksByNid($row['nid']);
+          deleteMessageByNid($row['nid']);
 
           return "connectorSuccess";
         }else{               
           //get all neighbors of this domain, includes one connector node
-          $tempDid = $neighbourList[0];
-          //echo "did ".$tempDid."</br>";
-          $tempNeighbourList = findNodeNeighbour($tempDid);          
+          //$tempDid = $neighbourList[0];
+          //echo "did ".$tempDid."</br>";                  
+          $tempNeighbourList = findNodeNeighbour($domainId);          
 
           $tempCount = 0;
+          $srcDid = getDidByNid($domainId);
           for($i=0;$i<count($tempNeighbourList);$i++){
                 $tempNode = $tempNeighbourList[$i];  
-                if($tempDid == getDidByNid($tempNode)){
+                $tempDid = getDidByNid($tempNode);                
+                if($srcDid == $tempDid){
                     $tempCount++;
                 } 
-          }
-          //echo "count ".$tempCount;
+          }          
+
           if($tempCount>=1){
               deleteNodesByNid($row['nid']);
               deleteLinksByNid($row['nid']);
+              deleteMessageByNid($row['nid']);
               return "connectorSuccess";
           }else{
             $domainNeighborList = findNodeNeighbour($domainId);
@@ -107,9 +108,10 @@ function delete($nid){
               }
               deleteNodesByNid($domainId);
               deleteLinksByNid($domainId);
-
+deleteMessageByNid($domainId);
               deleteNodesByNid($row['nid']);
               deleteLinksByNid($row['nid']);
+              deleteMessageByNid($row['nid']);
 
               return $domainId;   
           }                             
@@ -134,6 +136,7 @@ function delete($nid){
         }
         deleteLinksByNid($row['nid']);
         deleteNodesByNid($row['nid']);
+        deleteMessageByNid($row['nid']);
         return "normalSuccess";
 
     }
