@@ -25,7 +25,7 @@ if($uid!=null){
 
         <div>
             <div class="div_qanda" ng-repeat="val in values">
-                <label class="lab_question col-md-8">{{ val.question }}</label>
+                <label class="lab_question col-md-9">{{ val.question }}</label>
                 <input type="text" class="col-md-3" ng-model="val.answer">
             </div>
             <div class="div_button">
@@ -57,7 +57,8 @@ if($uid!=null){
                 alert("you must choose 3 questions");
                 $scope.hasSelected = [];
             }else{
-                $.ajax({
+                if($scope.checkAnswer()){
+                    $.ajax({
                     type: 'POST',
                     url: '../ser/updateQuestions.php',
                     data: {'values': $scope.hasSelected},
@@ -66,10 +67,34 @@ if($uid!=null){
                         window.location.href = "Main.php";
                     }
                 });
+                }else{
+                   $scope.hasSelected = []; 
+                }
+                
             };
 
         }
-
+    $scope.checkAnswer = function(){
+        var monthReg = "^[1-9]$|^1[0-2]$";
+        var otherReg = "^\\d{4}$";      
+        for(var i=0;i<$scope.hasSelected.length;i++){
+            var val = $scope.hasSelected[i];
+            console.log("answer", val.answer);
+            if(val.question.indexOf("month")>=0 && !val.answer.match(monthReg)){
+                alert("the month answer must be an integer between 1 to 12");
+                return false;               
+            }
+            if(val.question.indexOf("year")>=0 && !val.answer.match(otherReg)){
+                alert("the year answer must be typed as a four digit integer");
+                return false;               
+            }
+            if(val.question.indexOf("phone number")>=0 && !val.answer.match(otherReg)){
+                alert("the phone number answer must be a four-digit integer");
+                return false;               
+            }
+        }       
+        return true;        
+    }
         $scope.cancel = function(){
             window.location.href = "Main.php";
         }

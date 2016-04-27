@@ -111,8 +111,7 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
   	}
 
 	$scope.getCount();	
-	$scope.getUsers();	
-
+	$scope.getUsers();			
 });
 
 </script>

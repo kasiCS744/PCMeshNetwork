@@ -107,6 +107,8 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
                                 window.location.href = "Main.php";
                              }else if(response == "1"){
                              	alert("userName has already exist!");
+                             }else{
+                             	alert(response);
                              }
                          }
                     });  

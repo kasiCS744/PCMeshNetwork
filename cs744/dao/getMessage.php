@@ -23,4 +23,8 @@ function getMessageByStartID($id){
     $sql="select * from message where nid='".$id."'";
     return mysql_query($sql);
 }
+function deleteMessageByNid($id){
+	$sql="delete from message where destination='".$id."'";
+	mysql_query($sql);
+}
 ?>

@@ -379,19 +379,6 @@ $reActivateNodeList=getAllNodes();
         }
     }
    var blockedMessages=new Array();
- <?php if(isset($_GET['flag'])){?>
-     var sss=localStorage.getItem("blockMessages");
- //  alert(sss);
-   if(sss!=null) {
-       sss = eval(sss);
-       for (var z = 0; z < sss.length; z++) {
-         
-       var tempArray=new Array();
-
-           blockedMessages.push(sss[z]);
-       }
-   }
-    <?php }?>
    var a=true;
    var resendCount=0;
    var sendList=new Array();
@@ -427,10 +414,7 @@ $reActivateNodeList=getAllNodes();
            success: function(data) {
                if(data!="success"){ alert(data);
                }else{
-                var sss=JSON.stringify(blockedMessages);
-                   localStorage.setItem("blockMessages",sss);
-                 //  alert(localStorage.getItem("blockMessages"));
-                   window.location="Main.php?flag=1";
+                   window.location="Main.php";
                }
            }
        });
@@ -958,10 +942,7 @@ $reActivateNodeList=getAllNodes();
                                 success: function(data) {
                                     if(data!="success"){ alert(data);
                                     }else{
-                                      var sss=JSON.stringify(blockedMessages);
-                   localStorage.setItem("blockMessages",sss);
-                 //  alert(localStorage.getItem("blockMessages"));
-                   window.location="Main.php?flag=1";
+                                        window.location="Main.php";
                                     }
                                 }
                             });
@@ -990,10 +971,7 @@ $reActivateNodeList=getAllNodes();
                             alert("Connection error");
                         },
                         success: function(data) {
-                            var sss=JSON.stringify(blockedMessages);
-                   localStorage.setItem("blockMessages",sss);
-                 //  alert(localStorage.getItem("blockMessages"));
-                   window.location="Main.php?flag=1";
+                            window.location="Main.php";
                         }
                     });
                 }
@@ -1019,10 +997,7 @@ $reActivateNodeList=getAllNodes();
                     success: function(data) {
                        if(data!="success"){ alert(data);
                        }else{
-                           var sss=JSON.stringify(blockedMessages);
-                   localStorage.setItem("blockMessages",sss);
-                 //  alert(localStorage.getItem("blockMessages"));
-                   window.location="Main.php?flag=1";
+                           window.location="Main.php";
                        }
                     }
                 });                
@@ -1041,10 +1016,7 @@ $reActivateNodeList=getAllNodes();
                         success: function(data) {
                            if(data!="success"){ alert(data);
                            }else{
-                              var sss=JSON.stringify(blockedMessages);
-                   localStorage.setItem("blockMessages",sss);
-                 //  alert(localStorage.getItem("blockMessages"));
-                   window.location="Main.php?flag=1";
+                               window.location="Main.php";
                            }
                         }
                     });

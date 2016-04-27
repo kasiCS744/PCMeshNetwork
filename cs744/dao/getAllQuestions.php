@@ -15,15 +15,14 @@ $result = mysql_query($sql);
 
 $questions = array();
 
-while($row = mysql_fetch_array($result)){
+while($row = mysql_fetch_array($result)){	
 	$val = array();
 	$val['sid'] = $row['sid'];
-	$val['question'] = $row['question'];
+	$val['question'] = $row['question'];	
 	array_push($questions, $val);
 }
 $data = array();
 $data['records'] = $questions;
-
 echo json_encode($data);
 
 ?>

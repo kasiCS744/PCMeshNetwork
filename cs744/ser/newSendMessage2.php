@@ -7,6 +7,7 @@
  */
 include_once "findShortestPath.php";
 include_once "../dao/getMessage.php";
+include_once "../dao/getNode.php";
 $type=$_POST['type'];
 $from=$_POST['from'];
 //$next=$_POST['next'];
@@ -31,12 +32,17 @@ if($type=="first"){
 //        }
     }
 }else if($type=="second"){
+    $destination=getNodeByNid($to);
+    if($destination==null||$destination==array()){
+        echo "messageLost";
+    }else{
     $path=sendMessage($from,$to,array());
     if(count($path)==0){
         echo "blocked";
     }else{
         echo json_encode($path);
     }
+}
 }else if($type=="third"){
     insertMessage($from,$to,$message,"received");
 }

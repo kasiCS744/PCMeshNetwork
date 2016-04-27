@@ -6,15 +6,16 @@ body {
 }
 
 .containers {
-  max-width: 600px;
+  max-width: 700px;
   padding: 15px;
   margin: 0 auto;
   background: #fff;
 }
 
 .div_qanda {
-	padding-top: 20px;
-	margin-bottom: 20px;
+	padding-top: 15px;
+	margin-bottom: 15px;
+  text-align: left;
 }
 
 .div_button {

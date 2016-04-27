@@ -3,6 +3,7 @@
 include_once "findPath.php";
 include_once "../dao/getNode.php";
 include_once "../dao/getLink.php";
+include_once "../dao/getMessage.php";
 
 function isConnector($nid){
     $row=getNodeByNid($nid);
@@ -20,6 +21,7 @@ function deletePatternByConnectorId($nid){
        // echo $row['nid'];
         deleteLinksByNid($row['nid']);
         deleteNodesByNid($row['nid']);
+        deleteMessageByNid($row['nid']);
     }
 }
 function countPatternNodes($pid){
@@ -63,6 +65,7 @@ function delete($nid){
           }  
           deleteNodesByNid($row['nid']);
           deleteLinksByNid($row['nid']);
+          deleteMessageByNid($row['nid']);
 
           return "connectorSuccess";
         }else{               
@@ -84,6 +87,7 @@ function delete($nid){
           if($tempCount>=1){
               deleteNodesByNid($row['nid']);
               deleteLinksByNid($row['nid']);
+              deleteMessageByNid($row['nid']);
               return "connectorSuccess";
           }else{
             $domainNeighborList = findNodeNeighbour($domainId);
@@ -104,9 +108,10 @@ function delete($nid){
               }
               deleteNodesByNid($domainId);
               deleteLinksByNid($domainId);
-
+deleteMessageByNid($domainId);
               deleteNodesByNid($row['nid']);
               deleteLinksByNid($row['nid']);
+              deleteMessageByNid($row['nid']);
 
               return $domainId;   
           }                             
@@ -131,6 +136,7 @@ function delete($nid){
         }
         deleteLinksByNid($row['nid']);
         deleteNodesByNid($row['nid']);
+        deleteMessageByNid($row['nid']);
         return "normalSuccess";
 
     }

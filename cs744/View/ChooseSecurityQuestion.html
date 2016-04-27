@@ -12,7 +12,7 @@
 	<h3 class="col-md-10">Security Questions</h3></br>
 	<label class="col-md-10" style="color:red;">(Please choose 3 security question)</label>
 	
-		<div class="col-md-8" ng-repeat="val in values" style="padding-bottom:20px;">
+		<div class="col-md-12" ng-repeat="val in values" style="padding-bottom:20px;">
 			<input  type="checkbox" name="question[]" value="{{val.question}}" 
 				ng-click="selectQuestion(val)">
 			<label>{{val.question}}</label><br>
@@ -53,17 +53,43 @@ app.controller('customersCtrl', function($scope, $http, $location, $window) {
 			alert("answer cannot be empty");
 			$scope.hasSelected = [];
 		}else{
-			$.ajax({
-   		 		type: 'POST',
-    			url: '../ser/saveQuestion.php',
-    			data: {'values': $scope.hasSelected},
-    			success: function(msg) {    				
-      				alert("Congratuations, please login again");
-      				window.location.href = "../Login.html";
-    			}
-  			});			
+			
+			if($scope.checkAnswer()){
+				$.ajax({
+   		 			type: 'POST',
+    				url: '../ser/saveQuestion.php',
+    				data: {'values': $scope.hasSelected},
+    				success: function(msg) {    				
+      					alert("Congratuations, please login again");
+      					window.location.href = "../Login.html";
+    				}
+  				});	
+			}else{
+				$scope.hasSelected = [];
+			}			
 		};
 		
+	}
+
+	$scope.checkAnswer = function(){
+		var monthReg = "^[1-9]$|^1[0-2]$";
+		var otherReg = "^\\d{4}$";		
+		for(var i=0;i<$scope.hasSelected.length;i++){
+			var val = $scope.hasSelected[i];
+			if(val.question.indexOf("month")>=0 && !val.answer.match(monthReg)){
+				alert("the month answer must be an integer between 1 to 12");
+				return false;				
+			}
+			if(val.question.indexOf("year")>=0 && !val.answer.match(otherReg)){
+				alert("the year answer must be typed as a four digit integer");
+				return false;				
+			}
+			if(val.question.indexOf("phone number")>=0 && !val.answer.match(otherReg)){
+				alert("the phone number answer must be a four-digit integer");
+				return false;				
+			}
+		}		
+		return true;		
 	}
 
    	$scope.selectQuestion = function(val){
