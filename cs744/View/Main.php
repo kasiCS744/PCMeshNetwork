@@ -197,7 +197,7 @@ $reActivateNodeList=getAllNodes();
         <!--        <label>Destination Node<input type="text" name="to" id="to"></label><br>-->
             <h4> Message Context<br></h4>
             <label>
-                <textarea rows="4" cols="50" name="messageContext" id="messageContext" class="form-control"></textarea>
+                <textarea rows="4" cols="50" name="messageContext" id="messageContext" maxlength="50" class="form-control"></textarea>
             </label>
             <br>
             <div align="center">
